@@ -51,8 +51,8 @@
                   <v-button :loading="form.busy" class="btn btn-three btn-login pull-right">
                     {{ $t('login') }}
                   </v-button>
-                  <label class="selected">
-<span class="custom-checkbox selected">
+                  <label v-bind:class="{'selected': remember}">
+<span class="custom-checkbox" v-bind:class="{'selected': remember}">
 <input type="checkbox" v-model="remember">
 </span>
                     <span class="custom-checkbox-span ">Stay Signed In</span>
