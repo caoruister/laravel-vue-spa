@@ -94,7 +94,7 @@ export default {
       email: '',
       password: ''
     }),
-    remember: false
+    remember: true
   }),
 
   methods: {

@@ -8,3 +8,8 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
+
+//ip.js
+export const FETCH_IP_SUCCESS = 'FETCH_IP_SUCCESS'
+export const FETCH_IP_FAILURE = 'FETCH_IP_FAILURE'
+export const SAVE_CURRENT_IP = 'SAVE_CURRENT_IP'

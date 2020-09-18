@@ -13,6 +13,8 @@
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "predis/predis": "^1.1",
+        "torann/geoip": "^2.0",
         "tymon/jwt-auth": "^1.0.0"
     },
     "require-dev": {
