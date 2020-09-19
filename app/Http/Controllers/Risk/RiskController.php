@@ -50,6 +50,6 @@ class RiskController extends Controller
 
         $data = $this->checkIP($request->q);
 
-        return response()->json($data);
+        return response()->json(['ipData' => $data]);
     }
 }

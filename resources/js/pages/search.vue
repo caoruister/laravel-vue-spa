@@ -87,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block address-info">
+            <div class="info-block address-info" v-if="phoneData">
               <div>
                 <div class="logo">
                 </div>
@@ -104,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block address-info">
+            <div class="info-block address-info" v-if="idCardData">
               <div>
                 <div class="logo">
                 </div>
@@ -121,7 +121,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block address-info">
+            <div class="info-block address-info" v-if="bankNumData">
               <div>
                 <div class="logo">
                 </div>
@@ -138,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block name-info">
+            <div class="info-block name-info" v-if="ipData || phoneData || idCardData || bankNumData">
               <div class="rating">
                 <div ng-smooth-scroll="#reviews">
                   <div class="rating-star"><span class="rating-star-selected"></span></div>
@@ -171,7 +171,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block hours-info">
+            <div class="info-block hours-info" v-if="ipData || phoneData || idCardData || bankNumData">
               <div class="title"><i class="icon-booking-icon3"></i>风险等级详解</div>
               <div class="hour ">
                 <div class="row">
@@ -272,8 +272,7 @@
             </div>
             <div class="wrong-block">风险识别有误？ <span class="wrong-link"
                                                    v-on:click="showWrongInfoDialog = true">联系我们</span></div>
-
-            <div class="info-block description-info">
+            <div class="info-block description-info" v-if="ipData || phoneData || idCardData || bankNumData">
               <div class="title"><i class="icon-booking-icon8"></i>风险场景</div>
               <div class="" style="overflow: hidden; outline: none;"
                    tabindex="5000">
@@ -289,8 +288,6 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -381,69 +378,72 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex"
-  import axios from 'axios'
-  import Form from "vform";
+import { mapGetters } from 'vuex'
+import axios from 'axios'
+import Form from 'vform'
 
-  const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
-  export default {
-    layout: 'basic',
+export default {
+  layout: 'basic',
 
-    async beforeRouteEnter(to, from, next) {
-      try {
-        const {data} = await axios.post(`/api/risk/check?${qs(to.query)}`)
+  async beforeRouteEnter (to, from, next) {
+    try {
+      const { data } = await axios.post(`/api/risk/check?${qs(to.query)}`)
 
-        next(vm => {
-          vm.ipData = data;
-        })
-      } catch (e) {
-        next(vm => {
-          vm.error = e.response.data
-        })
-      }
-    },
-
-    beforeRouteLeave(to, from, next) {
-      document.body.className = '';
-      next();
-    },
-
-    created() {
-      document.body.className += ' public-page-top';
-    },
-
-    metaInfo() {
-      return {title: this.$t('home')}
-    },
-
-    data: () => ({
-      title: window.config.appName,
-      searchToggled: false,
-      ipData: {},
-      itemValue: '',
-      showWrongInfoDialog: false,
-      form: new Form({
-        ip: '',
-        phone: '',
-        idCard: '',
-        bankNum: '',
-      }),
-      error: ''
-    }),
-
-    computed: {
-      address: function () {
-        return this.ipData.country +'-'+ this.ipData.province +'-'+ this.ipData.city +'-'+ this.ipData.district
-      },
-      gmapUrl: function () {
-        return "https://maps.google.com/maps?daddr=" + this.ipData.lng + ',' + this.ipData.lat
-      },
-      ...mapGetters({
-        authenticated: 'auth/check'
+      next(vm => {
+        vm.ipData = data.ipData
+      })
+    } catch (e) {
+      next(vm => {
+        vm.error = e.response.data
       })
     }
+  },
+
+  beforeRouteLeave (to, from, next) {
+    document.body.className = ''
+    next()
+  },
+
+  created () {
+    document.body.className += ' public-page-top'
+  },
+
+  metaInfo () {
+    return { title: this.$t('home') }
+  },
+
+  data: () => ({
+    title: window.config.appName,
+    searchToggled: false,
+    ipData: '',
+    phoneData: '',
+    idCardData: '',
+    bankNumData: '',
+    itemValue: '',
+    showWrongInfoDialog: false,
+    form: new Form({
+      ip: '',
+      phone: '',
+      idCard: '',
+      bankNum: ''
+    }),
+    error: ''
+  }),
+
+  computed: {
+    address: function () {
+      return this.ipData.country + '-' + this.ipData.province + '-' + this.ipData.city + '-' + this.ipData.district
+    },
+    gmapUrl: function () {
+      return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
+    },
+    ...mapGetters({
+      authenticated: 'auth/check'
+    })
   }
+}
 </script>
 
 <style scoped>

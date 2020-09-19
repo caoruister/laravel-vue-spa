@@ -256,27 +256,27 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Form from "vform";
+import Form from 'vform'
 
 export default {
   layout: 'basic',
 
-  created() {
-    let _this = this;
+  created () {
+    let _this = this
     setInterval(function () {
-      _this.step++;
-      _this.step = _this.step%3;
-    }, 5000);
+      _this.step++
+      _this.step = _this.step % 3
+    }, 5000)
 
     window.addEventListener('scroll', function (e) {
-      var navbars = document.getElementsByClassName("navbar");
+      var navbars = document.getElementsByClassName('navbar')
       if (window.scrollY > 100) {
-        if (navbars && navbars.length > 0 && navbars[0].className.indexOf("scrolled") == -1)
-          navbars[0].className += " scrolled";
+        if (navbars && navbars.length > 0 && navbars[0].className.indexOf('scrolled') === -1)
+          navbars[0].className += ' scrolled'
       } else {
-        if (navbars && navbars.length > 0) navbars[0].className = navbars[0].className.replace(/\b\sscrolled\b/, '');
+        if (navbars && navbars.length > 0) navbars[0].className = navbars[0].className.replace(/\b\sscrolled\b/, '')
       }
-    });
+    })
   },
 
   metaInfo () {
@@ -288,8 +288,8 @@ export default {
     isCollapsed: true,
     step: 0,
     form: new Form({
-      itemValue: '',
-    }),
+      itemValue: ''
+    })
   }),
 
   computed: mapGetters({
@@ -298,8 +298,7 @@ export default {
 
   methods: {
     async search () {
-
-      this.$router.push({ path: '/search', query: { q: this.form.itemValue }})
+      this.$router.push({ path: '/search', query: { q: this.form.itemValue } })
     }
   }
 }
