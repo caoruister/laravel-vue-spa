@@ -51,22 +51,66 @@
           <div class="col-md-12">
             <div class="home-main no-margin-top" style="display: flex;justify-content: center;">
               <form class="form-inline" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
-                <div class="form-group">
-                  <div class="input-wrapper"><input type="text"
-                                                    class="search-input form-control not-mobile"
-                                                    placeholder="Search Vets by Name or Location"
-                                                    autocomplete="off" v-model="form.ip" :class="{ 'is-invalid': form.errors.has('ip') }"><input type="text"
-                                                                                                                                                 class="search-input form-control mobile"
-                                                                                                                                                 placeholder="Search"
-                                                                                                                                                 autocomplete="off" v-model="form.ip"><i
-                    class="icon-header-icon2 clear-text"
-                    v-show="!!form.ip" v-on:click="form.ip = ''"></i>
+                <div class="form-row">
+                  <div class="form-group">
+                    <div class="input-wrapper"><input type="text"
+                                                      class="search-input form-control not-mobile"
+                                                      placeholder="请输入IP地址"
+                                                      autocomplete="off" v-model="form.ip" :class="{ 'is-invalid': form.errors.has('ip') }"><input type="text"
+                                                                                                                                                   class="search-input form-control mobile"
+                                                                                                                                                   placeholder="Search"
+                                                                                                                                                   autocomplete="off" v-model="form.ip"><i
+                      class="icon-header-icon2 clear-text"
+                      v-show="!!form.ip" v-on:click="form.ip = ''"></i>
+                    </div>
                   </div>
-                  <button type="submit" class="btn btn-three not-mobile">SEARCH</button>
-                  <button type="submit" class="btn btn-three mobile"><i
-                    class="icon-search-white"></i></button>
                 </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <div class="input-wrapper"><input type="text"
+                                                      class="search-input form-control not-mobile"
+                                                      placeholder="请输入手机号码"
+                                                      autocomplete="off" v-model="form.phone" :class="{ 'is-invalid': form.errors.has('phone') }"><input type="text"
+                                                                                                                                                   class="search-input form-control mobile"
+                                                                                                                                                   placeholder="Search"
+                                                                                                                                                   autocomplete="off" v-model="form.phone"><i
+                      class="icon-header-icon2 clear-text"
+                      v-show="!!form.phone" v-on:click="form.phone = ''"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <div class="input-wrapper"><input type="text"
+                                                      class="search-input form-control not-mobile"
+                                                      placeholder="请输入银行卡号"
+                                                      autocomplete="off" v-model="form.bankNum" :class="{ 'is-invalid': form.errors.has('bankNum') }"><input type="text"
+                                                                                                                                                   class="search-input form-control mobile"
+                                                                                                                                                   placeholder="Search"
+                                                                                                                                                   autocomplete="off" v-model="form.bankNum"><i
+                      class="icon-header-icon2 clear-text"
+                      v-show="!!form.bankNum" v-on:click="form.bankNum = ''"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <div class="input-wrapper"><input type="text"
+                                                      class="search-input form-control not-mobile"
+                                                      placeholder="请输入身份证号码"
+                                                      autocomplete="off" v-model="form.idCard" :class="{ 'is-invalid': form.errors.has('idCard') }"><input type="text"
+                                                                                                                                                   class="search-input form-control mobile"
+                                                                                                                                                   placeholder="Search"
+                                                                                                                                                   autocomplete="off" v-model="form.idCard"><i
+                      class="icon-header-icon2 clear-text"
+                      v-show="!!form.idCard" v-on:click="form.idCard = ''"></i>
+                    </div>
 
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-three not-mobile">查询</button>
+                <button type="submit" class="btn btn-three mobile"><i
+                  class="icon-search-white"></i></button>
               </form>
             </div>
 
@@ -418,8 +462,8 @@ export default {
     title: window.config.appName,
     searchToggled: false,
     ipData: '',
-    phoneData: '',
-    idCardData: '',
+    phoneData: null,
+    idCardData: null,
     bankNumData: '',
     itemValue: '',
     showWrongInfoDialog: false,
@@ -447,5 +491,20 @@ export default {
 </script>
 
 <style scoped>
-
+  .home-main {
+    min-height: 590px;
+    align-items: center;
+  }
+  .form-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+  .form-group {
+    margin-bottom: 1rem;
+  }
 </style>
