@@ -63,9 +63,15 @@
                       class="icon-header-icon2 clear-text"
                       v-show="!!form.ip" v-on:click="form.ip = ''"></i>
                     </div>
+
+                    <button type="submit" class="btn btn-three not-mobile">查询</button>
+                    <button type="submit" class="btn btn-three mobile"><i
+                      class="icon-search-white"></i></button>
+                    <a class="text" href="javascript:void(0)" v-on:click="advanced = !advanced">高级查询<i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
+                    </a>
                   </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row" v-show="advanced">
                   <div class="form-group">
                     <div class="input-wrapper"><input type="text"
                                                       class="search-input form-control not-mobile"
@@ -79,7 +85,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row" v-show="advanced">
                   <div class="form-group">
                     <div class="input-wrapper"><input type="text"
                                                       class="search-input form-control not-mobile"
@@ -93,7 +99,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row" v-show="advanced">
                   <div class="form-group">
                     <div class="input-wrapper"><input type="text"
                                                       class="search-input form-control not-mobile"
@@ -108,9 +114,6 @@
 
                   </div>
                 </div>
-                <button type="submit" class="btn btn-three not-mobile">查询</button>
-                <button type="submit" class="btn btn-three mobile"><i
-                  class="icon-search-white"></i></button>
               </form>
             </div>
 
@@ -467,6 +470,7 @@ export default {
     bankNumData: '',
     itemValue: '',
     showWrongInfoDialog: false,
+    advanced: false,
     form: new Form({
       ip: '',
       phone: '',
