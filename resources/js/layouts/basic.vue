@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 .basic-layout {
   color: #636b6f;
-  height: 100vh;
+  //height: 100vh;
   font-weight: 100;
   position: relative;
 

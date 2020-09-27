@@ -37,8 +37,6 @@ class RiskController extends Controller
         $thistime = $endtime[0]+$endtime[1]-($starttime[0]+$starttime[1]);
         $thistime = round($thistime,3);
 
-        // "\nQuery Cost:".$thistime."s."."\n\n";
-
         Log::debug('Query Cost:'.$thistime.'\'s for'.$ip);
 
         return $data;
@@ -46,9 +44,9 @@ class RiskController extends Controller
 
     public function pass(Request $request)
     {
-        $this->validate($request, ['q' => 'required|ip']);
+        $this->validate($request, ['ip' => 'required|ip']);
 
-        $data = $this->checkIP($request->q);
+        $data = $this->checkIP($request->ip);
 
         return response()->json(['ipData' => $data]);
     }

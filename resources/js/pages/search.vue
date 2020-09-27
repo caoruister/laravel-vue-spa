@@ -19,7 +19,7 @@
           </router-link>
         </div>
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
-          <ul class="nav navbar-nav navbar-left hidden-xs">
+          <ul class="nav navbar-nav navbar-left hidden">
             <li class="no-padding-top"><input autocomplete="off"
                                               class="form-control search-input"
                                               placeholder="Search by Name or Location" type="text"
@@ -117,74 +117,322 @@
               </form>
             </div>
 
-            <div class="info-block address-info" v-if="ipData">
-              <div>
-                <div class="logo">
+            <div class="info-block hours-info" v-if="ipData">
+              <div class="title"><i class="icon-booking-icon3"></i>城市级信息</div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.ip}}</div>
+                  </div>
                 </div>
-                <div class="phone-block">
-                  <div class="phone">{{ipData.ip}}</div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{address}}</div>
+                  </div>
                 </div>
-                <div class="address">{{ipData.isp}}</div>
-                <div class="address no-margin-top">{{address}}</div>
-                <div class="direction"><i class="icon-business-profile-icon2 normal"></i><i
-                  class="icon-booking-icon9 hover"></i><a :href="gmapUrl"
-                                                          class="text"
-                                                          rel="nofollow" target="_blank">Get Directions</a></div>
-                <div class="website">
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.isp}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.areacode}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="info-block address-info" v-if="phoneData">
-              <div>
-                <div class="logo">
+
+            <div class="info-block hours-info" v-if="ipData">
+              <div class="title"><i class="icon-booking-icon3"></i>手机号码</div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.ip}}</div>
+                  </div>
                 </div>
-                <div class="phone-block">
-                  <div class="phone">{{ipData.ip}}</div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{address}}</div>
+                  </div>
                 </div>
-                <div class="address">{{ipData.isp}}</div>
-                <div class="address no-margin-top">{{address}}</div>
-                <div class="direction"><i class="icon-business-profile-icon2 normal"></i><i
-                  class="icon-booking-icon9 hover"></i><a :href="gmapUrl"
-                                                          class="text"
-                                                          rel="nofollow" target="_blank">Get Directions</a></div>
-                <div class="website">
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.isp}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.areacode}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="info-block address-info" v-if="idCardData">
-              <div>
-                <div class="logo">
+
+            <div class="info-block hours-info" v-if="ipData">
+              <div class="title"><i class="icon-booking-icon3"></i>身份证号码</div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.ip}}</div>
+                  </div>
                 </div>
-                <div class="phone-block">
-                  <div class="phone">{{ipData.ip}}</div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{address}}</div>
+                  </div>
                 </div>
-                <div class="address">{{ipData.isp}}</div>
-                <div class="address no-margin-top">{{address}}</div>
-                <div class="direction"><i class="icon-business-profile-icon2 normal"></i><i
-                  class="icon-booking-icon9 hover"></i><a :href="gmapUrl"
-                                                          class="text"
-                                                          rel="nofollow" target="_blank">Get Directions</a></div>
-                <div class="website">
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.isp}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.areacode}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="info-block address-info" v-if="bankNumData">
-              <div>
-                <div class="logo">
+
+            <div class="info-block hours-info" v-if="ipData">
+              <div class="title"><i class="icon-booking-icon3"></i>银行卡号码</div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    当前IP
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.ip}}</div>
+                  </div>
                 </div>
-                <div class="phone-block">
-                  <div class="phone">{{ipData.ip}}</div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地理位置
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{address}}</div>
+                  </div>
                 </div>
-                <div class="address">{{ipData.isp}}</div>
-                <div class="address no-margin-top">{{address}}</div>
-                <div class="direction"><i class="icon-business-profile-icon2 normal"></i><i
-                  class="icon-booking-icon9 hover"></i><a :href="gmapUrl"
-                                                          class="text"
-                                                          rel="nofollow" target="_blank">Get Directions</a></div>
-                <div class="website">
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    运营商
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.isp}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区代码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.areacode}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour">
+                <div class="row">
+                  <div class="col-xs-5 day-text visible-lg">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-5 day-text visible-md">
+                    <div class="circle"></div>
+                    地区中心经纬度
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                  </div>
                 </div>
               </div>
             </div>
+
             <div class="info-block name-info" v-if="ipData || phoneData || idCardData || bankNumData">
               <div class="rating">
                 <div ng-smooth-scroll="#reviews">
@@ -218,107 +466,7 @@
                 </div>
               </div>
             </div>
-            <div class="info-block hours-info" v-if="ipData || phoneData || idCardData || bankNumData">
-              <div class="title"><i class="icon-booking-icon3"></i>风险等级详解</div>
-              <div class="hour ">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    无星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    无星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>20:00</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="hour ">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    一星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    一星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>17:30</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="hour ">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    二星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    二星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>20:00</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="hour ">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    三星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    三星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>17:30</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="hour">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    四星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    四星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>17:30</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="hour today">
-                <div class="row">
-                  <div class="col-xs-5 day-text visible-lg">
-                    <div class="circle"></div>
-                    五星级
-                  </div>
-                  <div class="col-xs-5 day-text visible-md">
-                    <div class="circle"></div>
-                    五星级
-                  </div>
-                  <div class="col-xs-7 time-text">
-                    <div class="time-text-row"><span>08:00</span><span
-                      class="ampm">AM</span><span>-</span><span>14:00</span><span class="ampm">PM</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="wrong-block">风险识别有误？ <span class="wrong-link"
-                                                   v-on:click="showWrongInfoDialog = true">联系我们</span></div>
+
             <div class="info-block description-info" v-if="ipData || phoneData || idCardData || bankNumData">
               <div class="title"><i class="icon-booking-icon8"></i>风险场景</div>
               <div class="" style="overflow: hidden; outline: none;"
@@ -337,9 +485,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="wrong-block visible-xs visible-sm">风险识别有误？ <span class="wrong-link"
-                                                                   v-on:click="showWrongInfoDialog = true">联系我们</span>
       </div>
     </div>
 
@@ -455,6 +600,7 @@ export default {
 
   created () {
     document.body.className += ' public-page-top'
+    this.form.ip = this.$route.query.ip
   },
 
   metaInfo () {
@@ -482,7 +628,7 @@ export default {
 
   computed: {
     address: function () {
-      return this.ipData.country + '-' + this.ipData.province + '-' + this.ipData.city + '-' + this.ipData.district
+      return this.ipData.country + '-' + this.ipData.province
     },
     gmapUrl: function () {
       return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
@@ -494,10 +640,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .home-main {
-    min-height: 590px;
-    align-items: center;
+    min-height: auto;
+    //align-items: center;
   }
   .form-row {
     display: -webkit-box;
@@ -510,5 +656,11 @@ export default {
   }
   .form-group {
     margin-bottom: 1rem;
+  }
+  .icon-footer-arrow-up, .icon-footer-arrow-down {
+    margin-left: 2px;
+  }
+  .business .business-main-block {
+    padding: 18px 0 0;
   }
 </style>

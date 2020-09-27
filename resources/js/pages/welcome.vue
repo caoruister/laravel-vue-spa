@@ -66,7 +66,7 @@
               <form class="form-inline" method="get" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
                 <div class="input-wrapper"><input type="text"
                                                   class="search-input form-control not-mobile"
-                                                  placeholder="Search Vets by Name or Location"
+                                                  placeholder="请输入IP地址"
                                                   autocomplete="off" v-model="form.itemValue" :class="{ 'is-invalid': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
                                                                                                 placeholder="Search"
@@ -298,7 +298,7 @@ export default {
 
   methods: {
     async search () {
-      this.$router.push({ path: '/search', query: { q: this.form.itemValue } })
+      this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
     }
   }
 }
