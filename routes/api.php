@@ -36,4 +36,6 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
 
     Route::post('risk/check', 'Risk\RiskController@pass');
+
+    Route::patch('/ads', 'IP\VPSController@ipGather');
 });
