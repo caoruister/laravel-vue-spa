@@ -6,7 +6,7 @@
 
     <div class="links">
       <router-link :to="{ name: 'welcome' }">
-        {{ $t('go_home') }}
+        返回首页
       </router-link>
     </div>
   </card>

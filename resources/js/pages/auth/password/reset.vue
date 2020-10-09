@@ -7,7 +7,7 @@
 
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">邮箱</label>
             <div class="col-md-7">
               <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" readonly>
               <has-error :form="form" field="email" />
@@ -16,7 +16,7 @@
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">密码</label>
             <div class="col-md-7">
               <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
               <has-error :form="form" field="password" />
@@ -25,7 +25,7 @@
 
           <!-- Password Confirmation -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
+            <label class="col-md-3 col-form-label text-md-right">确认密码</label>
             <div class="col-md-7">
               <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
               <has-error :form="form" field="password_confirmation" />
@@ -36,7 +36,7 @@
           <div class="form-group row">
             <div class="col-md-9 ml-md-auto">
               <v-button :loading="form.busy">
-                {{ $t('reset_password') }}
+                重置密码
               </v-button>
             </div>
           </div>

@@ -87,7 +87,7 @@
     </div>
 
     <div class="home-popular-cities">
-      <div class="container">
+      <div class="container" v-if="false">
         <div class="row">
           <div class="col-sm-12">
             <div class="title">MOST</div>
@@ -182,7 +182,7 @@
               <div class="text">TopVet is dedicated to providing</div>
               <div class="text">excellent veterinary software.</div>
             </div>
-            <div class="copyright hidden-xs">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号</p></div>
+            <div class="copyright hidden-xs">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
           </div>
           <div class="col-md-2 col-sm-4 item hidden-xs"><h4>COMPANY</h4>
             <ul>
@@ -246,7 +246,7 @@
               class="icon-logo3"></i></a></div>
           </div>
           <div class="col-xs-12 item visible-xs">
-            <div class="copyright no-margin-top">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号</p></div>
+            <div class="copyright no-margin-top">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
           </div>
         </div>
       </div>

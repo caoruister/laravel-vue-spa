@@ -10,26 +10,26 @@
               </router-link>
             </div>
             <div class="title">
-              Welcome back! Please login.
+              欢迎回来，请登录
             </div>
             <form class="form-horizontal" id="loginForm"
                   name="loginForm" @submit.prevent="login" @keydown="form.onKeydown($event)" novalidate>
               <div class="form-group">
-                <div class="col-sm-12 label-text">Email</div>
+                <div class="col-sm-12 label-text">邮箱</div>
                 <div class="col-sm-12">
                   <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
                   <has-error :form="form" field="email" />
                 </div>
               </div>
               <div class="form-group last-group hidden-xs">
-                <div class="col-sm-12 label-text">Password</div>
+                <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12">
                   <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
                 </div>
               </div>
               <div class="form-group visible-xs">
-                <div class="col-sm-12 label-text">Password</div>
+                <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12">
                   <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
@@ -40,7 +40,7 @@
                   <div class="sign-in no-margin-bottom no-margin-top">
                     <div class="pull-right">
                       <router-link :to="{ name: 'password.request' }">
-                        {{ $t('forgot_password') }}
+                        忘记密码
                       </router-link>
                     </div>
                   </div>
@@ -49,13 +49,13 @@
               <div class="form-group">
                 <div class="col-sm-12">
                   <v-button :loading="form.busy" class="btn btn-three btn-login pull-right">
-                    {{ $t('login') }}
+                    登录
                   </v-button>
                   <label v-bind:class="{'selected': remember}">
 <span class="custom-checkbox" v-bind:class="{'selected': remember}">
 <input type="checkbox" v-model="remember">
 </span>
-                    <span class="custom-checkbox-span ">Stay Signed In</span>
+                    <span class="custom-checkbox-span ">记住我</span>
                   </label>
                 </div>
               </div>
@@ -64,7 +64,7 @@
           <div class="sign-in hidden-xs">
             <div class="right-block">
               <router-link :to="{ name: 'password.request' }">
-                {{ $t('forgot_password') }}
+                忘记密码
               </router-link>
             </div>
           </div>

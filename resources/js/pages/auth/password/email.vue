@@ -10,16 +10,16 @@
               </router-link>
             </div>
             <div class="title no-margin-bottom">
-              To reset your password, please
+              重置密码, 请输入您的邮箱.
             </div>
             <div class="title no-margin-top">
-              provide your email.
+
             </div>
             <form class="form-horizontal" id="forgotForm" name="forgotForm" @submit.prevent="send" @keydown="form.onKeydown($event)" novalidate>
               <alert-success :form="form" :message="status" />
 
               <div class="form-group last-group">
-                <div class="col-sm-12 label-text">Email</div>
+                <div class="col-sm-12 label-text">邮箱</div>
                 <div class="col-sm-12">
                   <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
                   <has-error :form="form" field="email" />
@@ -29,23 +29,22 @@
               <div class="form-group">
                 <div class="col-sm-12">
                   <v-button :loading="form.busy" class="btn btn-three btn-forgot pull-right">
-                    {{ $t('send_password_reset_link') }}
+                    发送重置链接
                   </v-button>
                 </div>
               </div>
             </form>
           </div>
           <div class="sign-in hidden-xs">
-            Have a flashback?
             <router-link :to="{ name: 'login' }">
-              Back to Login
+              返回登录
             </router-link>
           </div>
           <div class="sign-in visible-xs">
-            <div>Have a flashback?</div>
+            <div></div>
             <div>
               <router-link :to="{ name: 'login' }">
-                Back to Login
+                返回登录
               </router-link>
             </div>
           </div>

@@ -32,12 +32,12 @@
             <li class="link-item visible-xs"><a href="/"><i class="icon-home"></i>Home</a></li>
             <li>
               <router-link :to="{ name: 'login' }" class="btn btn-four first-btn">
-                {{ $t('login') }}
+                登录
               </router-link>
             </li>
             <li>
               <router-link :to="{ name: 'register' }" class="btn btn-five">
-                {{ $t('register') }}
+                注册
               </router-link>
             </li>
           </ul>

@@ -10,32 +10,32 @@
               </router-link>
             </div>
             <div class="title">
-              Welcome, tell us about yourself.
+              请输入以下注册信息
             </div>
             <form class="form-horizontal" id="signupForm" name="signupForm" @submit.prevent="register" @keydown="form.onKeydown($event)" novalidate>
               <div class="form-group">
-                <div class="col-sm-12 label-text">NAME</div>
+                <div class="col-sm-12 label-text">用户名</div>
                 <div class="col-sm-12">
                   <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
                   <has-error :form="form" field="name" />
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-12 label-text">Email</div>
+                <div class="col-sm-12 label-text">邮箱</div>
                 <div class="col-sm-12">
                   <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
                   <has-error :form="form" field="email" />
                 </div>
               </div>
               <div class="form-group last-group">
-                <div class="col-sm-12 label-text">Password</div>
+                <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12 hover">
                   <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
                 </div>
               </div>
               <div class="form-group last-group">
-                <div class="col-sm-12 label-text">Password Confirmation</div>
+                <div class="col-sm-12 label-text">确认密码</div>
                 <div class="col-sm-12 hover">
                   <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
                   <has-error :form="form" field="password_confirmation" />
@@ -45,16 +45,16 @@
               <div class="form-group no-margin-bottom">
                 <div class="col-sm-12">
                   <v-button :loading="form.busy" class="btn btn-three btn-signup pull-right">
-                    {{ $t('register') }}
+                    注册
                   </v-button>
                 </div>
               </div>
             </form>
           </div>
           <div class="sign-in">
-            Already a member?
+            已注册账号?
             <router-link :to="{ name: 'login' }">
-              {{ $t('login') }}
+              登录
             </router-link>
           </div>
         </div>
