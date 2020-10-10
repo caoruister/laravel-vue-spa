@@ -50,7 +50,7 @@
         <div class="row business-main-block">
           <div class="col-md-12">
             <div class="home-main no-margin-top" style="display: flex;justify-content: center;">
-              <form class="form-inline" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
+              <form class="form-inline" @submit.prevent="changeQuery" @keydown="form.onKeydown($event)" novalidate>
                 <div class="form-row">
                   <div class="form-group">
                     <div class="input-wrapper"><input type="text"
@@ -579,6 +579,8 @@ const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).j
 export default {
   layout: 'basic',
 
+  middleware: 'guest',
+
   async beforeRouteEnter (to, from, next) {
     try {
       const { data } = await axios.post(`/api/risk/check?${qs(to.query)}`)
@@ -636,7 +638,26 @@ export default {
     ...mapGetters({
       authenticated: 'auth/check'
     })
-  }
+  },
+
+  methods: {
+    changeQuery() {
+      this.$router.push({ path: '/search', query: { ip: this.form.ip } })
+    },
+    async fetchData() {
+      try {
+        const { data } = await axios.post(`/api/risk/check?${qs(this.$route.query)}`)
+
+        this.ipData = data.ipData
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  },
+
+  watch:{
+    '$route': 'fetchData'
+  },
 }
 </script>
 
@@ -662,5 +683,6 @@ export default {
   }
   .business .business-main-block {
     padding: 18px 0 0;
+    min-height: 620px;
   }
 </style>

@@ -298,7 +298,7 @@ export default {
 
   methods: {
     async search () {
-      this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
+      this.$router.push({ path: '/search', params: { ip: this.form.itemValue } })
     }
   }
 }

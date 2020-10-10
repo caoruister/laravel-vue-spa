@@ -1,184 +1,440 @@
 <template>
-  <div>
-    <nav class="navbar navbar-default navbar-main ng-scope">
-      <div class="container-fluid ">
-        <div class="navbar-header business-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <i class="icon-header-icon3 open-icon"></i>
-            <i class="icon-header-icon2 close-icon"></i>
-          </button>
-          <div class="navbar-brand">
-            <i class="icon-logo5"></i>
-          </div>
-        </div>
-        <div class="tablet-menu-wrapper-outer">
-          <div class="tablet-menu-wrapper-inner">
-            <div class="tablet-menu">
-              <div class="row row-info">
-                <div class="col-xs-2">
-                  <img class="logo" src="https://topvet.blob.core.windows.net/clients/user-placeholder.png">
-                </div>
-                <div class="col-xs-10">
-                  <div class="name">{{user.name}}</div>
-                  <div class="email">{{user.email}}</div>
-                </div>
-              </div>
-              <div class="link-item feedback " onclick="_urq.push(['Feedback_Open']);">
-                <a href=""><i class="icon-feedback"></i>Send Feedback</a>
-              </div>
-              <div class="link-item intercom">
-                <a href=""><i class="icon-help"></i>Help</a>
-              </div>
-              <div class="link-item" @click.prevent="logout">
-                <a><i class="icon-header-icon6"></i>Logout</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="collapse navbar-collapse authenticated" id="bs-example-navbar-collapse-1">
-          <div class="mobile-menu">
-            <div class="link-item intercom">
-              <a href="mailto:jg6t4w18@incoming.intercom.io" class="intercom"><i class="icon-help"></i>Help</a>
-            </div>
-            <div class="link-item" @click.prevent="logout">
-              <a><i class="icon-header-icon6"></i>Logout</a>
-            </div>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown user-dropdown is-business">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <img class="logo" src="https://topvet.blob.core.windows.net/clients/user-placeholder.png"> {{user.name}} <i class="icon-business-profile-iconj caret-logo"></i><span class="no-caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="user-info">
-                  <div class="name">{{user.name}}</div>
-                  <div class="email">{{user.email}}</div>
-                </li>
-                <li>
-                  <router-link :to="{ name: 'settings.profile' }">
-                    <i class="icon-header-icon5 normal"></i><i class="icon-header-icon5-hover hover"></i>My Profile
-                  </router-link>
-                </li>
-                <li class="feedback" onclick="_urq.push(['Feedback_Open']);"><a href=""><i class="icon-feedback normal"></i><i class="icon-feedback-hover hover"></i>反馈</a></li>
-                <li class="intercom"><a href=""><i class="icon-help normal"></i><i class="icon-help-hover hover"></i>帮助</a></li>
-                <li class="line"></li>
-                <li><a class="logout" @click.prevent="logout"><i class="icon-header-icon6 normal"></i><i class="icon-header-icon6-hover hover"></i>登出</a></li>
-              </ul>
-            </li>
-            <li class="user-dropdown-business" ng-show="!isUserNameBusy">
-              <i class="icon-header-icon3 toggle-icon open"></i>
-              <i class="icon-header-icon2 toggle-icon close-icon"></i>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <div class="business">
+    <div class="container visible-lg visible-md">
+      <div class="row business-main-block">
+        <div class="col-md-12">
+          <div class="home-main no-margin-top" style="display: flex;justify-content: center;">
+            <form class="form-inline" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <div class="input-wrapper"><input type="text"
+                                                    class="search-input form-control not-mobile"
+                                                    placeholder="请输入IP地址"
+                                                    autocomplete="off" v-model="form.ip" :class="{ 'is-invalid': form.errors.has('ip') }"><input type="text"
+                                                                                                                                                 class="search-input form-control mobile"
+                                                                                                                                                 placeholder="Search"
+                                                                                                                                                 autocomplete="off" v-model="form.ip"><i
+                    class="icon-header-icon2 clear-text"
+                    v-show="!!form.ip" v-on:click="form.ip = ''"></i>
+                  </div>
 
-    <div class="add-your-business">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 no-padding-right no-padding-left">
-            <div class="info-block step1-block" ng-show="wizard.step==1">
-              <div class="title hidden-xs">
-                Let’s put your business on the map:
+                  <button type="submit" class="btn btn-three not-mobile">查询</button>
+                  <button type="submit" class="btn btn-three mobile"><i
+                    class="icon-search-white"></i></button>
+                  <a class="text" href="javascript:void(0)" v-on:click="advanced = !advanced">高级查询<i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
+                  </a>
+                </div>
               </div>
-              <form class="form-business-details ng-pristine ng-valid">
-                <div class="row mobile-row-one">
-                  <div class="col-xs-12">
-                    <div class="label-text">BUSINESS NAME</div>
-                    <input ng-form-control="" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="wizard.step1.name" ng-class="{'error': (wizard.step1.name == '' || wizard.step1.name == undefined) &amp;&amp; wizard.step1.nextClicked}" placeholder="Name of your business (required)">
-                    <div class="input-error ng-binding ng-hide" ng-show="wizard.step1.nextClicked &amp;&amp; wizard.step1.nameError != ''"></div>
+              <div class="form-row" v-show="advanced">
+                <div class="form-group">
+                  <div class="input-wrapper"><input type="text"
+                                                    class="search-input form-control not-mobile"
+                                                    placeholder="请输入手机号码"
+                                                    autocomplete="off" v-model="form.phone" :class="{ 'is-invalid': form.errors.has('phone') }"><input type="text"
+                                                                                                                                                       class="search-input form-control mobile"
+                                                                                                                                                       placeholder="Search"
+                                                                                                                                                       autocomplete="off" v-model="form.phone"><i
+                    class="icon-header-icon2 clear-text"
+                    v-show="!!form.phone" v-on:click="form.phone = ''"></i>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="label-text">ADDRESS</div>
-                    <input ng-form-control="" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="wizard.step1.address" ng-class="{'error': (wizard.step1.address == '' || wizard.step1.address == undefined) &amp;&amp; wizard.step1.nextClicked}" placeholder="Business Address (required)">
-                    <div class="input-error ng-binding ng-hide" ng-show="wizard.step1.nextClicked &amp;&amp; wizard.step1.addressError != ''"></div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="label-text">TOWN/CITY</div>
-                    <input ng-form-control="" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="wizard.step1.town" ng-class="{'error': (wizard.step1.town == '' || wizard.step1.town == undefined || haveNonAlphanumeric(wizard.step1.town)) &amp;&amp; wizard.step1.nextClicked}" placeholder="Town/City (required)">
-                    <div class="input-error ng-binding ng-hide" ng-show="wizard.step1.nextClicked &amp;&amp; wizard.step1.townError != ''"></div>
-                  </div>
-                  <div class="col-sm-6 second-col">
-                    <div class="label-text">COUNTY/STATE/PROVINCE</div>
-                    <input ng-form-control="" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="wizard.step1.county" ng-class="{'error': (wizard.step1.county == '' || wizard.step1.county == undefined || haveNonAlphanumeric(wizard.step1.county)) &amp;&amp; wizard.step1.nextClicked}" placeholder="County/State (required)">
-                    <div class="input-error ng-binding ng-hide" ng-show="wizard.step1.nextClicked &amp;&amp; wizard.step1.countyError != ''"></div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="label-text">ZIP/POST CODE</div>
-                    <input ng-form-control="" type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="wizard.step1.postCode">
-                  </div>
-                  <div class="col-sm-6 second-col">
-                    <div class="label-text">COUNTRY</div>
-                  </div>
-                </div>
-                <div class="row buttons-row hidden-xs">
-                  <div class="col-xs-12">
-                    <div class="buttons">
-                      <button class="btn btn-seven btn-cancel ng-hide" ng-click="cancel()" ng-show="showCancel != '-1'">CANCEL</button>
-                      <button class="btn btn-three" ng-click="wizard.step1.next()">SAVE AND CONTINUE</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="row buttons-row visible-xs">
-                  <div class="col-xs-12">
-                    <button class="btn btn-three btn-margin-top-28" ng-click="wizard.step1.next()" ng-scroll-to-error=".form-business-details" ng-scroll-to-error-class=".error">SAVE AND CONTINUE</button>
-                  </div>
-                  <div class="col-xs-12 ng-hide" ng-show="showCancel != '-1'">
-                    <button class="btn btn-seven btn-cancel btn-margin-top-10" ng-click="cancel()">CANCEL</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="info-block step1-block map-block">
-              <div class="title">
-                <i class="icon-booking-icon9"></i>我的消费点数
               </div>
-              <div class="map-div">
+              <div class="form-row" v-show="advanced">
+                <div class="form-group">
+                  <div class="input-wrapper"><input type="text"
+                                                    class="search-input form-control not-mobile"
+                                                    placeholder="请输入银行卡号"
+                                                    autocomplete="off" v-model="form.bankNum" :class="{ 'is-invalid': form.errors.has('bankNum') }"><input type="text"
+                                                                                                                                                           class="search-input form-control mobile"
+                                                                                                                                                           placeholder="Search"
+                                                                                                                                                           autocomplete="off" v-model="form.bankNum"><i
+                    class="icon-header-icon2 clear-text"
+                    v-show="!!form.bankNum" v-on:click="form.bankNum = ''"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row" v-show="advanced">
+                <div class="form-group">
+                  <div class="input-wrapper"><input type="text"
+                                                    class="search-input form-control not-mobile"
+                                                    placeholder="请输入身份证号码"
+                                                    autocomplete="off" v-model="form.idCard" :class="{ 'is-invalid': form.errors.has('idCard') }"><input type="text"
+                                                                                                                                                         class="search-input form-control mobile"
+                                                                                                                                                         placeholder="Search"
+                                                                                                                                                         autocomplete="off" v-model="form.idCard"><i
+                    class="icon-header-icon2 clear-text"
+                    v-show="!!form.idCard" v-on:click="form.idCard = ''"></i>
+                  </div>
 
+                </div>
               </div>
-            </div>
+            </form>
           </div>
-        </div>
-      </div>
-      <div class="container-fluid signup ng-hide">
-        <div class="row">
-          <div class="col-xs-12 no-padding-left no-padding-right">
-            <div class="confirmation-sent">
-              <div class="icon">
-                <i class="icon-auth-icon1"></i>
-              </div>
-              <div class="title1">All Done!</div>
-              <div class="title2">
-                Your business details have been updated and are now live on TopVet.
-              </div>
-              <a class="btn btn-three" href="/dashboard/">OK</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="business-footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6 col-sm-push-6 right-block">
-            <div class="feedback ">
-              <i class="icon-feedback normal"></i><i class="icon-feedback-hover hover"></i> <span>Send Feedback</span>
+          <div class="info-block hours-info" v-if="ipData">
+            <div class="title"><i class="icon-booking-icon3"></i>城市级信息</div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.ip}}</div>
+                </div>
+              </div>
             </div>
-            <div class="help">
-              <a href="mailto:jg6t4w18@incoming.intercom.io" class="intercom"><i class="icon-help normal"></i><i class="icon-help-hover hover"></i> Help</a>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{address}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.isp}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.areacode}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6 col-sm-pull-6">
-            <div class="copyright">
-              © 2015-2020 TopVet. All rights reserved.
+
+          <div class="info-block hours-info" v-if="ipData">
+            <div class="title"><i class="icon-booking-icon3"></i>手机号码</div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.ip}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{address}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.isp}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.areacode}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block hours-info" v-if="ipData">
+            <div class="title"><i class="icon-booking-icon3"></i>身份证号码</div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.ip}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{address}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.isp}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.areacode}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block hours-info" v-if="ipData">
+            <div class="title"><i class="icon-booking-icon3"></i>银行卡号码</div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  当前IP
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.ip}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地理位置
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{address}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  运营商
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.isp}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour ">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区代码
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.areacode}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="hour">
+              <div class="row">
+                <div class="col-xs-5 day-text visible-lg">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-5 day-text visible-md">
+                  <div class="circle"></div>
+                  地区中心经纬度
+                </div>
+                <div class="col-xs-7 time-text">
+                  <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block name-info" v-if="ipData || phoneData || idCardData || bankNumData">
+            <div class="rating">
+              <div ng-smooth-scroll="#reviews">
+                <div class="rating-star"><span class="rating-star-selected"></span></div>
+                <div class="rating-star"><span class="rating-star-selected"></span></div>
+                <div class="rating-star"><span class="rating-star-selected"></span></div>
+                <div class="rating-star"><span class="rating-star-selected"></span></div>
+                <div class="rating-star"><span class="rating-star-selected"></span></div>
+              </div>
+              <div class="review-block" ng-smooth-scroll="#reviews"><span class="reviews-count">29 Reviews</span>
+              </div>
+              <div class="dropdown share-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i
+                class="icon-share"></i><i class="icon-share-hover"></i></a>
+                <ul class="dropdown-menu">
+                  <li><span class="share-on">SHARE ON:</span>
+                    <div class="social-icon" ng-click="facebookShare()"><i
+                      class="icon-business-profile-icon3 normal"></i><i
+                      class="icon-business-profile-icon3-hover hover"></i></div>
+                    <div class="social-icon" ng-click="twitterShare()"><i
+                      class="icon-business-profile-icon4 normal"></i><i
+                      class="icon-business-profile-icon4-hover hover"></i></div>
+                    <div class="social-icon" ng-click="googleShare()"><i class="icon-google normal"></i><i
+                      class="icon-google-hover hover"></i></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <h1 class="name">RTBAsia非人类访问量甄别服务</h1>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block description-info" v-if="ipData || phoneData || idCardData || bankNumData">
+            <div class="title"><i class="icon-booking-icon8"></i>风险场景</div>
+            <div class="" style="overflow: hidden; outline: none;"
+                 tabindex="5000">
+              <div class="description">
+                <p>知识背景：互联网流量可分为两类，真人流量和无效流量(IVT : Invalid
+                  Traffic)。产生IVT的设备会模仿人类的形态浏览网页、观赏视频、点击广告、撰写评论、投票点赞、攫取数据、测量态势、发起攻击。IVT通常源自“数据中心”、也经常暂住在民宅中感染了恶意软件的电脑、以及被改机软件篡改的手机中，并借道代理服务器网络、以及移动数据猫池来访问互联网。</p>
+                <p>当IP场景为“数据中心”时，此IP发出的网页浏览行为大多数情况下属于NHT（Non Human
+                  Traffic，非人类的访问），可能是各种功能的机器人：搜索爬虫、内容采集器、舆情监控、网站性能监控、压力测试器、自动发帖机、安全检测软件等等，你懂的...</p>
+                <p>此IP“最近执行NHT动作的时间”为部分样本，仅供参考。</p>
+                <p>“真人概率”的数值在50%以上，可以被认定为此IP的网页访问量基本由人类主动行为产生，分值愈高越真实。低于50%则有较高可能性是此IP的行为是机器人主导。</p>
+                <p>数据由RTBAsia Open Data Exchange提供，除网页查询外同时为DSP提供服务器间高频次查询接入方式，如需服务请使用您的企业邮箱联系odx@rtbasia.com</p>
+                <p>API试用申请、技术讨论、反馈建议，请加QQ群：482139657（请务必在申请加群时提一个技术问题或者具体反馈意见，否则可能会被认为是non-human而不能通过）</p>
+              </div>
             </div>
           </div>
         </div>
@@ -189,28 +445,49 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Form from "vform";
 
 export default {
-  layout: 'basic',
-
   middleware: 'auth',
 
   metaInfo () {
     return { title: this.$t('home') }
   },
 
-  computed: mapGetters({
-    user: 'auth/user'
+  created () {
+    this.form.ip = this.$route.query.ip
+  },
+
+  data: () => ({
+    title: window.config.appName,
+    searchToggled: false,
+    ipData: '',
+    phoneData: null,
+    idCardData: null,
+    bankNumData: '',
+    itemValue: '',
+    showWrongInfoDialog: false,
+    advanced: false,
+    form: new Form({
+      ip: '',
+      phone: '',
+      idCard: '',
+      bankNum: ''
+    }),
+    error: ''
   }),
 
-  methods: {
-    async logout () {
-      // Log out the user.
-      await this.$store.dispatch('auth/logout')
-
-      // Redirect to login.
-      this.$router.push({ name: 'login' })
-    }
+  computed: {
+    address: function () {
+      return this.ipData.country + '-' + this.ipData.province
+    },
+    gmapUrl: function () {
+      return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
+    },
+    ...mapGetters({
+      authenticated: 'auth/check',
+      user: 'auth/user'
+    })
   }
 }
 </script>

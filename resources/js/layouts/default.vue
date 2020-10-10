@@ -1,6 +1,7 @@
 <template>
   <div class="main-layout">
-    <div class="container mt-4">
+    <navbar />
+    <div class="">
       <child />
     </div>
   </div>
