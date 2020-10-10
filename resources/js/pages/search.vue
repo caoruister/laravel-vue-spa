@@ -59,37 +59,37 @@
               </div>
               <div class="row">
                 <div class="col-xs-12">
-                  <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" ng-model="name" placeholder="Search for your business by name or address">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" ng-model="name" placeholder="IP">
-                    <button class="btn btn-three" ng-click="search()" v-show="!advanced" ng-disabled="name == '' || isBusy" disabled="disabled">查询</button>
-                    <button class="btn btn-three" v-show="!advanced" ng-disabled="name == '' || isBusy" v-on:click="advanced = !advanced">高级查询<i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i></button>
+                  <div class="search-block">
+                    <input class="form-control hidden-xs" type="text" v-model="form.ip" :class="{ 'is-invalid': form.errors.has('ip') }" placeholder="请输入IP地址">
+                    <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
+                    <button class="btn btn-three" style="margin-right: .5rem" v-on:click="changeQuery" v-show="!advanced" ng-disabled="name == '' || isBusy">查询</button>
+                    <button class="btn btn-filter" v-show="!advanced" ng-disabled="name == '' || isBusy" v-on:click="advanced = !advanced">高级查询 <i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i></button>
                   </div>
                 </div>
               </div>
               <div class="row" v-show="advanced">
                 <div class="col-xs-12">
                   <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" ng-model="name" placeholder="Search for your business by name or address">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" ng-model="name" placeholder="IP">
+                    <input class="form-control hidden-xs" type="text" v-model="form.phone" :class="{ 'is-invalid': form.errors.has('phone') }" placeholder="请输入手机号码">
+                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" v-model="form.phone" placeholder="手机号码">
                   </div>
                 </div>
               </div>
               <div class="row" v-show="advanced">
                 <div class="col-xs-12">
                   <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" ng-model="name" placeholder="Search for your business by name or address">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" ng-model="name" placeholder="IP">
+                    <input class="form-control hidden-xs" type="text" v-model="form.bankNum" :class="{ 'is-invalid': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
+                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" v-model="form.bankNum" placeholder="银行卡号">
                   </div>
                 </div>
               </div>
               <div class="row" v-show="advanced">
                 <div class="col-xs-12">
                   <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" ng-model="name" placeholder="Search for your business by name or address">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" ng-model="name" placeholder="IP">
-                    <button class="btn btn-three" ng-click="search()" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy" disabled="disabled">查询</button>
-                    <button class="btn btn-three" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy" v-on:click="advanced = !advanced">高级查询<i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i></button>
+                    <input class="form-control hidden-xs" type="text" v-model="form.idCard" :class="{ 'is-invalid': form.errors.has('idCard') }" placeholder="请输入身份证号码">
+                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text" v-model="form.idCard" placeholder="身份证号码">
+                    <button class="btn btn-three" style="margin-right: .5rem" ng-click="search()" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy" disabled="disabled">查询</button>
+                    <button class="btn btn-filter" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy" v-on:click="advanced = !advanced">高级查询 <i v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i></button>
                   </div>
                 </div>
               </div>
@@ -109,40 +109,294 @@
                   </div>
                 </div>
               </div>
-              <div class="row results-row ng-hide" ng-show="!isBusy &amp;&amp; searchFinished">
-                <div class="no-padding-left no-padding-right col-xs-12" ng-class="{'col-xs-6': showCountries, 'col-xs-12': !showCountries}">
-                  <div class="results-count ng-binding">
-                    WE FOUND 0 RESULTS.
-                  </div>
-                </div>
-                <div class="col-xs-6 no-padding-right no-padding-left right-block ng-hide" ng-show="showCountries">
-                  <div class="dropdown">
-                    <div class="dropdown-toggle ng-binding" type="button" data-toggle="dropdown">
-                      <i class="icon-business-profile-iconj"></i>
-                    </div>
-                    <ul class="dropdown-menu">
-                      <!-- ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">United States</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">South Africa</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">Canada</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">New Zealand</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">Ireland</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">Australia</li><!-- end ngRepeat: item in countries --><li ng-repeat="item in countries" ng-click="loadCountry(item)" class="ng-binding ng-scope">United Kingdom</li><!-- end ngRepeat: item in countries -->
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="row ng-hide" ng-show="!isBusy &amp;&amp; searchFinished &amp;&amp; items.length == 0">
-                <div class="col-xs-12">
-                  <div class="no-results">
-                    <i class="icon-search-results-icon2"></i>
-                    <div class="title1">
-                      No results found
-                    </div>
-                    <div class="title2">
-                      Please try a different search.
-                    </div>
-                    <a href="/add-your-business/" class="btn btn-five">LIST IT NOW</a>
-                  </div>
-                </div>
-              </div>
               <div class="row ng-hide" ng-show="!isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0">
                 <div class="col-xs-12">
                   <!-- ngRepeat: item in items -->
+                  <div class="info-block hours-info" v-if="ipData">
+                    <div class="title"><i class="icon-booking-icon3"></i>IP</div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          主机地址
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          主机地址
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.ip}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          基础信息
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          基础信息
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{address}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          风险提示
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          风险提示
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.isp}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-block hours-info" v-if="ipData">
+                    <div class="title"><i class="icon-booking-icon3"></i>手机号码</div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.ip}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{address}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.isp}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.areacode}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-block hours-info" v-if="ipData">
+                    <div class="title"><i class="icon-booking-icon3"></i>身份证号码</div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.ip}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{address}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.isp}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.areacode}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="info-block hours-info" v-if="ipData">
+                    <div class="title"><i class="icon-booking-icon3"></i>银行卡号码</div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          当前IP
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.ip}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地理位置
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{address}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          运营商
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.isp}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour ">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区代码
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.areacode}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="hour">
+                      <div class="row">
+                        <div class="col-xs-5 day-text visible-lg">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-5 day-text visible-md">
+                          <div class="circle"></div>
+                          地区中心经纬度
+                        </div>
+                        <div class="col-xs-7 time-text">
+                          <div class="time-text-row">{{ipData.lng + ',' + ipData.lat}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="show-more ng-hide" ng-show="!isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0 &amp;&amp; page < pages">
