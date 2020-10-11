@@ -166,7 +166,7 @@
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.isp}}</div>
+                    <div class="time-text-row">{{ipData.type}}</div>
                   </div>
                 </div>
               </div>
@@ -440,7 +440,7 @@
 
     computed: {
       address: function () {
-        return this.ipData.country + '-' + this.ipData.province
+        return this.ipData.country + '-' + this.ipData.province + '-' + this.ipData.city
       },
       gmapUrl: function () {
         return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat

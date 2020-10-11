@@ -44,22 +44,20 @@ class CacheIPs extends Command
         $starttime = explode(' ',microtime());
 
         $total = count(file($inputfile));
-        //Redis::command('delete', ['iprange']);
+        Redis::command('del', ['iprange']);
 
         $arr = file($inputfile);
 
         Redis::pipeline(function ($pipe) use ($arr, $total) {
 
             if($arr) {
-
                 $i=0;
-
                 foreach($arr as $line) {
                     $line=str_replace(array("\n","\r"),"",$line);
-                    list($start,$end,$startnum,$endnum,$continent,$country,$province, $city, $district,$isp,$areacode,$en,$cc,$lng,$lat) = explode("|", $line);
-                    Redis::zAdd('iprange',intval($endnum),$line);
+                    list($start,$end,$istart,$iend,$continent,$country,$state, $city, $district,$operator,$company,$type,$en,$ec,$lng,$lat) = explode(",", $line);
+                    Redis::zAdd('iprange',intval($iend),$line);
                     //也可自行手动添加
-                    //$redis->zAdd('iprange',16781311, '亚洲|中国|广东|深圳|南山|电信|440100|China|CN|113.280637|23.125178');
+                    //$redis->zAdd('iprange',16781311, '亚洲,中国,广东,深圳,南山,电信,Cisco,IDC,China,CN,113.280637,23.125178');
                     $i++;
                     echo chr(3);
                     echo $i."/".$total." => ".round(($i/$total)*100)."%"."\r";
