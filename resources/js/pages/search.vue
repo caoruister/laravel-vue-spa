@@ -171,7 +171,7 @@
               </div>
             </div>
 
-            <div class="info-block hours-info" v-if="ipData">
+            <div class="info-block hours-info" v-if="phoneData">
               <div class="title"><i class="icon-popular-hours-title icon"></i>手机号码</div>
               <div class="hour ">
                 <div class="row">
@@ -180,7 +180,7 @@
                     手机号码
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.ip}}</div>
+                    <div class="time-text-row">{{phoneData.phone}}</div>
                   </div>
                 </div>
               </div>
@@ -191,7 +191,7 @@
                     基础信息
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{address}}</div>
+                    <div class="time-text-row">{{phoneData.carrier}}</div>
                   </div>
                 </div>
               </div>
@@ -202,7 +202,7 @@
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.isp}}</div>
+                    <div class="time-text-row">{{phoneData.type}}</div>
                   </div>
                 </div>
               </div>
@@ -396,6 +396,9 @@
 
         next(vm => {
           vm.ipData = data.ipData
+          vm.phoneData = data.phoneData
+          vm.idCardData = data.idCardData
+          vm.bankNumData = data.bankNumData
         })
       } catch (e) {
         next(vm => {
@@ -424,10 +427,10 @@
     data: () => ({
       title: window.config.appName,
       searchToggled: false,
-      ipData: '',
+      ipData: null,
       phoneData: null,
       idCardData: null,
-      bankNumData: '',
+      bankNumData: null,
       itemValue: '',
       showWrongInfoDialog: false,
       advanced: false,
@@ -457,6 +460,9 @@
         const {data} = await this.form.post('/api/risk/check');
 
         this.ipData = data.ipData
+        this.phoneData = data.phoneData
+        this.idCardData = data.idCardData
+        this.bankNumData = data.bankNumData
 
         this.changeQuery()
       },
