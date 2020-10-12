@@ -66,7 +66,7 @@
               <form class="form-inline" method="get" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
                 <div class="input-wrapper"><input type="text"
                                                   class="search-input form-control not-mobile"
-                                                  placeholder="请输入IP地址"
+                                                  placeholder="请输入IP或者手机号码"
                                                   autocomplete="off" v-model="form.itemValue" :class="{ 'is-invalid': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
                                                                                                 placeholder="Search"
@@ -285,6 +285,8 @@ export default {
 
   data: () => ({
     title: window.config.appName,
+    ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
+    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
     isCollapsed: true,
     step: 0,
     form: new Form({
@@ -297,8 +299,14 @@ export default {
   }),
 
   methods: {
-    async search () {
-      this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
+    search () {
+      if(this.ipRegExp.test(this.form.itemValue)){
+        console.log('ip')
+        this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
+      } else if (this.phoneRegExp.test(this.form.itemValue)) {
+        console.log('phone')
+        this.$router.push({ path: '/search', query: { phone: this.form.itemValue } })
+      }
     }
   }
 }

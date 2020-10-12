@@ -208,7 +208,7 @@
               </div>
             </div>
 
-            <div class="info-block hours-info" v-if="ipData">
+            <div class="info-block hours-info" v-if="bankNumData">
               <div class="title"><i class="icon-business-profile-iconb icon"></i>银行卡号码</div>
               <div class="hour ">
                 <div class="row">
@@ -256,7 +256,7 @@
               </div>
             </div>
 
-            <div class="info-block hours-info" v-if="ipData">
+            <div class="info-block hours-info" v-if="idCardData">
               <div class="title"><i class="icon-booking-icon9 icon"></i>身份证号码</div>
               <div class="hour ">
                 <div class="row">
@@ -433,7 +433,7 @@
       bankNumData: null,
       itemValue: '',
       showWrongInfoDialog: false,
-      advanced: false,
+      advanced: true,
       form: new Form({
         ip: null,
         phone: null,
