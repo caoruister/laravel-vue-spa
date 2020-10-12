@@ -51,80 +51,79 @@
           <div class="col-xs-12 col-no-padding">
             <div class="claim__block main-block"
                  ng-class="{'no-padding-bottom': !isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0 &amp;&amp; page < pages}">
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="title">
-                    按提示输入详细信息
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="search-block">
-                    <input class="form-control hidden-xs" type="text" v-model="form.ip"
-                           :class="{ 'is-invalid': form.errors.has('ip') }" placeholder="请输入IP地址">
-                    <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
-                    <button class="btn btn-three" style="margin-right: .5rem" v-on:click="changeQuery"
-                            v-show="!advanced">查询
-                    </button>
-                    <button class="btn btn-filter" v-show="!advanced" ng-disabled="name == '' || isBusy"
-                            v-on:click="advanced = !advanced">高级查询 <i
-                      v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="row" v-show="advanced">
-                <div class="col-xs-12">
-                  <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" v-model="form.phone"
-                           :class="{ 'is-invalid': form.errors.has('phone') }" placeholder="请输入手机号码">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
-                           v-model="form.phone" placeholder="手机号码">
-                  </div>
-                </div>
-              </div>
-              <div class="row" v-show="advanced">
-                <div class="col-xs-12">
-                  <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" v-model="form.bankNum"
-                           :class="{ 'is-invalid': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
-                           v-model="form.bankNum" placeholder="银行卡号">
-                  </div>
-                </div>
-              </div>
-              <div class="row" v-show="advanced">
-                <div class="col-xs-12">
-                  <div class="search-block" ng-enter="search()">
-                    <input class="form-control hidden-xs" type="text" v-model="form.idCard"
-                           :class="{ 'is-invalid': form.errors.has('idCard') }" placeholder="请输入身份证号码">
-                    <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
-                           v-model="form.idCard" placeholder="身份证号码">
-                    <button class="btn btn-three" style="margin-right: .5rem" ng-click="search()">查询</button>
-                    <button class="btn btn-filter" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy"
-                            v-on:click="advanced = !advanced">高级查询 <i
-                      v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="row ng-hide" ng-show="isBusy">
-                <div class="col-xs-12">
-                  <div class="loading">
-                    <div class="sk-fading-circle">
-                      <div class="sk-circle1 sk-circle"></div>
-                      <div class="sk-circle2 sk-circle"></div>
-                      <div class="sk-circle3 sk-circle"></div>
-                      <div class="sk-circle4 sk-circle"></div>
-                      <div class="sk-circle5 sk-circle"></div>
-                      <div class="sk-circle6 sk-circle"></div>
-                      <div class="sk-circle7 sk-circle"></div>
-                      <div class="sk-circle8 sk-circle"></div>
+              <form @submit.prevent="search" @keydown="form.onKeydown($event)">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="title">
+                      按提示输入详细信息
                     </div>
                   </div>
                 </div>
-              </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.ip"
+                             :class="{ 'is-invalid': form.errors.has('ip') }" placeholder="请输入IP地址">
+                      <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
+
+                      <button class="btn btn-three" style="margin-right: .5rem"
+                              v-show="!advanced">查询
+                      </button>
+                      <button class="btn btn-filter" v-show="!advanced" ng-disabled="name == '' || isBusy"
+                              v-on:click="advanced = !advanced">高级查询 <i
+                        v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="ip" />
+                  </div>
+                </div>
+                <div class="row" v-show="advanced">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.phone"
+                             :class="{ 'is-invalid': form.errors.has('phone') }" placeholder="请输入手机号码">
+                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                             v-model="form.phone" placeholder="手机号码">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="phone" />
+                  </div>
+                </div>
+                <div class="row" v-show="advanced">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.bankNum"
+                             :class="{ 'is-invalid': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
+                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                             v-model="form.bankNum" placeholder="银行卡号">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="bankNum" />
+                  </div>
+                </div>
+                <div class="row" v-show="advanced">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.idCard"
+                             :class="{ 'is-invalid': form.errors.has('idCard') }" placeholder="请输入身份证号码">
+                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                             v-model="form.idCard" placeholder="身份证号码">
+                      <button class="btn btn-three" style="margin-right: .5rem">查询</button>
+                      <button class="btn btn-filter" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy"
+                              v-on:click="advanced = !advanced">高级查询 <i
+                        v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="idCard" />
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -413,6 +412,9 @@
     created() {
       document.body.className += ' public-page-top'
       this.form.ip = this.$route.query.ip
+      this.form.phone = this.$route.query.phone
+      this.form.idCard = this.$route.query.idCard
+      this.form.bankNum = this.$route.query.bankNum
     },
 
     metaInfo() {
@@ -430,10 +432,10 @@
       showWrongInfoDialog: false,
       advanced: false,
       form: new Form({
-        ip: '',
-        phone: '',
-        idCard: '',
-        bankNum: ''
+        ip: null,
+        phone: null,
+        idCard: null,
+        bankNum: null
       }),
       error: ''
     }),
@@ -451,22 +453,33 @@
     },
 
     methods: {
-      changeQuery() {
-        this.$router.push({path: '/search', query: {ip: this.form.ip}})
-      },
-      async fetchData() {
-        try {
-          const {data} = await axios.post(`/api/risk/check?${qs(this.$route.query)}`)
+      async search() {
+        const {data} = await this.form.post('/api/risk/check');
 
-          this.ipData = data.ipData
-        } catch (e) {
-          console.log(e)
-        }
+        this.ipData = data.ipData
+
+        this.changeQuery()
+      },
+
+      changeQuery() {
+        let query = {}
+        if (this.form.ip) query.ip = this.form.ip
+        if (this.form.phone) query.phone = this.form.phone
+        if (this.form.idCard) query.idCard = this.form.idCard
+        if (this.form.bankNum) query.bankNum = this.form.bankNum
+
+        this.$router.push({path: '/search', query: query})
+      },
+
+      async fetchData() {
+        const {data} = await axios.post(`/api/risk/check?${qs(this.$route.query)}`)
+
+        this.ipData = data.ipData
       }
     },
 
     watch: {
-      '$route': 'fetchData'
+      //'$route': 'fetchData'
     },
   }
 </script>
