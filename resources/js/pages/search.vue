@@ -63,7 +63,7 @@
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.ip"
-                             :class="{ 'is-invalid': form.errors.has('ip') }" placeholder="请输入IP地址">
+                             :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
                       <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
 
                       <button class="btn btn-three" style="margin-right: .5rem"
@@ -83,7 +83,7 @@
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.phone"
-                             :class="{ 'is-invalid': form.errors.has('phone') }" placeholder="请输入手机号码">
+                             :class="{ 'error': form.errors.has('phone') }" placeholder="请输入手机号码">
                       <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.phone" placeholder="手机号码">
                     </div>
@@ -96,7 +96,7 @@
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.bankNum"
-                             :class="{ 'is-invalid': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
+                             :class="{ 'error': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
                       <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.bankNum" placeholder="银行卡号">
                     </div>
@@ -109,7 +109,7 @@
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.idCard"
-                             :class="{ 'is-invalid': form.errors.has('idCard') }" placeholder="请输入身份证号码">
+                             :class="{ 'error': form.errors.has('idCard') }" placeholder="请输入身份证号码">
                       <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.idCard" placeholder="身份证号码">
                     </div>

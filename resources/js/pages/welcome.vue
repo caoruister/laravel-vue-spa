@@ -48,7 +48,7 @@
       <div class="background-item background3" v-bind:class="{active: step == 2}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>识别羊毛 易如反掌</h1></div>
+            <div class="col-sm-12 item"><h1>智能交叉分析算法</h1></div>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
             <div class="col-sm-12 item">
               <h2 v-show="step == 0">机房跳板 代理拨号 接码卡池实时检测</h2>
               <h2 v-show="step == 1">无需专业知识 不改变工作流程 支持批量查询</h2>
-              <h2 v-show="step == 2">机房跳板 代理拨号 接码卡池实时检测</h2>
+              <h2 v-show="step == 2">既不错杀一千 也不放过一个</h2>
               <h2 class="no-margin-top hidden">Find yours today</h2>
             </div>
           </div>
@@ -68,12 +68,12 @@
                 <div class="input-wrapper"><input type="text"
                                                   class="search-input form-control not-mobile"
                                                   placeholder="请输入IP或手机号码"
-                                                  autocomplete="off" v-model="form.itemValue" :class="{ 'is-invalid': form.errors.has('itemValue') }"><input type="text"
+                                                  autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
                                                                                                 placeholder="Search"
                                                                                                 autocomplete="off" v-model="form.itemValue"><i
                   class="icon-header-icon2 clear-text"
-                  v-show="!!form.itemValue" v-on:click="form.itemValue = ''"></i>
+                  v-show="!!form.itemValue" v-on:click="clearInput"></i>
                   <div class="autocomplete-suggestions"
                        style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div>
                 </div>
@@ -168,7 +168,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 text-center"><a href="/management-software/" class="btn btn-three">立即注册</a></div>
+          <div class="col-sm-12 text-center">
+            <router-link :to="{ name: 'register' }" class="btn btn-three">
+              立即注册
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -301,13 +305,18 @@ export default {
   methods: {
     search () {
       if(this.ipRegExp.test(this.form.itemValue)){
-        console.log('ip')
         this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
       } else if (this.phoneRegExp.test(this.form.itemValue)) {
-        console.log('phone')
         this.$router.push({ path: '/search', query: { phone: this.form.itemValue } })
+      } else {
+        this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码');
       }
-    }
+    },
+
+    clearInput () {
+      this.form.reset();
+      this.form.errors.clear();
+    },
   }
 }
 </script>
