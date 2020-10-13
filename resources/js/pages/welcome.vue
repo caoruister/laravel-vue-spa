@@ -67,7 +67,7 @@
               <form class="form-inline" method="get" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
                 <div class="input-wrapper"><input type="text"
                                                   class="search-input form-control not-mobile"
-                                                  placeholder="请输入IP或者手机号码"
+                                                  placeholder="请输入IP或手机号码"
                                                   autocomplete="off" v-model="form.itemValue" :class="{ 'is-invalid': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
                                                                                                 placeholder="Search"
@@ -77,7 +77,7 @@
                   <div class="autocomplete-suggestions"
                        style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div>
                 </div>
-                <button type="submit" class="btn btn-three not-mobile">SEARCH</button>
+                <button type="submit" class="btn btn-three not-mobile">查询</button>
                 <button type="submit" class="btn btn-three mobile"><i
                   class="icon-search-white"></i></button>
               </form>
@@ -314,9 +314,9 @@ export default {
 
 <style scoped>
   .home-main h1 {
-    font-size: 52px;
+    font-weight: 100;
   }
   .home-main h2 {
-    font-size: 19px;
+    font-weight: 100;
   }
 </style>
