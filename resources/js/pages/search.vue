@@ -69,7 +69,7 @@
                       <button class="btn btn-three" style="margin-right: .5rem"
                               v-show="!advanced">查询
                       </button>
-                      <button class="btn btn-filter" v-show="!advanced" ng-disabled="name == '' || isBusy"
+                      <button class="btn btn-filter" type="button" v-show="!advanced"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
@@ -120,7 +120,7 @@
                   <div class="col-xs-12">
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
-                      <button class="btn btn-filter" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy"
+                      <button class="btn btn-filter" type="button"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
@@ -435,7 +435,7 @@
       phoneData: null,
       idCardData: null,
       bankNumData: null,
-      itemValue: '',
+      itemValue: null,
       showWrongInfoDialog: false,
       advanced: true,
       form: new Form({

@@ -34,32 +34,33 @@
       <div class="background-item background1" v-bind:class="{active: step == 0}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>Not feeling well?<br class="hidden-md hidden-lg"> Find a top vet
-            </h1></div>
+            <div class="col-sm-12 item"><h1>全面感知灰色产业态势</h1></div>
           </div>
         </div>
       </div>
       <div class="background-item background2" v-bind:class="{active: step == 1}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>We're better together.<br class="hidden-md hidden-lg"> Find a top
-              vet</h1></div>
+            <div class="col-sm-12 item"><h1>识别羊毛 易如反掌</h1></div>
           </div>
         </div>
       </div>
       <div class="background-item background3" v-bind:class="{active: step == 2}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>They deserve the best.<br class="hidden-md hidden-lg"> Find a top
-              vet</h1></div>
+            <div class="col-sm-12 item"><h1>识别羊毛 易如反掌</h1></div>
           </div>
         </div>
       </div>
       <div class="wrapper">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h2>TopVet lists over 20,000 trusted vets</h2>
-              <h2 class="no-margin-top">Find yours today</h2></div>
+            <div class="col-sm-12 item">
+              <h2 v-show="step == 0">机房跳板 代理拨号 接码卡池实时检测</h2>
+              <h2 v-show="step == 1">无需专业知识 不改变工作流程 支持批量查询</h2>
+              <h2 v-show="step == 2">机房跳板 代理拨号 接码卡池实时检测</h2>
+              <h2 class="no-margin-top hidden">Find yours today</h2>
+            </div>
           </div>
           <div class="row">
             <div class="col-xs-12 item">
@@ -158,17 +159,16 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <div class="title">Are you a top vet?</div>
+            <div class="title">企业级风险识别全新上线</div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <div class="subtitle">List your veterinary practice and grow your business online</div>
+            <div class="subtitle">API接口/离线识别包/个性化定制</div>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12 text-center"><a href="/management-software/" class="btn btn-three">GET LISTED
-            TODAY</a></div>
+          <div class="col-sm-12 text-center"><a href="/management-software/" class="btn btn-three">立即注册</a></div>
         </div>
       </div>
     </div>
@@ -179,74 +179,74 @@
           <div class="col-md-4 col-sm-5 item">
             <div class="logo1"><a href="/"><i class="icon-logo5" style="display: none;"></i></a></div>
             <div class="info-block">
-              <div class="text">TopVet is dedicated to providing</div>
-              <div class="text">excellent veterinary software.</div>
+              <div class="text">关注灰色产业动态</div>
+              <div class="text">收益流失管控专家</div>
             </div>
-            <div class="copyright hidden-xs">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
+            <div class="copyright hidden-xs">© 2020 太乙风控 保留所有权利<p style="margin-top: 1rem">上海晓易信息技术有限公司</p><p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
           </div>
-          <div class="col-md-2 col-sm-4 item hidden-xs"><h4>COMPANY</h4>
+          <div class="col-md-2 col-sm-4 item hidden-xs"><h4>公司</h4>
             <ul>
-              <li><a href="/home/contact/">Contact Us</a></li>
-              <li><a href="/terms-and-conditions/">Terms</a></li>
-              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/home/contact/">联系我们</a></li>
+              <li><a href="/terms-and-conditions/">服务条款</a></li>
+              <li><a href="/privacy/">隐私保护</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-4 item visible-xs"><h4 class="collapsed" ng-toggle-collapse=""
                                                              ng-toggle-collapse-target="#company-collapsed">
-            COMPANY<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
+            公司<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="company-collapsed" class="collapse">
-              <li><a href="/home/contact/">Contact Us</a></li>
-              <li><a href="/terms-and-conditions/">Terms</a></li>
-              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/home/contact/">联系我们</a></li>
+              <li><a href="/terms-and-conditions/">服务条款</a></li>
+              <li><a href="/privacy/">隐私保护</a></li>
             </ul>
           </div>
-          <div class="col-md-2 col-sm-3 item three-item hidden-xs"><h4>CLIENTS</h4>
+          <div class="col-md-2 col-sm-3 item three-item hidden-xs"><h4>企业服务</h4>
             <ul>
-              <li><a href="/management-software/">Join Us</a></li>
-              <li><a href="/login/">Login</a></li>
+              <li><a href="/management-software/">API</a></li>
+              <li><a href="/login/">离线包购买</a></li>
+              <li><a href="/login/">投放检测</a></li>
+              <li><a href="/login/">更多...</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-3 item three-item visible-xs"><h4 class="collapsed" ng-toggle-collapse=""
                                                                         ng-toggle-collapse-target="#businesses-collapsed">
-            CLIENTS<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
+            企业服务<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="businesses-collapsed" class="collapse">
-              <li><a href="/management-software/">Join Us</a></li>
-              <li><a href="/login/">Login</a></li>
+              <li><a href="/management-software/">API</a></li>
+              <li><a href="/login/">离线包购买</a></li>
+              <li><a href="/login/">投放检测</a></li>
+              <li><a href="/login/">更多...</a></li>
             </ul>
           </div>
-          <div class="col-md-2 col-md-offset-0 col-sm-4 col-sm-offset-5 item four-item hidden-xs"><h4>BROWSE BY
-            COUNTRY</h4>
+          <div class="col-md-2 col-md-offset-0 col-sm-4 col-sm-offset-5 item four-item hidden-xs"><h4>业务能力</h4>
             <ul>
-              <li><a href="/country/australia">Australia</a></li>
-              <li><a href="/country/canada">Canada</a></li>
-              <li><a href="/country/ireland">Ireland</a></li>
-              <li><a href="/country/new-zealand">New Zealand</a></li>
-              <li><a href="/country/south-africa">South Africa</a></li>
-              <li><a href="/country/united-kingdom">United Kingdom</a></li>
-              <li><a href="/country/united-states">United States</a></li>
+              <li><a href="/country/australia">手机风险识别</a></li>
+              <li><a href="/country/canada">IP风险识别</a></li>
+              <li><a href="/country/ireland">金融卡风险</a></li>
+              <li><a href="/country/new-zealand">社交账号风险</a></li>
+              <li><a href="/country/south-africa">更多...</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-md-offset-0 col-sm-4 col-sm-offset-5 item four-item visible-xs"><h4
-            class="collapsed" ng-toggle-collapse="" ng-toggle-collapse-target="#country-collapsed">BROWSE BY
-            COUNTRY<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
+            class="collapsed" ng-toggle-collapse="" ng-toggle-collapse-target="#country-collapsed">业务能力<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="country-collapsed" class="collapse">
-              <li><a href="/country/australia">Australia</a></li>
-              <li><a href="/country/canada">Canada</a></li>
-              <li><a href="/country/ireland">Ireland</a></li>
-              <li><a href="/country/new-zealand">New Zealand</a></li>
-              <li><a href="/country/south-africa">South Africa</a></li>
-              <li><a href="/country/united-kingdom">United Kingdom</a></li>
-              <li><a href="/country/united-states">United States</a></li>
+              <li><a href="/country/australia">手机风险识别</a></li>
+              <li><a href="/country/canada">IP风险识别</a></li>
+              <li><a href="/country/ireland">金融卡风险</a></li>
+              <li><a href="/country/new-zealand">社交账号风险</a></li>
+              <li><a href="/country/south-africa">更多...</a></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-3 item"><h4 class="built-by no-margin-bottom no-social"><a
-            href="https://www.codefirst.co.uk/bespoke-software/" target="_blank">CUSTOM SOFTWARE DEVELOPMENT</a>
-            BY</h4>
-            <div class="logo2"><a href="https://www.codefirst.co.uk/bespoke-software" target="_blank"><i
-              class="icon-logo3"></i></a></div>
+            href="https://www.codefirst.co.uk/bespoke-software/" target="_blank"></a>
+            基础平台支持及数据合作伙伴</h4>
+            <div class="logo2">
+              <a href="https://www.codefirst.co.uk/bespoke-software" target="_blank"><i
+              class="icon-logo3"></i></a>
+            </div>
           </div>
           <div class="col-xs-12 item visible-xs">
-            <div class="copyright no-margin-top">© 2015-2020 TopVet. All rights reserved.<p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
+            <div class="copyright no-margin-top">© 2020 太乙风控 保留所有权利<p style="margin-top: 1rem">上海晓易信息技术有限公司</p><p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
           </div>
         </div>
       </div>
@@ -313,5 +313,10 @@ export default {
 </script>
 
 <style scoped>
-
+  .home-main h1 {
+    font-size: 52px;
+  }
+  .home-main h2 {
+    font-size: 19px;
+  }
 </style>
