@@ -29,7 +29,7 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="link-item visible-xs"><a href="/"><i class="icon-home"></i>Home</a></li>
+            <li class="link-item visible-xs"><a href="/"><i class="icon-home"></i>首页</a></li>
             <li>
               <router-link :to="{ name: 'login' }" class="btn btn-four first-btn">
                 登录
@@ -112,15 +112,19 @@
                              :class="{ 'is-invalid': form.errors.has('idCard') }" placeholder="请输入身份证号码">
                       <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.idCard" placeholder="身份证号码">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="idCard" />
+                  </div>
+                  <div class="col-xs-12">
+                    <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
                       <button class="btn btn-filter" ng-show="!isIpLookup" ng-disabled="name == '' || isBusy"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
                     </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <has-error :form="form" field="idCard" />
                   </div>
                 </div>
               </form>
@@ -499,7 +503,15 @@
     padding: 40px 0 0;
   }
 
+  .justify-content-flex-end {
+    justify-content: flex-end;
+  }
+
   @media (max-width: 991px) {
+    .business .container {
+      width: 100%;
+    }
+
     .business .col-no-padding {
       padding-left: 0;
       padding-right: 0;

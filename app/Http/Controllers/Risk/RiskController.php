@@ -120,7 +120,7 @@ class RiskController extends Controller
                 'type' => $type
             );
         } catch (\Exception $e) {
-            Log::error('create qq short url error:'.$e);
+            Log::error('query carrier by taobao error:'.$e);
             return $data;
         }
 
