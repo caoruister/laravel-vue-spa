@@ -14,8 +14,6 @@
             </div>
             <form class="form-horizontal" id="loginForm"
                   name="loginForm" @submit.prevent="login" @keydown="form.onKeydown($event)" novalidate>
-              <alert-errors :form="form" :message="message" />
-
               <div class="form-group">
                 <div class="col-sm-12 label-text">手机号码</div>
                 <div class="col-sm-12">
@@ -92,7 +90,6 @@ export default {
   },
 
   data: () => ({
-    message: '',
     form: new Form({
       phone: '',
       password: ''

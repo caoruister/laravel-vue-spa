@@ -13,8 +13,6 @@
               请输入以下注册信息
             </div>
             <form class="form-horizontal" id="signupForm" name="signupForm" @submit.prevent="register" @keydown="form.onKeydown($event)" novalidate>
-              <alert-errors :form="form" :message="message" />
-
               <div class="form-group">
                 <div class="col-sm-12 label-text">手机号码</div>
                 <div class="col-sm-12">
@@ -76,7 +74,6 @@ export default {
   },
 
   data: () => ({
-    message: '',
     form: new Form({
       phone: '',
       password: '',
