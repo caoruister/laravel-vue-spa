@@ -134,5 +134,6 @@ export default {
     line-height: 52px;
     top: 0;
     right: 30px;
+    color: #00a7f7;
   }
 </style>
