@@ -102,8 +102,6 @@ export default {
       // Submit the form.
       const { data } = await this.form.post('/api/login')
 
-      this.message = data.message
-
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
         token: data.token,
