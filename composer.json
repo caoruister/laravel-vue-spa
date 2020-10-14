@@ -8,13 +8,15 @@
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
+        "gregwar/captcha": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "overtrue/easy-sms": "^1.1",
         "predis/predis": "^1.1",
-        "torann/geoip": "^2.0",
+        "torann/geoip": "^1.0",
         "tymon/jwt-auth": "^1.0.0"
     },
     "require-dev": {

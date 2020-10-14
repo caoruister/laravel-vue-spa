@@ -44,6 +44,11 @@ class RiskController extends Controller
             ],
             'idCard' => 'nullable',
             'bankNum' => 'nullable'
+        ], [], [
+            'ip' => 'IP地址',
+            'phone' => '手机号码',
+            'idCard' => '身份证号码',
+            'bankNum' => '银行卡号码'
         ]);
     }
 

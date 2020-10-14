@@ -28,9 +28,9 @@
               <!-- ngIf: errors.length > 0 -->
               <div class="form-group">
                 <div class="col-sm-12">
-                  <v-button :loading="form.busy" class="btn btn-three btn-forgot pull-right">
+                  <button :loading="form.busy" class="btn btn-three btn-forgot pull-right">
                     发送重置链接
-                  </v-button>
+                  </button>
                 </div>
               </div>
             </form>

@@ -2,7 +2,7 @@
   <div class="container-fluid transparent signup">
     <div class="row">
       <div class="col-xs-12 ">
-        <div class="signup-block ng-scope" ng-controller="Authentication.Signup" ng-init="isClaimedRequest='ng-init'; claimedBusinessId='-1'">
+        <div class="signup-block">
           <div class="signup-form">
             <div class="logo">
               <router-link :to="{ name: 'welcome' }">
@@ -13,40 +13,37 @@
               请输入以下注册信息
             </div>
             <form class="form-horizontal" id="signupForm" name="signupForm" @submit.prevent="register" @keydown="form.onKeydown($event)" novalidate>
+              <alert-errors :form="form" :message="message" />
+
               <div class="form-group">
-                <div class="col-sm-12 label-text">用户名</div>
+                <div class="col-sm-12 label-text">手机号码</div>
                 <div class="col-sm-12">
-                  <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
-                  <has-error :form="form" field="name" />
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-12 label-text">邮箱</div>
-                <div class="col-sm-12">
-                  <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-                  <has-error :form="form" field="email" />
+                  <input v-model="form.phone" :class="{ 'error': form.errors.has('phone') }" class="form-control" type="text" name="phone">
+                  <has-error :form="form" field="phone" />
                 </div>
               </div>
               <div class="form-group last-group">
                 <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12 hover">
-                  <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
+                  <input v-model="form.password" :class="{ 'error': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
                 </div>
               </div>
-              <div class="form-group last-group">
-                <div class="col-sm-12 label-text">确认密码</div>
-                <div class="col-sm-12 hover">
-                  <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
-                  <has-error :form="form" field="password_confirmation" />
+              <div class="form-group">
+                <div class="col-sm-12 label-text">短信验证码</div>
+                <div class="col-sm-12 get-code-wrapper">
+                  <input v-model="form.verification_code" :class="{ 'error': form.errors.has('verification_code') }" class="form-control" type="text" name="verification_code">
+                  <a v-if="!sec" v-on:click="getCode" class="get-code">获取验证码</a>
+                  <a v-if="sec" class="get-code" disabled="true">重新获取 ({{sec}}s)</a>
+                  <has-error :form="form" field="verification_code" />
                 </div>
               </div>
 
               <div class="form-group no-margin-bottom">
                 <div class="col-sm-12">
-                  <v-button :loading="form.busy" class="btn btn-three btn-signup pull-right">
+                  <button class="btn btn-three btn-signup pull-right">
                     注册
-                  </v-button>
+                  </button>
                 </div>
               </div>
             </form>
@@ -79,12 +76,15 @@ export default {
   },
 
   data: () => ({
+    message: '',
     form: new Form({
-      name: '',
-      email: '',
+      phone: '',
       password: '',
-      password_confirmation: ''
+      verification_key: '',
+      verification_code: '',
     }),
+    sec: 0,
+    expired_at: '',
     mustVerifyEmail: false
   }),
 
@@ -92,6 +92,8 @@ export default {
     async register () {
       // Register the user.
       const { data } = await this.form.post('/api/register')
+
+      console.log(data)
 
       // Must verify email fist.
       if (data.status) {
@@ -109,7 +111,33 @@ export default {
         // Redirect home.
         this.$router.push({ name: 'home' })
       }
+    },
+
+    async getCode () {
+      const { data } = await this.form.post('/api/phone/verificationCodes')
+
+      this.sec = 100
+      this.form.verification_key = data.key;
+      this.expired_at = data.expired_at;
+
+      let _this = this;
+      let interval = setInterval(function () {
+        _this.sec--;
+        if (_this.sec == 0) {
+          clearInterval(interval)
+        }
+      }, 1000);
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+  .get-code {
+    position: absolute;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 52px;
+    top: 0;
+    right: 30px;
+  }
+</style>

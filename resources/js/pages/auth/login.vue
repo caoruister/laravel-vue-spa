@@ -14,24 +14,26 @@
             </div>
             <form class="form-horizontal" id="loginForm"
                   name="loginForm" @submit.prevent="login" @keydown="form.onKeydown($event)" novalidate>
+              <alert-errors :form="form" :message="message" />
+
               <div class="form-group">
-                <div class="col-sm-12 label-text">邮箱</div>
+                <div class="col-sm-12 label-text">手机号码</div>
                 <div class="col-sm-12">
-                  <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-                  <has-error :form="form" field="email" />
+                  <input v-model="form.phone" :class="{ 'error': form.errors.has('phone') }" class="form-control" type="text" name="phone">
+                  <has-error :form="form" field="phone" />
                 </div>
               </div>
               <div class="form-group last-group hidden-xs">
                 <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12">
-                  <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
+                  <input v-model="form.password" :class="{ 'error': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
                 </div>
               </div>
               <div class="form-group visible-xs">
                 <div class="col-sm-12 label-text">密码</div>
                 <div class="col-sm-12">
-                  <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
+                  <input v-model="form.password" :class="{ 'error': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
                 </div>
               </div>
@@ -48,9 +50,9 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-12">
-                  <v-button :loading="form.busy" class="btn btn-three btn-login pull-right">
+                  <button class="btn btn-three btn-login pull-right">
                     登录
-                  </v-button>
+                  </button>
                   <label v-bind:class="{'selected': remember}">
 <span class="custom-checkbox" v-bind:class="{'selected': remember}">
 <input type="checkbox" v-model="remember">
@@ -90,8 +92,9 @@ export default {
   },
 
   data: () => ({
+    message: '',
     form: new Form({
-      email: '',
+      phone: '',
       password: ''
     }),
     remember: true
@@ -101,6 +104,8 @@ export default {
     async login () {
       // Submit the form.
       const { data } = await this.form.post('/api/login')
+
+      this.message = data.message
 
       // Save the token.
       this.$store.dispatch('auth/saveToken', {
@@ -117,3 +122,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>
