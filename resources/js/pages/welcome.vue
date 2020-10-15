@@ -108,10 +108,10 @@
                        src="https://topvet.azureedge.net/PopularCities/united-states1.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">300W</div>
-                  <div class="count">+</div>
+                  <div class="name">300W+</div>
+                  <div class="count">代理/秒拨</div>
                 </div>
-                <div class="view-block">代理/秒拨</div>
+                <div class="view-block" v-if="false">代理/秒拨</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
@@ -120,10 +120,10 @@
                                         src="https://topvet.azureedge.net/PopularCities/united-states2.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">800,000</div>
-                  <div class="count">+</div>
+                  <div class="name">800,000+</div>
+                  <div class="count">接码手机号</div>
                 </div>
-                <div class="view-block">接码手机号</div>
+                <div class="view-block" v-if="false">接码手机号</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
@@ -132,10 +132,10 @@
                                         src="https://topvet.azureedge.net/PopularCities/united-states3.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">300,000</div>
-                  <div class="count">+</div>
+                  <div class="name">300,000+</div>
+                  <div class="count">羊毛党黑名单</div>
                 </div>
-                <div class="view-block">羊毛党黑名单</div>
+                <div class="view-block" v-if="false">羊毛党黑名单</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
@@ -144,10 +144,10 @@
                                         src="https://topvet.azureedge.net/PopularCities/united-states4.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">1000W</div>
-                  <div class="count">+</div>
+                  <div class="name">1000W+</div>
+                  <div class="count">物联网/虚商号</div>
                 </div>
-                <div class="view-block">物联网/虚商号</div>
+                <div class="view-block" v-if="false">物联网/虚商号</div>
               </div>
             </div>
           </div>
@@ -328,27 +328,36 @@ export default {
   .home-main h2 {
     font-weight: 100;
   }
+  .home-popular-cities {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   .home-popular-cities .popular-cities .popular-city .view-block {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    background-color: #ffb400;
-    color: #fff;
+    background-color: #fff;
+    color: #ffb400;
   }
   .home-popular-cities .subtitle {
-    color: #bac6cd;
+    font-weight: 100;
   }
-  .home-popular-cities .popular-cities .popular-city {
-    border: 1px solid #e3e7eb;
+  .home-popular-cities .popular-cities {
+    margin-top: 0;
+  }
+  .home-popular-cities .popular-cities .popular-city:hover {
+  }
+  .home-popular-cities .popular-cities .popular-city .city-block {
+    box-shadow: none;
   }
   .home-popular-cities .popular-cities .popular-city .city-block .name {
     font-size: 52px;
-    font-weight: 100;
+    font-weight: 200;
     color: #ffb400;
   }
   .home-popular-cities .popular-cities .popular-city .city-block .count {
-    font-size: 19px;
+    color: #000;
+    font-weight: 100;
   }
   .home-popular-cities .popular-cities .popular-city .view-block {
-    font-size: 19px;
   }
 </style>

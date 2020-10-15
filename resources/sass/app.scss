@@ -16169,26 +16169,27 @@ footer .logo2 {
 
 @media (min-width: 992px) {
   .home-popular-cities .popular-cities .popular-city:hover {
-    border-style: solid;
-    border-width: 1px;
-    border-color: #e5ecef;
-    border-radius: 4px;
-    box-shadow: 0 1px 20px 0 rgba(38, 50, 57, .2);
-    margin-top: -20px;
-    cursor: pointer
+    //border-style: solid;
+    //border-width: 1px;
+    //border-color: #e5ecef;
+    //border-radius: 4px;
+    //box-shadow: 0 1px 20px 0 rgba(38, 50, 57, .2);
+    //margin-top: -20px;
+    //cursor: pointer
+
   }
   .home-popular-cities .popular-cities .popular-city:hover .city-block {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0
+    //border-bottom-left-radius: 0;
+    //border-bottom-right-radius: 0
   }
   .home-popular-cities .popular-cities .popular-city:hover .view-block {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background-color: #ffb400;
-    color: #fff
+    //border-bottom-left-radius: 4px;
+    //border-bottom-right-radius: 4px;
+    //background-color: #ffb400;
+    //color: #fff
   }
   .home-popular-cities .popular-cities .popular-city:hover .view-block img {
-    display: initial
+    //display: initial
   }
 }
 
