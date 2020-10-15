@@ -89,11 +89,6 @@
 
     <div class="home-popular-cities">
       <div class="container">
-        <div class="row" v-if="false">
-          <div class="col-sm-12">
-            <div class="title">MOST</div>
-          </div>
-        </div>
         <div class="row">
           <div class="col-sm-12">
             <div class="subtitle">精准识别</div>
@@ -103,51 +98,34 @@
           <div class="row">
             <div class="col-sm-6 col-md-3">
               <div class="popular-city">
-                <div class="image">
-                  <img alt="" class="img-responsive"
-                       src="https://topvet.azureedge.net/PopularCities/united-states1.png" v-if="false">
-                </div>
                 <div class="city-block">
-                  <div class="name">300W+</div>
+                  <div class="name">300W<small>+</small></div>
                   <div class="count">代理/秒拨</div>
                 </div>
-                <div class="view-block" v-if="false">代理/秒拨</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="popular-city">
-                <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states2.png" v-if="false">
-                </div>
                 <div class="city-block">
-                  <div class="name">800,000+</div>
+                  <div class="name">800,000<small>+</small></div>
                   <div class="count">接码手机号</div>
                 </div>
-                <div class="view-block" v-if="false">接码手机号</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="popular-city">
-                <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states3.png" v-if="false">
-                </div>
                 <div class="city-block">
-                  <div class="name">300,000+</div>
+                  <div class="name">300,000<small>+</small></div>
                   <div class="count">羊毛党黑名单</div>
                 </div>
-                <div class="view-block" v-if="false">羊毛党黑名单</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
               <div class="popular-city">
-                <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states4.png" v-if="false">
-                </div>
                 <div class="city-block">
-                  <div class="name">1000W+</div>
+                  <div class="name">1000W<small>+</small></div>
                   <div class="count">物联网/虚商号</div>
                 </div>
-                <div class="view-block" v-if="false">物联网/虚商号</div>
               </div>
             </div>
           </div>
