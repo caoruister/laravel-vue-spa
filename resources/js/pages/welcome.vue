@@ -88,66 +88,66 @@
     </div>
 
     <div class="home-popular-cities">
-      <div class="container" v-if="false">
-        <div class="row">
+      <div class="container">
+        <div class="row" v-if="false">
           <div class="col-sm-12">
             <div class="title">MOST</div>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <div class="subtitle">Popular Cities</div>
+            <div class="subtitle">精准识别</div>
           </div>
         </div>
         <div class="popular-cities">
           <div class="row">
             <div class="col-sm-6 col-md-3">
-              <div class="popular-city" ng-click="openCity('/practices/united-states/new-york/new-york')">
-                <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states1.png">
+              <div class="popular-city">
+                <div class="image">
+                  <img alt="" class="img-responsive"
+                       src="https://topvet.azureedge.net/PopularCities/united-states1.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">New York</div>
-                  <div class="count">37</div>
+                  <div class="name">300W</div>
+                  <div class="count">+</div>
                 </div>
-                <div class="view-block">VIEW <i class="icon-next-arrow"></i></div>
+                <div class="view-block">代理/秒拨</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <div class="popular-city"
-                   ng-click="openCity('/practices/united-states/california/los-angeles')">
+              <div class="popular-city">
                 <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states2.png">
+                                        src="https://topvet.azureedge.net/PopularCities/united-states2.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">Los Angeles</div>
-                  <div class="count">35</div>
+                  <div class="name">800,000</div>
+                  <div class="count">+</div>
                 </div>
-                <div class="view-block">VIEW <i class="icon-next-arrow"></i></div>
+                <div class="view-block">接码手机号</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <div class="popular-city" ng-click="openCity('/practices/united-states/illinois/chicago')">
+              <div class="popular-city">
                 <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states3.png">
+                                        src="https://topvet.azureedge.net/PopularCities/united-states3.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">Chicago</div>
-                  <div class="count">63</div>
+                  <div class="name">300,000</div>
+                  <div class="count">+</div>
                 </div>
-                <div class="view-block">VIEW <i class="icon-next-arrow"></i></div>
+                <div class="view-block">羊毛党黑名单</div>
               </div>
             </div>
             <div class="col-sm-6 col-md-3">
-              <div class="popular-city" ng-click="openCity('/practices/united-states/texas/houston')">
+              <div class="popular-city">
                 <div class="image"><img alt="" class="img-responsive"
-                                        src="https://topvet.azureedge.net/PopularCities/united-states4.png">
+                                        src="https://topvet.azureedge.net/PopularCities/united-states4.png" v-if="false">
                 </div>
                 <div class="city-block">
-                  <div class="name">Houston</div>
-                  <div class="count">102</div>
+                  <div class="name">1000W</div>
+                  <div class="count">+</div>
                 </div>
-                <div class="view-block">VIEW <i class="icon-next-arrow"></i></div>
+                <div class="view-block">物联网/虚商号</div>
               </div>
             </div>
           </div>
@@ -327,5 +327,28 @@ export default {
   }
   .home-main h2 {
     font-weight: 100;
+  }
+  .home-popular-cities .popular-cities .popular-city .view-block {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #ffb400;
+    color: #fff;
+  }
+  .home-popular-cities .subtitle {
+    color: #bac6cd;
+  }
+  .home-popular-cities .popular-cities .popular-city {
+    border: 1px solid #e3e7eb;
+  }
+  .home-popular-cities .popular-cities .popular-city .city-block .name {
+    font-size: 52px;
+    font-weight: 100;
+    color: #ffb400;
+  }
+  .home-popular-cities .popular-cities .popular-city .city-block .count {
+    font-size: 19px;
+  }
+  .home-popular-cities .popular-cities .popular-city .view-block {
+    font-size: 19px;
   }
 </style>
