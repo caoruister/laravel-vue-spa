@@ -13,6 +13,7 @@
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "mews/captcha": "^3.2",
         "overtrue/easy-sms": "^1.1",
         "predis/predis": "^1.1",
         "torann/geoip": "^1.0",

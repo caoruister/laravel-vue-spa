@@ -44,7 +44,7 @@ Route::group(['middleware' => 'guest:api'], function () {
         ->name('verificationCodes.store');
 
     // 图片验证码
-    //Route::post('captchas', 'CaptchasController@store')->name('captchas.store');
+    Route::post('captchas', 'CaptchasController@store')->name('captchas.store');
 
     // 搜集IP
     Route::patch('/ads', 'IP\VPSController@ipGather');
