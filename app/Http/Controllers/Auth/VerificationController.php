@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -98,9 +99,32 @@ class VerificationController extends Controller
                 'regex:/^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/',
                 'unique:users',
             ],
+            'captcha_key' => 'required|string',
+            'captcha_code' => 'required|string',
         ], [], [
-            'phone' => '手机号码'
+            'phone' => '手机号码',
+            'captcha_key' => '图片验证码 key',
+            'captcha_code' => '图片验证码',
         ]);
+
+        $captchaData = Cache::get($request->captcha_key);
+
+        if (!$captchaData) {
+            //abort(403, '图片验证码已失效');
+            throw ValidationException::withMessages([
+                'captcha_code' => ['图片验证码已失效'],
+            ]);
+        }
+
+        if(!captcha_api_check($request->captcha_code, $captchaData['code'], 'flat'))
+        {
+            // 验证错误就清除缓存
+            Cache::forget($request->cache_key);
+            //throw new AuthenticationException('图片验证码错误');
+            throw ValidationException::withMessages([
+                'captcha_code' => ['图片验证码错误'],
+            ]);
+        }
 
         $phone = $request->phone;
 
@@ -127,6 +151,8 @@ class VerificationController extends Controller
         $expiredAt = now()->addMinutes(5);
         // 缓存验证码 5 分钟过期。
         Cache::put($key, ['phone' => $phone, 'code' => $code], $expiredAt);
+        // 清除图片验证码缓存
+        Cache::forget($request->captcha_key);
 
         return response()->json([
             'key' => $key,

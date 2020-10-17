@@ -15,7 +15,7 @@ class CaptchasController extends Controller
     {
         $this->validate($request, [
             'phone' => [
-                'required',
+                'nullable',
                 'regex:/^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/',
                 'unique:users',
             ],
@@ -33,7 +33,7 @@ class CaptchasController extends Controller
         $result = [
             'captcha_key' => $key,
             'expired_at' => $expiredAt->toDateTimeString(),
-            'captcha_image_content' => $captcha['img']
+            'captcha_img' => $captcha['img']
         ];
 
         return response()->json($result)->setStatusCode(201);

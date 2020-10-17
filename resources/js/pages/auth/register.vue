@@ -28,6 +28,14 @@
                 </div>
               </div>
               <div class="form-group">
+                <div class="col-sm-12 label-text">图形验证码</div>
+                <div class="col-sm-12 get-code-wrapper">
+                  <input v-model="form.captcha_code" :class="{ 'error': form.errors.has('captcha_code') }" class="form-control" type="text" name="captcha_code">
+                  <a class="get-code" v-on:click="getCaptchaImg"><img :src="captcha_img" title="点击更换验证码" alt="图片验证码"></a>
+                  <has-error :form="form" field="captcha_code" />
+                </div>
+              </div>
+              <div class="form-group">
                 <div class="col-sm-12 label-text">短信验证码</div>
                 <div class="col-sm-12 get-code-wrapper">
                   <input v-model="form.verification_code" :class="{ 'error': form.errors.has('verification_code') }" class="form-control" type="text" name="verification_code">
@@ -60,6 +68,7 @@
 
 <script>
 import Form from 'vform'
+import axios from 'axios'
 import LoginWithGithub from '~/components/LoginWithGithub'
 
 export default {
@@ -79,11 +88,18 @@ export default {
       password: '',
       verification_key: '',
       verification_code: '',
+      captcha_key: '',
+      captcha_code: ''
     }),
     sec: 0,
     expired_at: '',
+    captcha_img: '',
     mustVerifyEmail: false
   }),
+
+  created () {
+    this.getCaptchaImg()
+  },
 
   methods: {
     async register () {
@@ -108,20 +124,30 @@ export default {
       }
     },
 
+    async getCaptchaImg () {
+        const { data } = await axios.post(`/api/captchas`)
+
+        this.form.captcha_key = data.captcha_key
+        this.form.captcha_code = ''
+        this.captcha_img = data.captcha_img
+    },
+
     async getCode () {
-      const { data } = await this.form.post('/api/phone/verificationCodes')
+      let _this = this
+      await this.form.post('/api/phone/verificationCodes').then(({ data }) => {
+          _this.sec = 100
+          _this.form.verification_key = data.key
+          _this.expired_at = data.expired_at
 
-      this.sec = 100
-      this.form.verification_key = data.key;
-      this.expired_at = data.expired_at;
-
-      let _this = this;
-      let interval = setInterval(function () {
-        _this.sec--;
-        if (_this.sec == 0) {
-          clearInterval(interval)
-        }
-      }, 1000);
+          let interval = setInterval(function () {
+              _this.sec--
+              if (_this.sec === 0) {
+                  clearInterval(interval)
+              }
+          }, 1000)
+      }).catch(error => {
+          _this.getCaptchaImg()
+      })
     }
   }
 }
@@ -131,9 +157,15 @@ export default {
     position: absolute;
     text-decoration: none;
     cursor: pointer;
+    height: 52px;
     line-height: 52px;
     top: 0;
     right: 30px;
     color: #00a7f7;
+
+    img {
+      //height: 100%;
+      //vertical-align: inherit;
+    }
   }
 </style>

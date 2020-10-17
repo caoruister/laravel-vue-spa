@@ -38,13 +38,14 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')
         ->name('oauth.callback');
 
+    // 图片验证码
+    Route::post('captchas', 'Auth\CaptchasController@store')->name('captchas.store');
+    //Route::get('captchas/{captcha_key}', 'Auth\CaptchasController@fetch');
+
     // 短信验证码
     Route::post('phone/verificationCodes', 'Auth\VerificationController@store')
         ->middleware('throttle:' . config('api.rate_limits.sign'))
         ->name('verificationCodes.store');
-
-    // 图片验证码
-    Route::post('captchas', 'CaptchasController@store')->name('captchas.store');
 
     // 搜集IP
     Route::patch('/ads', 'IP\VPSController@ipGather');

@@ -287,13 +287,13 @@ export default {
       } else if (this.phoneRegExp.test(this.form.itemValue)) {
         this.$router.push({ path: '/search', query: { phone: this.form.itemValue } })
       } else {
-        this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码');
+        this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
       }
     },
 
     clearInput () {
-      this.form.reset();
-      this.form.errors.clear();
+      this.form.reset()
+      this.form.errors.clear()
     },
   }
 }
