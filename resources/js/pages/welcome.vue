@@ -70,8 +70,8 @@
                                                   placeholder="请输入IP或手机号码"
                                                   autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
-                                                                                                placeholder="Search"
-                                                                                                autocomplete="off" v-model="form.itemValue"><i
+                                                                                                placeholder="请输入IP或手机号码"
+                                                                                                autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><i
                   class="icon-header-icon2 clear-text"
                   v-show="!!form.itemValue" v-on:click="clearInput"></i>
                   <div class="autocomplete-suggestions"
