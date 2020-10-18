@@ -134,7 +134,7 @@ export default {
 
     async getCode () {
       let _this = this
-      await this.form.post('/api/phone/verificationCodes').then(({ data }) => {
+      await this.form.post('/api/register/verificationCodes').then(({ data }) => {
           _this.sec = 100
           _this.form.verification_key = data.key
           _this.expired_at = data.expired_at

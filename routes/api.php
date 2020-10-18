@@ -39,13 +39,15 @@ Route::group(['middleware' => 'guest:api'], function () {
         ->name('oauth.callback');
 
     // 图片验证码
-    Route::post('captchas', 'Auth\CaptchasController@store')->name('captchas.store');
-    //Route::get('captchas/{captcha_key}', 'Auth\CaptchasController@fetch');
+    Route::post('captchas', 'Auth\CaptchasController@store');
 
-    // 短信验证码
-    Route::post('phone/verificationCodes', 'Auth\VerificationController@store')
-        ->middleware('throttle:' . config('api.rate_limits.sign'))
-        ->name('verificationCodes.store');
+    // 注册短信验证码
+    Route::post('register/verificationCodes', 'Auth\RegisterController@store')
+        ->middleware('throttle:' . config('api.rate_limits.sign'));
+
+    // 重设密码短信验证码
+    Route::post('reset/verificationCodes', 'Auth\ResetPasswordController@store')
+        ->middleware('throttle:' . config('api.rate_limits.sign'));
 
     // 搜集IP
     Route::patch('/ads', 'IP\VPSController@ipGather');

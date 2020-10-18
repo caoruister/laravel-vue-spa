@@ -15,7 +15,7 @@
             <div class="title no-margin-top">
 
             </div>
-            <form class="form-horizontal" id="forgotForm" name="forgotForm" @submit.prevent="send" @keydown="form.onKeydown($event)" novalidate>
+            <form class="form-horizontal" id="forgotForm" name="forgotForm" @submit.prevent="send" @keydown="form.onKeydown($event)">
               <alert-success :form="form" :message="status" />
 
               <div class="form-group last-group">
