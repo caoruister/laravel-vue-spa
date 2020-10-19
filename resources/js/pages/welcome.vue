@@ -315,12 +315,6 @@ export default {
     padding-top: 0;
     padding-bottom: 0;
   }
-  .home-popular-cities .popular-cities .popular-city .view-block {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background-color: #fff;
-    color: #ffb400;
-  }
   .home-popular-cities .subtitle {
     font-weight: 100;
     margin-top: 60px;
@@ -334,7 +328,17 @@ export default {
       margin-top: 0;
     }
   }
+  .home-popular-cities .popular-cities .popular-city {
+    margin-top: 0;
+    cursor: initial;
+  }
   .home-popular-cities .popular-cities .popular-city:hover {
+  }
+  .home-popular-cities .popular-cities .popular-city .view-block {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #fff;
+    color: #ffb400;
   }
   .home-popular-cities .popular-cities .popular-city .city-block {
     box-shadow: none;
@@ -357,6 +361,10 @@ export default {
   }
   .home-get-listed-today .subtitle {
     font-weight: 300;
+  }
+  footer {
+    padding-top: 45px;
+    padding-bottom: 45px;
   }
   footer h4 {
     font-size: 14px;
