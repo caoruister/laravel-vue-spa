@@ -24,7 +24,7 @@
                       <button class="btn btn-three" style="margin-right: .5rem"
                               v-show="!advanced">查询
                       </button>
-                      <button class="btn btn-filter" type="button" v-show="!advanced"
+                      <button class="btn btn-more" type="button" v-show="!advanced"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
@@ -75,7 +75,7 @@
                   <div class="col-xs-12">
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
-                      <button class="btn btn-filter" type="button"
+                      <button class="btn btn-more" type="button"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
@@ -125,6 +125,50 @@
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    作弊黑名单
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">否</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    秒拨作弊
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">否</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    来自代理
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <a>查看</a>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    拨号VPS
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <a>查看</a>
                   </div>
                 </div>
               </div>
@@ -331,8 +375,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .icon-footer-arrow-up, .icon-footer-arrow-down {
-    margin-left: 2px;
+  .btn-more {
+    padding-top: 5px;
+    width: 117px;
+    height: 40px;
+    color: #8fa4af;
+    background-color: transparent;
+    border: 1px solid #e5ecef
+  }
+
+  @media (max-width: 767px) {
+    .btn-more {
+      width: 100%
+    }
+  }
+
+  .btn-more i[class^=icon-], .btn-more img {
+    margin-left: 4px;
+    margin-bottom: 4px
+  }
+
+  .btn-more i[class^=icon-].normal, .btn-more img.normal {
+    display: inline-block
+  }
+
+  .btn-more i[class^=icon-].hover, .btn-more img.hover {
+    display: none
   }
 
   .claim {

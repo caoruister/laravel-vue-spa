@@ -12,7 +12,7 @@
           </router-link>
         </div>
       </div>
-      <div class="tablet-menu-wrapper-outer">
+      <div class="tablet-menu-wrapper-outer" v-bind:class="{ 'shown': !collapsed }">
         <div class="tablet-menu-wrapper-inner">
           <div class="tablet-menu">
             <div class="row row-info">
@@ -24,7 +24,7 @@
                 <div class="email">{{user.email}}</div>
               </div>
             </div>
-            <div class="link-item feedback " onclick="_urq.push(['Feedback_Open']);">
+            <div class="link-item feedback ">
               <a href=""><i class="icon-feedback"></i>Send Feedback</a>
             </div>
             <div class="link-item intercom">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="collapse navbar-collapse authenticated" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse authenticated" v-bind:class="{'in' : !collapsed}" id="bs-example-navbar-collapse-1">
         <div class="mobile-menu">
           <div class="link-item intercom">
             <a href="mailto:jg6t4w18@incoming.intercom.io" class="intercom"><i class="icon-help"></i>Help</a>
@@ -61,7 +61,7 @@
                 </router-link>
               </li>
               <li class="line"></li>
-              <li class="feedback" onclick="_urq.push(['Feedback_Open']);"><a href=""><i class="icon-feedback normal"></i><i class="icon-feedback-hover hover"></i>反馈</a></li>
+              <li class="feedback"><a href=""><i class="icon-feedback normal"></i><i class="icon-feedback-hover hover"></i>反馈</a></li>
               <li class="intercom"><a href=""><i class="icon-help normal"></i><i class="icon-help-hover hover"></i>帮助</a></li>
               <li class="line"></li>
               <li><a class="logout" @click.prevent="logout"><i class="icon-header-icon6 normal"></i><i class="icon-header-icon6-hover hover"></i>登出</a></li>
@@ -87,7 +87,8 @@ export default {
   },
 
   data: () => ({
-    appName: window.config.appName
+    appName: window.config.appName,
+    collapsed: true,
   }),
 
   computed: mapGetters({

@@ -69,7 +69,7 @@
                       <button class="btn btn-three" style="margin-right: .5rem"
                               v-show="!advanced">查询
                       </button>
-                      <button class="btn btn-filter" type="button" v-show="!advanced"
+                      <button class="btn btn-more" type="button" v-show="!advanced"
                               v-on:click="advanced = !advanced">高级查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
@@ -120,8 +120,8 @@
                   <div class="col-xs-12">
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
-                      <button class="btn btn-filter" type="button"
-                              v-on:click="advanced = !advanced">高级查询 <i
+                      <button class="btn btn-more" type="button"
+                              v-on:click="advanced = !advanced">智能查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
                     </div>
@@ -170,6 +170,58 @@
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    作弊黑名单
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <router-link :to="{ name: 'login' }">
+                      请登录
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    秒拨作弊
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <router-link :to="{ name: 'login' }">
+                      请登录
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    来自代理
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <router-link :to="{ name: 'login' }">
+                      请登录
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    拨号VPS
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <router-link :to="{ name: 'login' }">
+                      请登录
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -300,85 +352,6 @@
         </div>
       </div>
     </div>
-
-    <div class="modal fade send-message-dialog ng-scope in" v-bind:class="{'in': showWrongInfoDialog}"
-         v-show="showWrongInfoDialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="row header">
-              <div class="col-xs-12">
-                <div class="left-block">Report Incorrect Information</div>
-                <div class="right-block" data-dismiss="modal" v-on:click="showWrongInfoDialog = false">close<i
-                  class="icon-contact-us-icon5"></i></div>
-              </div>
-            </div><!-- ngIf: business.claimedDate == undefined -->
-            <div class="row one flex-row ng-scope" ng-if="business.claimedDate == undefined">
-              <div class="col-sm-7">
-                <div class="to">Are you the owner?</div>
-              </div>
-              <div class="col-sm-5"><a class="btn btn-seven btn-block" href="/add-your-business/?id=36310"
-                                       ng-href="/add-your-business/?id=36310">CLAIM AND MANAGE YOUR BUSINESS PROFILE</a>
-              </div>
-            </div><!-- end ngIf: business.claimedDate == undefined -->
-            <form class="ng-pristine ng-valid">
-              <div class="row two">
-                <div class="col-sm-6">
-                  <div class="row">
-                    <div class="col-xs-12 label-text">YOUR NAME</div>
-                    <div class="col-xs-12"><input class="form-control ng-pristine ng-untouched ng-valid ng-empty"
-                                                  ng-class="{ 'error': name == '' &amp;&amp; sendClicked,'success': name != '' &amp;&amp; sendClicked }"
-                                                  ng-form-control=""
-                                                  ng-model="name"
-                                                  type="text"></div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="row two-two">
-                    <div class="col-xs-12 label-text">EMAIL</div>
-                    <div class="col-xs-12"><input class="form-control ng-pristine ng-untouched ng-valid ng-empty"
-                                                  ng-class="{ 'error': isEmailValid() == false &amp;&amp; sendClicked,'success': isEmailValid() != false &amp;&amp; sendClicked }"
-                                                  ng-form-control=""
-                                                  ng-model="email"
-                                                  type="text"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="row three">
-                <div class="col-xs-12 label-text">PHONE NUMBER</div>
-                <div class="col-xs-12"><input class="form-control ng-pristine ng-untouched ng-valid ng-empty"
-                                              ng-form-control=""
-                                              ng-model="phone" type="text"></div>
-              </div>
-              <div class="row five">
-                <div class="col-xs-12 label-text">WHAT IS WRONG</div>
-                <div class="col-xs-12"><textarea class="form-control ng-pristine ng-untouched ng-valid ng-empty"
-                                                 ng-class="{ 'error': message == '' &amp;&amp; sendClicked,'success': message != '' &amp;&amp; sendClicked }"
-                                                 ng-form-control=""
-                                                 ng-model="message"
-                                                 rows="6"></textarea></div>
-              </div>
-              <div class="row six">
-                <div class="col-xs-12 button-col">
-                  <button class="btn btn-three" ng-click="send()"
-                          ng-show="!isBusy &amp;&amp; !isError &amp;&amp; !isSuccess">SEND<i class="icon-send-icon"></i>
-                  </button>
-                  <button class="btn btn-three loading ng-hide"
-                          ng-show="isBusy &amp;&amp; !isError &amp;&amp; !isSuccess">SENDING ...
-                  </button>
-                  <button class="btn btn-three success ng-hide"
-                          ng-show="!isBusy &amp;&amp; !isError &amp;&amp; isSuccess">SENT<i
-                    class="icon-booking-icon7"></i></button>
-                  <button class="btn btn-three error ng-hide"
-                          ng-show="!isBusy &amp;&amp; isError &amp;&amp; !isSuccess">MESSAGE NOT SENT<i
-                    class="icon-contact-us-icon5"></i></button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -425,7 +398,9 @@
     },
 
     metaInfo() {
-      return {title: this.$t('home')}
+      return {
+        title: this.$t('search')
+      }
     },
 
     data: () => ({
@@ -495,8 +470,32 @@
 </script>
 
 <style lang="scss" scoped>
-  .icon-footer-arrow-up, .icon-footer-arrow-down {
-    margin-left: 2px;
+  .btn-more {
+    padding-top: 5px;
+    width: 117px;
+    height: 40px;
+    color: #8fa4af;
+    background-color: transparent;
+    border: 1px solid #e5ecef
+  }
+
+  @media (max-width: 767px) {
+    .btn-more {
+      width: 100%
+    }
+  }
+
+  .btn-more i[class^=icon-], .btn-more img {
+    margin-left: 4px;
+    margin-bottom: 4px
+  }
+
+  .btn-more i[class^=icon-].normal, .btn-more img.normal {
+    display: inline-block
+  }
+
+  .btn-more i[class^=icon-].hover, .btn-more img.hover {
+    display: none
   }
 
   .claim {
