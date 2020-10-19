@@ -96,7 +96,7 @@ class ResetPasswordController extends Controller
 
             try {
                 $result = $easySms->send($phone, [
-                    'template' => config('easysms.gateways.aliyun.templates.register'),
+                    'template' => config('easysms.gateways.aliyun.templates.reset'),
                     'data' => [
                         'code' => $code
                     ],

@@ -25,6 +25,7 @@ return [
             'sign_name' => '太乙风控',
             'templates' => [
                 'register' => env('SMS_ALIYUN_TEMPLATE_REGISTER'),
+                'reset' => env('SMS_ALIYUN_TEMPLATE_RESET'),
             ]
         ],
     ],
