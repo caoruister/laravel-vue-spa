@@ -12,7 +12,9 @@ $config = [
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <meta name="keywords" content="羊毛,反羊毛,羊毛识别,风险识别,风控,接码,代理识别,拨号VPS">
   <title>{{ config('app.name') }}</title>
+  <meta name="description" content="专业反羊毛解决方案">
 
   <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
 </head>

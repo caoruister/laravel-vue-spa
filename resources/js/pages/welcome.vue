@@ -34,21 +34,21 @@
       <div class="background-item background1" v-bind:class="{active: step == 0}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>全面感知灰色产业态势</h1></div>
+            <div class="col-sm-12 item"><h1>全面感知灰产态势</h1></div>
           </div>
         </div>
       </div>
       <div class="background-item background2" v-bind:class="{active: step == 1}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>识别羊毛 易如反掌</h1></div>
+            <div class="col-sm-12 item"><h1>识别羊毛易如反掌</h1></div>
           </div>
         </div>
       </div>
       <div class="background-item background3" v-bind:class="{active: step == 2}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>智能交叉分析算法</h1></div>
+            <div class="col-sm-12 item"><h1>智能分析算法</h1></div>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12 item">
-              <h2 v-show="step == 0">机房跳板 代理拨号 接码卡池实时检测</h2>
-              <h2 v-show="step == 1">无需专业知识 不改变工作流程 支持批量查询</h2>
-              <h2 v-show="step == 2">既不错杀一千 也不放过一个</h2>
+              <h2 v-show="step == 0">机房跳板代理拨号接码卡池实时检测</h2>
+              <h2 v-show="step == 1">无需专业知识不改变工作流程支持批量查询</h2>
+              <h2 v-show="step == 2">既不错杀一千也不放过一个</h2>
               <h2 class="no-margin-top hidden">Find yours today</h2>
             </div>
           </div>
@@ -100,7 +100,7 @@
               <div class="popular-city">
                 <div class="city-block">
                   <div class="name">300W<small>+</small></div>
-                  <div class="count">代理/秒拨</div>
+                  <div class="count">代理·秒拨</div>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
               <div class="popular-city">
                 <div class="city-block">
                   <div class="name">1000W<small>+</small></div>
-                  <div class="count">物联网/虚商号</div>
+                  <div class="count">物联网·虚商号</div>
                 </div>
               </div>
             </div>
@@ -301,10 +301,10 @@ export default {
 
 <style scoped>
   .home-main h1 {
-    font-weight: 100;
+    font-weight: 320;
   }
   .home-main h2 {
-    font-weight: 100;
+    font-weight: 320;
   }
   .home-popular-cities {
     padding-top: 0;
@@ -318,6 +318,7 @@ export default {
   }
   .home-popular-cities .subtitle {
     font-weight: 100;
+    margin-top: 60px;
   }
   .home-popular-cities .popular-cities {
     margin-top: 0;
@@ -326,6 +327,8 @@ export default {
   }
   .home-popular-cities .popular-cities .popular-city .city-block {
     box-shadow: none;
+    padding-bottom: 30px;
+    padding-top: 30px;
   }
   .home-popular-cities .popular-cities .popular-city .city-block .name {
     font-size: 52px;
