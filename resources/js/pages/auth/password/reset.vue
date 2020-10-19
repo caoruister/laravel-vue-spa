@@ -10,9 +10,6 @@
               </router-link>
             </div>
             <div class="title no-margin-bottom">
-              请输入以下重置信息
-            </div>
-            <div class="title no-margin-top">
             </div>
             <form class="form-horizontal" id="resetForm" name="resetForm" @submit.prevent="reset" @keydown="form.onKeydown($event)">
               <alert-success :form="form" :message="status" v-if="status"/>
