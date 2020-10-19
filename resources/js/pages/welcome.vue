@@ -262,7 +262,9 @@ export default {
   },
 
   metaInfo () {
-    return { title: this.$t('home') }
+    return {
+      titleTemplate: null
+    }
   },
 
   data: () => ({
@@ -301,10 +303,13 @@ export default {
 
 <style scoped>
   .home-main h1 {
-    font-weight: 320;
+    font-weight: 300;
   }
   .home-main h2 {
-    font-weight: 320;
+    font-weight: 300;
+  }
+  .home-main .form-inline {
+    margin-top: 40px;
   }
   .home-popular-cities {
     padding-top: 0;
@@ -322,6 +327,12 @@ export default {
   }
   .home-popular-cities .popular-cities {
     margin-top: 0;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 991px) {
+    .home-popular-cities .popular-cities .popular-city {
+      margin-top: 0;
+    }
   }
   .home-popular-cities .popular-cities .popular-city:hover {
   }
@@ -340,5 +351,14 @@ export default {
     font-weight: 100;
   }
   .home-popular-cities .popular-cities .popular-city .view-block {
+  }
+  .home-get-listed-today .title {
+    font-weight: 300;
+  }
+  .home-get-listed-today .subtitle {
+    font-weight: 300;
+  }
+  footer h4 {
+    font-size: 14px;
   }
 </style>
