@@ -177,11 +177,11 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    作弊黑名单
+                    黑名单
                   </div>
                   <div class="col-xs-7 time-text">
                     <router-link :to="{ name: 'login' }">
-                      请登录
+                      登录后查看
                     </router-link>
                   </div>
                 </div>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-xs-7 time-text">
                     <router-link :to="{ name: 'login' }">
-                      请登录
+                      登录后查看
                     </router-link>
                   </div>
                 </div>
@@ -207,7 +207,7 @@
                   </div>
                   <div class="col-xs-7 time-text">
                     <router-link :to="{ name: 'login' }">
-                      请登录
+                      登录后查看
                     </router-link>
                   </div>
                 </div>
@@ -220,7 +220,7 @@
                   </div>
                   <div class="col-xs-7 time-text">
                     <router-link :to="{ name: 'login' }">
-                      请登录
+                      登录后查看
                     </router-link>
                   </div>
                 </div>

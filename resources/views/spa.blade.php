@@ -10,7 +10,7 @@ $config = [
 <html lang="{{ app()->getLocale() }}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 
   <meta name="keywords" content="羊毛,反羊毛,羊毛识别,风险识别,风控,接码,代理识别,拨号VPS">
   <title>{{ config('app.name') }}</title>
