@@ -4,8 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-no-padding">
-            <div class="claim__block main-block"
-                 ng-class="{'no-padding-bottom': !isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0 &amp;&amp; page < pages}">
+            <div class="claim__block main-block">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
                 <div class="row">
                   <div class="col-xs-12">

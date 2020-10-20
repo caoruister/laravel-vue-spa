@@ -24,7 +24,7 @@
                 <div class="email">{{user.phone}}</div>
               </div>
             </div>
-            <div class="link-item">
+            <div class="link-item" @click.prevent="collapsed = true">
               <router-link :to="{ name: 'settings.profile' }">
                 <i class="icon-header-icon5"></i>个人设置
               </router-link>
@@ -43,7 +43,7 @@
       </div>
       <div class="collapse navbar-collapse authenticated" id="bs-example-navbar-collapse-1">
         <div class="mobile-menu">
-          <div class="link-item">
+          <div class="link-item" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <router-link :to="{ name: 'settings.profile' }">
               <i class="icon-header-icon5"></i>个人设置
             </router-link>
