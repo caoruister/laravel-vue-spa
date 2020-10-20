@@ -8,17 +8,10 @@
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
                 <div class="row">
                   <div class="col-xs-12">
-                    <div class="title">
-                      按提示输入详细信息
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.ip"
-                             :class="{ 'is-invalid': form.errors.has('ip') }" placeholder="请输入IP地址">
-                      <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
+                             :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
+                      <input class="form-control visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
 
                       <button class="btn btn-three" style="margin-right: .5rem"
                               v-show="!advanced">查询
@@ -120,7 +113,7 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    风险提示
+                    网络类型
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
@@ -190,7 +183,7 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    基础信息
+                    归属地区
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.carrier}}</div>
@@ -201,10 +194,36 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    风险提示
+                    卡号类型
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.type}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    黑名单
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">
+                      <a>查看</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    来自接码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">
+                      <a>查看</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -384,8 +403,8 @@ export default {
   }
 
   @media (max-width: 767px) {
-    .btn-more {
-      width: 100%
+    .btn-more, .btn-three {
+      width: 100% !important;
     }
   }
 
