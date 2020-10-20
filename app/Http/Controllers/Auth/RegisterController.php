@@ -78,7 +78,7 @@ class RegisterController extends Controller
         if (!$verifyData) {
             //abort(403, '验证码已失效');
             throw ValidationException::withMessages([
-                'verification_code' => ['验证码已失效'],
+                'verification_code' => ['短信验证码已失效'],
             ]);
         }
 
@@ -86,7 +86,7 @@ class RegisterController extends Controller
             // 返回401
             //throw new AuthenticationException('验证码错误');
             throw ValidationException::withMessages([
-                'verification_code' => ['验证码错误'],
+                'verification_code' => ['短信验证码错误'],
             ]);
         }
 

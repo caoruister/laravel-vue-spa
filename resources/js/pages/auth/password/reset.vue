@@ -2,7 +2,7 @@
   <div class="container-fluid transparent signup">
     <div class="row">
       <div class="col-xs-12">
-        <div class="signup-block">
+        <div class="signup-block" v-show="!passwordReseted">
           <div class="signup-form">
             <div class="logo">
               <router-link :to="{ name: 'welcome' }">
@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div class="form-group last-group">
-                <div class="col-sm-12 label-text">密码</div>
+                <div class="col-sm-12 label-text">输入新密码</div>
                 <div class="col-sm-12 hover">
                   <input v-model="form.password" :class="{ 'error': form.errors.has('password') }" class="form-control" type="password" name="password">
                   <has-error :form="form" field="password" />
@@ -69,6 +69,18 @@
             </div>
           </div>
         </div>
+        <div class="confirmation-sent" v-show="passwordReseted">
+          <div class="icon">
+            <i class="icon-auth-icon4"></i>
+          </div>
+          <div class="title1 hidden">Thanks!</div>
+          <div class="title2">
+            重置密码成功，请重新登陆
+          </div>
+          <router-link :to="{ name: 'login' }" class="btn btn-three">
+            返回登录
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -98,6 +110,7 @@
             sec: 0,
             expired_at: '',
             captcha_img: '',
+            passwordReseted: false,
         }),
 
         created() {
@@ -109,8 +122,8 @@
                 const {data} = await this.form.post('/api/password/reset')
 
                 this.status = data.status
-
                 this.form.reset()
+                this.passwordReseted = true
             },
 
             async getCaptchaImg () {

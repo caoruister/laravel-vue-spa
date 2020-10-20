@@ -38,6 +38,11 @@
               <div class="row last-group visible-xs">
                 <div class="col-sm-12">
                   <div class="sign-in no-margin-bottom no-margin-top">
+                    <div class="pull-left">
+                      <router-link :to="{ name: 'register' }">
+                        新用户注册
+                      </router-link>
+                    </div>
                     <div class="pull-right">
                       <router-link :to="{ name: 'password.request' }">
                         忘记密码
@@ -62,6 +67,11 @@
             </form>
           </div>
           <div class="sign-in hidden-xs">
+            <div class="left-block">
+              <router-link :to="{ name: 'register' }">
+                新用户注册
+              </router-link>
+            </div>
             <div class="right-block">
               <router-link :to="{ name: 'password.request' }">
                 忘记密码

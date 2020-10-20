@@ -1,16 +1,11 @@
 <template>
   <div>
     <nav class="navbar navbar-default navbar-main navbar-fixed-top">
-      <div class="container-fluid container-search-results">
+      <div class="container-fluid">
         <div class="navbar-header client-header" v-bind:class="{'search-toggled': searchToggled}">
           <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
                   type="button"><i class="icon-header-icon3 open-icon"></i><i
             class="icon-header-icon2 close-icon"></i></button>
-          <div class="screen-link toggle-link">
-            <div><i class="icon-search" v-on:click="searchToggled = true"></i><i class="icon-header-icon2"
-                                                                                 v-on:click="searchToggled = false"></i>
-            </div>
-          </div>
           <router-link :to="{ name: 'welcome' }" class="navbar-brand logo-navbar-brand">
             <i class="icon-logo5"></i>
           </router-link>
@@ -52,13 +47,6 @@
             <div class="claim__block main-block"
                  ng-class="{'no-padding-bottom': !isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0 &amp;&amp; page < pages}">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="title">
-                      按提示输入详细信息
-                    </div>
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col-xs-12">
                     <div class="search-block">
@@ -166,7 +154,7 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    风险提示
+                    网络类型
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
@@ -244,7 +232,7 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    基础信息
+                    归属地区
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.carrier}}</div>
@@ -255,10 +243,40 @@
                 <div class="row">
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
-                    风险提示
+                    卡号类型
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.type}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    黑名单
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">
+                      <router-link :to="{ name: 'login' }">
+                        登录后查看
+                      </router-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    <div class="circle"></div>
+                    来自接码
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">
+                      <router-link :to="{ name: 'login' }">
+                        登录后查看
+                      </router-link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -385,12 +403,10 @@
     },
 
     beforeRouteLeave(to, from, next) {
-      document.body.className = ''
       next()
     },
 
     created() {
-      document.body.className += ' public-page-top'
       this.form.ip = this.$route.query.ip
       this.form.phone = this.$route.query.phone
       this.form.idCard = this.$route.query.idCard
@@ -480,8 +496,8 @@
   }
 
   @media (max-width: 767px) {
-    .btn-more {
-      width: 100%
+    .btn-more, .btn-three {
+      width: 100% !important;
     }
   }
 
@@ -499,7 +515,7 @@
   }
 
   .claim {
-    padding: 40px 0 0;
+    padding: 80px 0 0;
   }
 
   .justify-content-flex-end {

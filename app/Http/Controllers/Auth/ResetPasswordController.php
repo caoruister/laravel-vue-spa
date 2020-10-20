@@ -126,19 +126,23 @@ class ResetPasswordController extends Controller
             'password' => 'required|min:6',
             'verification_key' => 'nullable|string',
             'verification_code' => 'required|string',
+        ], [], [
+            'password' => '新密码',
+            'verification_key' => '短信验证码 key',
+            'verification_code' => '短信验证码',
         ]);
 
         $verifyData = Cache::get($request->verification_key);
 
         if (!$verifyData) {
             throw ValidationException::withMessages([
-                'verification_code' => ['验证码已失效'],
+                'verification_code' => ['短信验证码已失效'],
             ]);
         }
 
         if (!hash_equals($verifyData['code'], $request->verification_code)) {
             throw ValidationException::withMessages([
-                'verification_code' => ['验证码错误'],
+                'verification_code' => ['短信验证码错误'],
             ]);
         }
 
