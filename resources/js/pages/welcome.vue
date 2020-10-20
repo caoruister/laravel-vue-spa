@@ -74,8 +74,6 @@
                                                                                                 autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><i
                   class="icon-header-icon2 clear-text"
                   v-show="!!form.itemValue" v-on:click="clearInput"></i>
-                  <div class="autocomplete-suggestions"
-                       style="position: absolute; display: none; max-height: 300px; z-index: 9999;"></div>
                 </div>
                 <button type="submit" class="btn btn-three not-mobile">查询</button>
                 <button type="submit" class="btn btn-three mobile"><i
