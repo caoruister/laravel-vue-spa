@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-default navbar-main navbar-fixed-top">
       <div class="container-fluid">
-        <div class="navbar-header client-header" v-bind:class="{'search-toggled': searchToggled}">
+        <div class="navbar-header client-header">
           <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse"
                   type="button"><i class="icon-header-icon3 open-icon"></i><i
             class="icon-header-icon2 close-icon"></i></button>
@@ -14,15 +14,6 @@
           </router-link>
         </div>
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
-          <ul class="nav navbar-nav navbar-left hidden">
-            <li class="no-padding-top"><input autocomplete="off"
-                                              class="form-control search-input"
-                                              placeholder="Search by Name or Location" type="text"
-                                              v-model="itemValue"><i
-              class="icon-header-icon2 clear-text"
-              v-on:click="itemValue = ''" v-show="!!itemValue"></i>
-            </li>
-          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="link-item visible-xs"><a href="/"><i class="icon-home"></i>首页</a></li>
             <li>
@@ -44,23 +35,26 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-no-padding">
-            <div class="claim__block main-block"
-                 ng-class="{'no-padding-bottom': !isBusy &amp;&amp; searchFinished &amp;&amp; items.length > 0 &amp;&amp; page < pages}">
+            <div class="claim__block main-block">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
-                <div class="row">
+                <div class="row" v-show="!advanced">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.itemValue"
+                             :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址或手机号码">
+                      <input class="form-control visible-xs" type="text" v-model="form.itemValue" placeholder="请输入IP地址或手机号码">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="itemValue" />
+                  </div>
+                </div>
+                <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.ip"
                              :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
                       <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
-
-                      <button class="btn btn-three" style="margin-right: .5rem"
-                              v-show="!advanced">查询
-                      </button>
-                      <button class="btn btn-more" type="button" v-show="!advanced"
-                              v-on:click="advanced = !advanced">高级查询 <i
-                        v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
-                      </button>
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -105,11 +99,13 @@
                   <div class="col-xs-12">
                     <has-error :form="form" field="idCard" />
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-xs-12">
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
                       <button class="btn btn-more" type="button"
-                              v-on:click="advanced = !advanced">智能查询 <i
+                              v-on:click="toggleAdvance">智能查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
                     </div>
@@ -385,6 +381,12 @@
 
     middleware: 'guest',
 
+    metaInfo() {
+      return {
+        title: this.$t('search')
+      }
+    },
+
     async beforeRouteEnter(to, from, next) {
       try {
         const {data} = await axios.post(`/api/risk/check?${qs(to.query)}`)
@@ -407,28 +409,23 @@
     },
 
     created() {
+      this.form.itemValue = this.$route.query.ip || this.$route.query.phone
       this.form.ip = this.$route.query.ip
       this.form.phone = this.$route.query.phone
       this.form.idCard = this.$route.query.idCard
       this.form.bankNum = this.$route.query.bankNum
     },
 
-    metaInfo() {
-      return {
-        title: this.$t('search')
-      }
-    },
-
     data: () => ({
       title: window.config.appName,
-      searchToggled: false,
+      ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
+      phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
       ipData: null,
       phoneData: null,
       idCardData: null,
       bankNumData: null,
       itemValue: null,
-      showWrongInfoDialog: false,
-      advanced: true,
+      advanced: false,
       form: new Form({
         ip: null,
         phone: null,
@@ -452,6 +449,18 @@
 
     methods: {
       async search() {
+
+        if (!this.advanced) {
+          if(this.ipRegExp.test(this.form.itemValue)){
+            this.form.ip = this.form.itemValue
+          } else if (this.phoneRegExp.test(this.form.itemValue)) {
+            this.form.phone = this.form.itemValue
+          } else {
+            this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
+            return
+          }
+        }
+
         const {data} = await this.form.post('/api/risk/check');
 
         this.ipData = data.ipData
@@ -470,6 +479,10 @@
         if (this.form.bankNum) query.bankNum = this.form.bankNum
 
         this.$router.push({path: '/search', query: query})
+      },
+
+      toggleAdvance() {
+        this.advanced = !this.advanced
       },
 
       async fetchData() {
@@ -492,7 +505,8 @@
     height: 40px;
     color: #8fa4af;
     background-color: transparent;
-    border: 1px solid #e5ecef
+    border: 1px solid #e5ecef;
+    font-size: 12px;
   }
 
   @media (max-width: 767px) {

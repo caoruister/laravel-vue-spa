@@ -67,10 +67,10 @@
               <form class="form-inline" method="get" @submit.prevent="search" @keydown="form.onKeydown($event)" novalidate>
                 <div class="input-wrapper"><input type="text"
                                                   class="search-input form-control not-mobile"
-                                                  placeholder="请输入IP或手机号码"
+                                                  placeholder="请输入IP地址或手机号码"
                                                   autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><input type="text"
                                                                                                 class="search-input form-control mobile"
-                                                                                                placeholder="请输入IP或手机号码"
+                                                                                                placeholder="请输入IP地址或手机号码"
                                                                                                 autocomplete="off" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }"><i
                   class="icon-header-icon2 clear-text"
                   v-show="!!form.itemValue" v-on:click="clearInput"></i>
@@ -282,10 +282,11 @@ export default {
 
   methods: {
     search () {
+      let path = this.authenticated ? '/home' : '/search'
       if(this.ipRegExp.test(this.form.itemValue)){
-        this.$router.push({ path: '/search', query: { ip: this.form.itemValue } })
+        this.$router.push({ path: path, query: { ip: this.form.itemValue } })
       } else if (this.phoneRegExp.test(this.form.itemValue)) {
-        this.$router.push({ path: '/search', query: { phone: this.form.itemValue } })
+        this.$router.push({ path: path, query: { phone: this.form.itemValue } })
       } else {
         this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
       }

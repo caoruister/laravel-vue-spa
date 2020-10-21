@@ -6,20 +6,24 @@
           <div class="col-xs-12 col-no-padding">
             <div class="claim__block main-block">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
-                <div class="row">
+                <div class="row" v-show="!advanced">
+                  <div class="col-xs-12">
+                    <div class="search-block">
+                      <input class="form-control hidden-xs" type="text" v-model="form.itemValue"
+                             :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址或手机号码">
+                      <input class="form-control visible-xs" type="text" v-model="form.itemValue" placeholder="请输入IP地址或手机号码">
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <has-error :form="form" field="itemValue" />
+                  </div>
+                </div>
+                <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.ip"
                              :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
-                      <input class="form-control visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
-
-                      <button class="btn btn-three" style="margin-right: .5rem"
-                              v-show="!advanced">查询
-                      </button>
-                      <button class="btn btn-more" type="button" v-show="!advanced"
-                              v-on:click="advanced = !advanced">高级查询 <i
-                        v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
-                      </button>
+                      <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -64,11 +68,13 @@
                   <div class="col-xs-12">
                     <has-error :form="form" field="idCard" />
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-xs-12">
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
                       <button class="btn btn-more" type="button"
-                              v-on:click="advanced = !advanced">智能查询 <i
+                              v-on:click="toggleAdvance">智能查询 <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
                     </div>
@@ -149,7 +155,7 @@
                     来自代理
                   </div>
                   <div class="col-xs-7 time-text">
-                    <a>查看</a>
+                    <a v-on:click="isOpened = true" data-toggle="modal" data-target="#confirm_modal">查看</a>
                   </div>
                 </div>
               </div>
@@ -317,14 +323,47 @@
         </div>
       </div>
     </div>
-  </div>
 
+    <div id="confirm_modal" class="modal fade results-dialog" v-bind:class="{'in' : isOpened}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="confirmation-sent">
+                  <div class="icon">
+                    <i class="icon-garbage"></i>
+                  </div>
+                  <div class="title1"></div>
+                  <div class="title2">
+                    Are you sure you want to delete this location?
+                  </div>
+                  <div class="row delete-confirmation">
+                    <div class="col-xs-6 no-padding-right">
+                      <button type="button" class="btn btn-six btn-block" data-dismiss="modal" v-on:click="isOpened = false">NO</button>
+                    </div>
+                    <div class="col-xs-6 no-padding-left">
+                      <button type="button" class="btn btn-three btn-block" ng-click="delete()">YES</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-backdrop fade in" v-if="isOpened"></div>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Form from "vform";
 import axios from "axios";
+
+const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
 export default {
   middleware: 'auth',
@@ -333,24 +372,53 @@ export default {
     return { title: this.$t('home') }
   },
 
-  created () {
+  async beforeRouteEnter(to, from, next) {
+    try {
+      const {data} = await axios.post(`/api/risk/check?${qs(to.query)}`)
+
+      next(vm => {
+        vm.ipData = data.ipData
+        vm.phoneData = data.phoneData
+        vm.idCardData = data.idCardData
+        vm.bankNumData = data.bankNumData
+      })
+    } catch (e) {
+      console.log(e)
+      next(vm => {
+        vm.error = e.response.data
+      })
+    }
+  },
+
+  beforeRouteLeave(to, from, next) {
+    next()
+  },
+
+  created() {
+    this.form.itemValue = this.$route.query.ip || this.$route.query.phone
     this.form.ip = this.$route.query.ip
+    this.form.phone = this.$route.query.phone
+    this.form.idCard = this.$route.query.idCard
+    this.form.bankNum = this.$route.query.bankNum
   },
 
   data: () => ({
     title: window.config.appName,
-    searchToggled: false,
+    ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
+    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
     ipData: null,
     phoneData: null,
     idCardData: null,
     bankNumData: null,
-    advanced: true,
+    itemValue: null,
+    advanced: false,
     form: new Form({
       ip: null,
       phone: null,
       idCard: null,
       bankNum: null
     }),
+    isOpened: false,
     error: ''
   }),
 
@@ -369,6 +437,17 @@ export default {
 
   methods: {
     async search() {
+      if (!this.advanced) {
+        if(this.ipRegExp.test(this.form.itemValue)){
+          this.form.ip = this.form.itemValue
+        } else if (this.phoneRegExp.test(this.form.itemValue)) {
+          this.form.phone = this.form.itemValue
+        } else {
+          this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
+          return
+        }
+      }
+
       const {data} = await this.form.post('/api/risk/check');
 
       this.ipData = data.ipData
@@ -386,7 +465,11 @@ export default {
       if (this.form.idCard) query.idCard = this.form.idCard
       if (this.form.bankNum) query.bankNum = this.form.bankNum
 
-      this.$router.push({path: '/search', query: query})
+      this.$router.push({path: '/home', query: query})
+    },
+
+    toggleAdvance() {
+      this.advanced = !this.advanced
     },
   },
 }
@@ -399,7 +482,8 @@ export default {
     height: 40px;
     color: #8fa4af;
     background-color: transparent;
-    border: 1px solid #e5ecef
+    border: 1px solid #e5ecef;
+    font-size: 12px;
   }
 
   @media (max-width: 767px) {
@@ -442,5 +526,9 @@ export default {
     .business .business-main-block .info-block.hours-info {
       margin-top: 18px;
     }
+  }
+
+  .modal-open .modal {
+    display: block;
   }
 </style>
