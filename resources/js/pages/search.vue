@@ -37,11 +37,12 @@
           <div class="col-xs-12 col-no-padding">
             <div class="claim__block main-block">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
+
                 <div class="row" v-show="!advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.itemValue"
-                             :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址或手机号码">
+                             :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
                       <input class="form-control visible-xs" type="text" v-model="form.itemValue" placeholder="请输入IP地址或手机号码">
                     </div>
                   </div>
@@ -54,7 +55,7 @@
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="form.ip"
                              :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
-                      <input class="form-control visible-xs" type="text" v-model="form.ip" placeholder="IP">
+                      <input class="form-control visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -409,7 +410,7 @@
     },
 
     created() {
-      this.form.itemValue = this.$route.query.ip || this.$route.query.phone
+      this.itemValue = this.$route.query.ip || this.$route.query.phone
       this.form.ip = this.$route.query.ip
       this.form.phone = this.$route.query.phone
       this.form.idCard = this.$route.query.idCard
@@ -432,7 +433,6 @@
         idCard: null,
         bankNum: null
       }),
-      error: ''
     }),
 
     computed: {
@@ -449,16 +449,21 @@
 
     methods: {
       async search() {
-
+        //智能查询处理
         if (!this.advanced) {
-          if(this.ipRegExp.test(this.form.itemValue)){
-            this.form.ip = this.form.itemValue
-          } else if (this.phoneRegExp.test(this.form.itemValue)) {
-            this.form.phone = this.form.itemValue
+          if(this.ipRegExp.test(this.itemValue)){
+            this.form.ip = this.itemValue
+          } else if (this.phoneRegExp.test(this.itemValue)) {
+            this.form.phone = this.itemValue
           } else {
             this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
             return
           }
+        }
+
+        //非空校验
+        if (!this.form.ip && !this.form.phone && !this.form.idCard && !this.form.bankNum) {
+          //todo
         }
 
         const {data} = await this.form.post('/api/risk/check');
