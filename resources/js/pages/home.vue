@@ -9,9 +9,9 @@
                 <div class="row" v-show="!advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <input class="form-control hidden-xs" type="text" v-model="form.itemValue"
+                      <input class="form-control hidden-xs" type="text" v-model="itemValue"
                              :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
-                      <input class="form-control visible-xs" type="text" v-model="form.itemValue" :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
+                      <input class="form-control visible-xs" type="text" v-model="itemValue" :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
                     </div>
                   </div>
                   <div class="col-xs-12">
