@@ -106,7 +106,7 @@
                     <div class="search-block justify-content-flex-end">
                       <button class="btn btn-three" style="margin-right: .5rem">查询</button>
                       <button class="btn btn-more" type="button"
-                              v-on:click="toggleAdvance">智能查询 <i
+                              v-on:click="toggleAdvance"><span v-show="advanced">智能模式</span><span v-show="!advanced">专家模式</span> <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
                       </button>
                     </div>
@@ -189,6 +189,7 @@
                   <div class="col-xs-5 day-text">
                     <div class="circle"></div>
                     来自代理
+                    <i class="icon-booking-icon3"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <router-link :to="{ name: 'login' }">
