@@ -1,11 +1,7 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-      <transition name="fade" mode="out-in">
-        <router-view />
-      </transition>
-    </div>
-  </div>
+  <transition name="fade" mode="out-in">
+    <router-view />
+  </transition>
 </template>
 
 <script>

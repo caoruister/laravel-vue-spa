@@ -12,7 +12,7 @@
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="itemValue"
                              :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
-                      <input class="form-control visible-xs" type="text" v-model="itemValue" placeholder="请输入IP地址或手机号码">
+                      <input class="form-control visible-xs" type="text" v-model="itemValue" :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -76,8 +76,8 @@
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
-                    <div class="search-block justify-content-flex-end">
-                      <button class="btn btn-three" style="margin-right: .5rem">查询</button>
+                    <div class="search-block search-btn-group">
+                      <button class="btn btn-three">查询</button>
                       <button class="btn btn-more" type="button"
                               v-on:click="toggleAdvance"><span v-show="advanced">智能模式</span><span v-show="!advanced">专家模式</span> <i
                         v-bind:class="{'icon-footer-arrow-up': advanced, 'icon-footer-arrow-down': !advanced}"></i>
@@ -526,11 +526,25 @@ export default {
     background-color: transparent;
     border: 1px solid #e5ecef;
     font-size: 12px;
+    margin-left: .5rem;
+  }
+
+  .search-btn-group {
+    justify-content: flex-end;
   }
 
   @media (max-width: 767px) {
-    .btn-more, .btn-three {
-      width: 100% !important;
+    .search-btn-group {
+      flex-direction: column;
+
+      .btn-more {
+        margin-left: 0;
+        margin-top: .5rem;
+      }
+
+      .btn-more, .btn-three {
+        width: 100% !important;
+      }
     }
   }
 
