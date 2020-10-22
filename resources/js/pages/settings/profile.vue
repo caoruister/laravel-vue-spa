@@ -78,12 +78,12 @@
             </form>
             <div class="row buttons visible-lg visible-md">
               <div class="col-sm-12 text-right">
-                <button class="btn btn-seven">充值</button>
+                <button class="btn btn-three">充值</button>
               </div>
             </div>
             <div class="row buttons visible-xs visible-sm">
               <div class="col-xs-6 col-xs-offset-6">
-                <button class="btn btn-seven">充值</button>
+                <button class="btn btn-three">充值</button>
               </div>
             </div>
           </div>

@@ -1,35 +1,5 @@
 <template>
   <div>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-home move-to-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                  data-target="#bs-example-navbar-collapse-1" aria-expanded="false" v-on:click.capture="isCollapsed = !isCollapsed">
-            <i class="icon-header-icon1 open-icon" v-show="isCollapsed"></i>
-            <i class="icon-header-icon2 close-icon" v-show="!isCollapsed"></i>
-          </button>
-          <router-link :to="{ name: 'welcome' }" class="navbar-brand">
-            <i class="icon-logo1" v-show="isCollapsed"></i>
-            <i class="icon-logo5" v-show="!isCollapsed"></i>
-          </router-link>
-        </div>
-        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <router-link :to="{ name: 'login' }" class="btn btn-one">
-                {{ $t('login') }}
-              </router-link>
-            </li>
-            <li>
-              <router-link :to="{ name: 'register' }" class="btn btn-two">
-                {{ $t('register') }}
-              </router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
     <div class="home-main">
       <div class="background-item background1" v-bind:class="{active: step == 0}">
         <div class="container">
@@ -239,6 +209,7 @@ import { mapGetters } from 'vuex'
 import Form from 'vform'
 
 export default {
+  layout: 'basic',
 
   created () {
     let _this = this
@@ -309,6 +280,18 @@ export default {
   }
   .home-main .form-inline {
     margin-top: 40px;
+  }
+  @media (max-width: 767px) {
+    .home-main .form-inline .input-wrapper {
+      width: 80%;
+    }
+    .home-main .form-inline .form-control.mobile {
+      height: 52px;
+    }
+    .home-main .form-inline .btn-three.mobile {
+      width: 52px;
+      height: 52px;
+    }
   }
   .home-popular-cities {
     padding-top: 0;

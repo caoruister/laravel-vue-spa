@@ -380,7 +380,9 @@ export default {
   scrollToTop: true,
 
   metaInfo () {
-    return { title: this.$t('home') }
+    return {
+      title: '识别'
+    }
   },
 
   async beforeRouteEnter(to, from, next) {
@@ -416,7 +418,7 @@ export default {
   data: () => ({
     title: window.config.appName,
     ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
-    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
+    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
     ipData: null,
     phoneData: null,
     idCardData: null,
@@ -435,7 +437,11 @@ export default {
 
   computed: {
     address: function () {
-      return this.ipData.country + '-' + this.ipData.province
+      let address = this.ipData.country
+      address += this.ipData.province ? '-'+this.ipData.province : ''
+      address += this.ipData.city && this.ipData.province != this.ipData.city ? '-'+this.ipData.city : ''
+      address += this.ipData.district && this.ipData.city != this.ipData.district ? '-'+this.ipData.district : ''
+      return address
     },
     gmapUrl: function () {
       return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
@@ -563,8 +569,13 @@ export default {
     }
   }
 
+  .claim .claim__block {
+    padding-top: 7px;
+  }
+
   .claim .claim__block.main-block .search-block {
     position: relative;
+    margin-top: 30px;
   }
 
   .claim .claim__block.main-block .search-block .background-none {
