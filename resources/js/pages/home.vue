@@ -506,7 +506,12 @@ export default {
     },
 
     toggleAdvance() {
+      this.scrollToTop()
       this.advanced = !this.advanced
+    },
+
+    scrollToTop() {
+      window.scrollTo(0,0)
     },
   },
 }
