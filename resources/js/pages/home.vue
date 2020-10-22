@@ -21,9 +21,10 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <input class="form-control hidden-xs" type="text" v-model="form.ip"
+                      <i class="icon-ip-search icon"></i>
+                      <input class="form-control background-none hidden-xs" type="text" v-model="form.ip"
                              :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
-                      <input class="form-control visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
+                      <input class="form-control background-none visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -33,9 +34,10 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <input class="form-control hidden-xs" type="text" v-model="form.phone"
+                      <i class="icon-phone-search icon"></i>
+                      <input class="form-control background-none hidden-xs" type="text" v-model="form.phone"
                              :class="{ 'error': form.errors.has('phone') }" placeholder="请输入手机号码">
-                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                      <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.phone" placeholder="手机号码">
                     </div>
                   </div>
@@ -46,9 +48,10 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <input class="form-control hidden-xs" type="text" v-model="form.bankNum"
+                      <i class="icon-bank-num-search icon"></i>
+                      <input class="form-control background-none hidden-xs" type="text" v-model="form.bankNum"
                              :class="{ 'error': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
-                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                      <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.bankNum" placeholder="银行卡号">
                     </div>
                   </div>
@@ -59,9 +62,10 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <input class="form-control hidden-xs" type="text" v-model="form.idCard"
+                      <i class="icon-id-card-search icon"></i>
+                      <input class="form-control background-none hidden-xs" type="text" v-model="form.idCard"
                              :class="{ 'error': form.errors.has('idCard') }" placeholder="请输入身份证号码">
-                      <input class="form-control visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
+                      <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
                              v-model="form.idCard" placeholder="身份证号码">
                     </div>
                   </div>
@@ -92,7 +96,7 @@
         <div class="row business-main-block">
           <div class="col-xs-12 col-no-padding">
             <div class="info-block hours-info" v-if="ipData">
-              <div class="title"><i class="icon-booking-icon3"></i>IP</div>
+              <div class="title"><i class="icon-ip-search-result icon"></i>IP</div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
@@ -173,7 +177,7 @@
             </div>
 
             <div class="info-block hours-info" v-if="phoneData">
-              <div class="title"><i class="icon-popular-hours-title icon"></i>手机号码</div>
+              <div class="title"><i class="icon-phone-search-result icon"></i>手机号码</div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
@@ -236,7 +240,7 @@
             </div>
 
             <div class="info-block hours-info" v-if="bankNumData">
-              <div class="title"><i class="icon-business-profile-iconb icon"></i>银行卡号码</div>
+              <div class="title"><i class="icon-bank-num-search-result icon"></i>银行卡号码</div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
@@ -284,7 +288,7 @@
             </div>
 
             <div class="info-block hours-info" v-if="idCardData">
-              <div class="title"><i class="icon-booking-icon9 icon"></i>身份证号码</div>
+              <div class="title"><i class="icon-id-card-search-result icon"></i>身份证号码</div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
@@ -533,7 +537,82 @@ export default {
     }
   }
 
-  .modal-open .modal {
-    display: block;
+  .claim .claim__block.main-block .search-block {
+    position: relative;
+  }
+
+  .claim .claim__block.main-block .search-block .background-none {
+    background: none;
+  }
+
+  .icon-ip-search {
+    position: absolute;
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1264px;
+    width: 16px;
+    height: 16px;
+    top: 10px;
+  }
+
+  .icon-phone-search {
+    position: absolute;
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1152px;
+    width: 16px;
+    height: 16px;
+    top: 10px;
+  }
+
+  .icon-bank-num-search {
+    position: absolute;
+    background-image: url(/images/icons.png?v=1581334007027);
+    background-position: 0 -393px;
+    width: 16px;
+    height: 16px;
+    top: 10px;
+  }
+
+  .icon-id-card-search {
+    position: absolute;
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1040px;
+    width: 16px;
+    height: 16px;
+    top: 10px;
+  }
+
+  .icon-ip-search-result {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1600px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-phone-search-result {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1648px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-bank-num-search-result {
+    background-image: url(/images/icons.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1600px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-id-card-search-result {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1600px;
+    width: 16px;
+    height: 16px;
   }
 </style>
