@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-default navbar-main" v-if="authenticated">
-    <div class="container-fluid ">
+  <nav class="navbar navbar-default navbar-main" v-bind:class="{'navbar-fixed-top':!authenticated}" >
+    <div class="container-fluid" v-if="authenticated">
       <div class="navbar-header business-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <i class="icon-header-icon3 open-icon"></i>
@@ -83,6 +83,34 @@
           <li class="user-dropdown-business" v-bind:class="{'opened':!collapsed}" v-on:click="collapsed = !collapsed">
             <i class="icon-header-icon3 toggle-icon open"></i>
             <i class="icon-header-icon2 toggle-icon close-icon"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container-fluid" v-else>
+      <div class="navbar-header client-header">
+        <button class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-2" data-toggle="collapse"
+                type="button"><i class="icon-header-icon3 open-icon"></i><i
+          class="icon-header-icon2 close-icon"></i></button>
+        <router-link :to="{ name: 'welcome' }" class="navbar-brand logo-navbar-brand">
+          <i class="icon-logo5"></i>
+        </router-link>
+        <router-link :to="{ name: 'welcome' }" class="navbar-brand hidden-xs">
+          <i class="icon-logo5"></i>
+        </router-link>
+      </div>
+      <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-2" style="height: 1px;">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="link-item visible-xs"><a href="/"><i class="icon-home"></i>首页</a></li>
+          <li>
+            <router-link :to="{ name: 'login' }" class="btn btn-four first-btn">
+              登录
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'register' }" class="btn btn-five">
+              注册
+            </router-link>
           </li>
         </ul>
       </div>

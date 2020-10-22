@@ -239,7 +239,6 @@ import { mapGetters } from 'vuex'
 import Form from 'vform'
 
 export default {
-  layout: 'basic',
 
   created () {
     let _this = this
@@ -282,7 +281,8 @@ export default {
 
   methods: {
     search () {
-      let path = this.authenticated ? '/home' : '/search'
+      // let path = this.authenticated ? '/home' : '/search'
+      let path = '/home'
       if(this.ipRegExp.test(this.form.itemValue)){
         this.$router.push({ path: path, query: { ip: this.form.itemValue } })
       } else if (this.phoneRegExp.test(this.form.itemValue)) {

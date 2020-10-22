@@ -1,17 +1,18 @@
 <template>
   <div>
-    <div class="claim">
+    <div class="claim" v-bind:class="{'padding-top-80':!authenticated}">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-no-padding">
             <div class="claim__block main-block">
               <form @submit.prevent="search" @keydown="form.onKeydown($event)">
+
                 <div class="row" v-show="!advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
                       <input class="form-control hidden-xs" type="text" v-model="itemValue"
                              :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
-                      <input class="form-control visible-xs" type="text" v-model="itemValue" :class="{ 'error': form.errors.has('itemValue') }" placeholder="请输入IP地址或手机号码">
+                      <input class="form-control visible-xs" type="text" v-model="itemValue" placeholder="请输入IP地址或手机号码">
                     </div>
                   </div>
                   <div class="col-xs-12">
@@ -21,7 +22,7 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <i class="icon-ip-search icon"></i>
+                      <i class="icon-ip-search"></i>
                       <input class="form-control background-none hidden-xs" type="text" v-model="form.ip"
                              :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
                       <input class="form-control background-none visible-xs" type="text" v-model="form.ip" :class="{ 'error': form.errors.has('ip') }" placeholder="请输入IP地址">
@@ -34,7 +35,7 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <i class="icon-phone-search icon"></i>
+                      <i class="icon-phone-search"></i>
                       <input class="form-control background-none hidden-xs" type="text" v-model="form.phone"
                              :class="{ 'error': form.errors.has('phone') }" placeholder="请输入手机号码">
                       <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
@@ -48,7 +49,7 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <i class="icon-bank-num-search icon"></i>
+                      <i class="icon-bank-num-search"></i>
                       <input class="form-control background-none hidden-xs" type="text" v-model="form.bankNum"
                              :class="{ 'error': form.errors.has('bankNum') }" placeholder="请输入银行卡号">
                       <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
@@ -62,7 +63,7 @@
                 <div class="row" v-show="advanced">
                   <div class="col-xs-12">
                     <div class="search-block">
-                      <i class="icon-id-card-search icon"></i>
+                      <i class="icon-id-card-search"></i>
                       <input class="form-control background-none hidden-xs" type="text" v-model="form.idCard"
                              :class="{ 'error': form.errors.has('idCard') }" placeholder="请输入身份证号码">
                       <input class="form-control background-none visible-xs ng-pristine ng-untouched ng-valid ng-empty" type="text"
@@ -100,7 +101,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     主机地址
                   </div>
                   <div class="col-xs-7 time-text">
@@ -111,8 +111,8 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     基础信息
+                    <i class="icon-sheep-red icon" v-show="ipAddressRed"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{address}}</div>
@@ -122,8 +122,8 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     网络类型
+                    <i class="icon-sheep-red icon" v-show="ipTypeRed"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
@@ -133,44 +133,48 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     黑名单
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">否</div>
+                    <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                      登录后查看
+                    </router-link>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     秒拨作弊
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">否</div>
+                    <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                      登录后查看
+                    </router-link>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     来自代理
                   </div>
                   <div class="col-xs-7 time-text">
-                    <a v-on:click="isOpened = true" data-toggle="modal" data-target="#confirm_modal">查看</a>
+                    <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                      登录后查看
+                    </router-link>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     拨号VPS
                   </div>
                   <div class="col-xs-7 time-text">
-                    <a>查看</a>
+                    <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                      登录后查看
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -181,7 +185,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     手机号码
                   </div>
                   <div class="col-xs-7 time-text">
@@ -192,7 +195,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     归属地区
                   </div>
                   <div class="col-xs-7 time-text">
@@ -203,8 +205,9 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     卡号类型
+                    <i class="icon-sheep-red icon" v-show="phoneTypeRed"></i>
+                    <i class="icon-sheep-green icon" v-show="phoneTypeGreen"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.type}}</div>
@@ -214,12 +217,13 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     黑名单
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">
-                      <a>查看</a>
+                      <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                        登录后查看
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -227,12 +231,13 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     来自接码
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">
-                      <a>查看</a>
+                      <router-link :to="{ name: 'login' }" v-if="!authenticated">
+                        登录后查看
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -244,7 +249,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     银行卡号
                   </div>
                   <div class="col-xs-7 time-text">
@@ -255,7 +260,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     银行信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -266,7 +271,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     开户信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -277,7 +282,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
@@ -292,7 +297,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     身份证号
                   </div>
                   <div class="col-xs-7 time-text">
@@ -303,7 +308,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     基础信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -314,7 +319,7 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
+
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
@@ -328,7 +333,7 @@
       </div>
     </div>
 
-    <div id="confirm_modal" class="modal fade results-dialog" v-bind:class="{'in' : isOpened}">
+    <div id="confirm_modal" class="modal fade results-dialog" v-bind:class="{'in':isOpened}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
@@ -370,7 +375,9 @@ import axios from "axios";
 const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
 export default {
-  middleware: 'auth',
+  layout: 'basic',
+
+  scrollToTop: true,
 
   metaInfo () {
     return { title: this.$t('home') }
@@ -432,6 +439,21 @@ export default {
     },
     gmapUrl: function () {
       return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
+    },
+    ipTypeRed: function () {
+      return this.ipData.type == '涉密专线' || this.ipData.type == '骨干网'
+        || this.ipData.type == '基础设施' || this.ipData.type == '保留地址'
+        || this.ipData.type == 'DNS' || this.ipData.type == 'IDC'
+        || this.ipData.type == 'Anycast' || this.ipData.type == '未分配'
+    },
+    ipAddressRed: function () {
+      return this.ipData.en && this.ipData.en != 'CN'
+    },
+    phoneTypeRed: function () {
+      return this.phoneData.type == 'USIM数据卡'
+    },
+    phoneTypeGreen: function () {
+      return this.phoneData.type == '虚拟运营商'
     },
     ...mapGetters({
       authenticated: 'auth/check',
@@ -516,6 +538,10 @@ export default {
 
   .claim {
     padding: 40px 0 0;
+  }
+
+  .padding-top-80 {
+    padding-top: 80px;
   }
 
   .justify-content-flex-end {
@@ -612,6 +638,22 @@ export default {
     background-image: url(/images/icons2x.png?v=1581334007027);
     background-size: 241px 5180px;
     background-position: 0 -1600px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-sheep-red {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1696px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-sheep-green {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1680px;
     width: 16px;
     height: 16px;
   }

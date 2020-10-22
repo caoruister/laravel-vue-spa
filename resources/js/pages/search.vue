@@ -143,8 +143,8 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     基础信息
+                    <i class="icon-sheep-red icon" v-show="ipAddressRed"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{address}}</div>
@@ -154,8 +154,8 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     网络类型
+                    <i class="icon-sheep-red icon" v-show="ipTypeRed"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{ipData.type}}</div>
@@ -243,8 +243,9 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    <div class="circle"></div>
                     卡号类型
+                    <i class="icon-sheep-red icon" v-show="phoneTypeRed"></i>
+                    <i class="icon-sheep-green icon" v-show="phoneTypeGreen"></i>
                   </div>
                   <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.type}}</div>
@@ -424,7 +425,7 @@
     data: () => ({
       title: window.config.appName,
       ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
-      phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
+      phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
       ipData: null,
       phoneData: null,
       idCardData: null,
@@ -445,6 +446,21 @@
       },
       gmapUrl: function () {
         return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
+      },
+      ipTypeRed: function () {
+        return this.ipData.type == '涉密专线' || this.ipData.type == '骨干网'
+          || this.ipData.type == '基础设施' || this.ipData.type == '保留地址'
+          || this.ipData.type == 'DNS' || this.ipData.type == 'IDC'
+          || this.ipData.type == 'Anycast' || this.ipData.type == '未分配'
+      },
+      ipAddressRed: function () {
+        return this.ipData.en && this.ipData.en != 'CN'
+      },
+      phoneTypeRed: function () {
+        return this.phoneData.type == 'USIM数据卡'
+      },
+      phoneTypeGreen: function () {
+        return this.phoneData.type == '虚拟运营商'
       },
       ...mapGetters({
         authenticated: 'auth/check'
@@ -635,6 +651,22 @@
     background-image: url(/images/icons2x.png?v=1581334007027);
     background-size: 241px 5180px;
     background-position: 0 -1600px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-sheep-red {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1696px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-sheep-green {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 241px 5180px;
+    background-position: 0 -1680px;
     width: 16px;
     height: 16px;
   }
