@@ -18,7 +18,7 @@
       <div class="background-item background3" v-bind:class="{active: step == 2}">
         <div class="container">
           <div class="row">
-            <div class="col-sm-12 item"><h1>智能分析算法</h1></div>
+            <div class="col-sm-12 item"><h1>反作弊专家全程介入</h1></div>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
             <div class="col-sm-12 item">
               <h2 v-show="step == 0">机房跳板代理拨号接码卡池实时检测</h2>
               <h2 v-show="step == 1">无需专业知识不改变工作流程支持批量查询</h2>
-              <h2 v-show="step == 2">既不错杀一千也不放过一个</h2>
+              <h2 v-show="step == 2">杜绝人工智误判实现精确狙击</h2>
               <h2 class="no-margin-top hidden">Find yours today</h2>
             </div>
           </div>

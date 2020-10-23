@@ -139,6 +139,7 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
+                    <a v-else v-on:click="confirmQuery('black')">查看</a>
                   </div>
                 </div>
               </div>
@@ -249,7 +250,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     银行卡号
                   </div>
                   <div class="col-xs-7 time-text">
@@ -260,7 +260,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     银行信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -271,7 +270,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     开户信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -282,7 +280,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
@@ -297,7 +294,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     身份证号
                   </div>
                   <div class="col-xs-7 time-text">
@@ -308,7 +304,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     基础信息
                   </div>
                   <div class="col-xs-7 time-text">
@@ -319,7 +314,6 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-
                     风险提示
                   </div>
                   <div class="col-xs-7 time-text">
@@ -333,26 +327,24 @@
       </div>
     </div>
 
-    <div id="confirm_modal" class="modal fade results-dialog" v-bind:class="{'in':isOpened}">
+    <div id="confirm_modal" class="modal fade results-dialog" v-bind:class="{'in':isOpened}" v-bind:style="{display: isOpened ? 'block' : 'none'}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
             <div class="row">
               <div class="col-xs-12">
                 <div class="confirmation-sent">
-                  <div class="icon">
-                    <i class="icon-garbage"></i>
-                  </div>
-                  <div class="title1"></div>
+                  <div class="icon"></div>
+                  <div class="title1">⚠️</div>
                   <div class="title2">
-                    Are you sure you want to delete this location?
+                    本次操作将会扣除账户1个点数
                   </div>
                   <div class="row delete-confirmation">
                     <div class="col-xs-6 no-padding-right">
-                      <button type="button" class="btn btn-six btn-block" data-dismiss="modal" v-on:click="isOpened = false">NO</button>
+                      <button type="button" class="btn btn-six btn-block" v-on:click="isOpened = false">取消</button>
                     </div>
                     <div class="col-xs-6 no-padding-left">
-                      <button type="button" class="btn btn-three btn-block" ng-click="delete()">YES</button>
+                      <button type="button" class="btn btn-three btn-block" v-on:click="queryRisk">确认</button>
                     </div>
                   </div>
                 </div>
@@ -369,8 +361,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Form from "vform";
-import axios from "axios";
+import Form from "vform"
+import axios from "axios"
 
 const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
@@ -432,6 +424,7 @@ export default {
       bankNum: null
     }),
     isOpened: false,
+    queryParam: null,
     error: ''
   }),
 
@@ -513,6 +506,14 @@ export default {
     scrollToTop() {
       window.scrollTo(0,0)
     },
+
+    confirmQuery() {
+      this.isOpened = true
+    },
+
+    queryRisk() {
+      this.isOpened = false
+    }
   },
 }
 </script>
