@@ -141,7 +141,7 @@ class RiskController extends Controller
             $result[$request->q] = false;
         }
 
-        $request->user()->withdraw(1);
+        $request->user()->forceWithdraw(1, ['description' => 'pay with '.$request->q]);
 
         return response()->json($result);
     }
