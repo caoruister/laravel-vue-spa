@@ -139,7 +139,10 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
-                    <a v-else v-on:click="confirmQuery('black')">查看</a>
+                    <div v-else>
+                      <a v-on:click="confirmQuery('isBlack')" v-if="!ipData.isBlack">查看</a>
+                      <span v-else>{{ipData.isBlack.value | yesOrNo}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -152,6 +155,10 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
+                    <div v-else>
+                      <a v-on:click="confirmQuery('isDial')" v-if="!ipData.isDial">查看</a>
+                      <span v-else>{{ipData.isDial.value | yesOrNo}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -164,6 +171,10 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
+                    <div v-else>
+                      <a v-on:click="confirmQuery('proxy')" v-if="!ipData.proxy">查看</a>
+                      <span v-else>{{ipData.proxy.value | yesOrNo}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -176,6 +187,10 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
+                    <div v-else>
+                      <a v-on:click="confirmQuery('vps')" v-if="!ipData.vps">查看</a>
+                      <span v-else>{{ipData.vps.value | yesOrNo}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -388,7 +403,6 @@ export default {
         vm.bankNumData = data.bankNumData
       })
     } catch (e) {
-      console.log(e)
       next(vm => {
         vm.error = e.response.data
       })
@@ -507,14 +521,30 @@ export default {
       window.scrollTo(0,0)
     },
 
-    confirmQuery() {
+    confirmQuery(queryParam) {
       this.isOpened = true
+      this.queryParam = queryParam
     },
 
-    queryRisk() {
+    async queryRisk() {
       this.isOpened = false
+
+      const {data} = await axios.post(`/api/risk/check/ip`, {
+        ip: this.form.ip,
+        q: this.queryParam
+      })
+
+      this.$set(this.ipData, this.queryParam, {
+        value: data[this.queryParam],
+      })
     }
   },
+
+  filters: {
+    yesOrNo: function (value) {
+      return value ? '是' : '否'
+    }
+  }
 }
 </script>
 

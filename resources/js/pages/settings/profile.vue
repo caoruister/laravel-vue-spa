@@ -55,7 +55,7 @@
                 <div class="col-sm-12">
                   <div class="label-text">总点数</div>
                   <div class="input-text">
-                    10000
+                    {{user.deposit}}
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@
                 <div class="col-sm-12">
                   <div class="label-text">已使用点数</div>
                   <div class="input-text">
-                    3000
+                    {{user.withdraw}}
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                 <div class="col-sm-12">
                   <div class="label-text">剩余点数</div>
                   <div class="input-text">
-                    7000
+                    {{user.balance}}
                   </div>
                 </div>
               </div>
@@ -146,6 +146,9 @@ export default {
     this.form.keys().forEach(key => {
       this.form[key] = this.user[key]
     })
+
+    // Fetch the user.
+    this.$store.dispatch('auth/fetchUser')
   },
 
   methods: {

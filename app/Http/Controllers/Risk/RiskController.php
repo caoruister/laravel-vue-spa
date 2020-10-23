@@ -22,12 +22,12 @@ class RiskController extends Controller
         $result = array();
 
         if ($request->ip) {
-            $ipData = $this->checkIP($request->ip);
+            $ipData = $this->getIP($request->ip);
             $result['ipData'] = $ipData;
         }
 
         if ($request->phone) {
-            $phoneData = $this->checkPhone($request->phone);
+            $phoneData = $this->getPhone($request->phone);
             $result['phoneData'] = $phoneData;
         }
 
@@ -52,7 +52,7 @@ class RiskController extends Controller
         ]);
     }
 
-    protected function checkIP($ip)
+    protected function getIP($ip)
     {
         $starttime = explode(' ', microtime());
         $unistring = Redis::zRangeByScore('iprange', ip2long($ip), ip2long($ip) + 256 * 256 * 256, array('limit' => array('offset' => 0, 'count' => 1)));
@@ -85,7 +85,7 @@ class RiskController extends Controller
         return $data;
     }
 
-    protected function checkPhone($phone)
+    protected function getPhone($phone)
     {
         $data = array();
 
@@ -130,5 +130,19 @@ class RiskController extends Controller
         }
 
         return $data;
+    }
+
+    public function checkIP(Request $request) {
+        $result = array();
+
+        if ($request->q == 'isBlack') {
+            $result[$request->q] = false;
+        } elseif ($request->q == 'isBlack') {
+            $result[$request->q] = false;
+        }
+
+        $request->user()->withdraw(1);
+
+        return response()->json($result);
     }
 }

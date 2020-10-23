@@ -18,8 +18,12 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/user', 'Auth\UserController@current');
 
+    Route::get('/user/account', 'Auth\UserController@current');
+
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    Route::post('risk/check/ip', 'Risk\RiskController@checkIP');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

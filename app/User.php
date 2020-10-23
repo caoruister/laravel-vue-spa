@@ -4,15 +4,19 @@ namespace App;
 
 use App\Notifications\ResetPassword;
 use App\Notifications\VerifyEmail;
+use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Traits\HasWallet;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyEmail
 {
     use Notifiable;
+
+    use HasWallet;
 
     /**
      * The attributes that are mass assignable.
@@ -29,7 +33,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'transactions', 'wallet'
     ];
 
     /**
@@ -48,6 +52,9 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      */
     protected $appends = [
         'photo_url',
+        'balance',
+        'deposit',
+        'withdraw'
     ];
 
     /**
@@ -58,6 +65,20 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function getPhotoUrlAttribute()
     {
         return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->phone)).'.jpg?s=200&d=mm';
+    }
+
+    public function getDepositAttribute()
+    {
+        return $this->transactions->filter(function ($value, $key) {
+            return $value->type == 'deposit';
+        })->sum('amount');
+    }
+
+    public function getWithdrawAttribute()
+    {
+        return $this->transactions->filter(function ($value, $key) {
+            return $value->type == 'withdraw';
+        })->sum('amount');
     }
 
     /**
