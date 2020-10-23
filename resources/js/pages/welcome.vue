@@ -238,7 +238,7 @@ export default {
   data: () => ({
     title: window.config.appName,
     ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
-    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[01345-8]|8\d|9[025-9])\d{8}$/,
+    phoneRegExp: /^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
     isCollapsed: true,
     step: 0,
     form: new Form({

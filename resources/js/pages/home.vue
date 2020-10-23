@@ -410,7 +410,7 @@ export default {
   data: () => ({
     title: window.config.appName,
     ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
-    phoneRegExp: /^1(3\d|4[5-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
+    phoneRegExp: /^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
     ipData: null,
     phoneData: null,
     idCardData: null,
@@ -602,10 +602,13 @@ export default {
     background: none;
   }
 
+  .icon-ip-search,.icon-phone-search,.icon-bank-num-search,.icon-id-card-search,.icon-ip-search-result,.icon-phone-search-result,.icon-bank-num-search-result,.icon-id-card-search-result,.icon-sheep-red,.icon-sheep-green {
+    background-image: url(/images/icons2x.png?v=1581334007027);
+    background-size: 168px 5180px;
+  }
+
   .icon-ip-search {
     position: absolute;
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1264px;
     width: 16px;
     height: 16px;
@@ -614,8 +617,6 @@ export default {
 
   .icon-phone-search {
     position: absolute;
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1152px;
     width: 16px;
     height: 16px;
@@ -624,7 +625,6 @@ export default {
 
   .icon-bank-num-search {
     position: absolute;
-    background-image: url(/images/icons.png?v=1581334007027);
     background-position: 0 -393px;
     width: 16px;
     height: 16px;
@@ -633,8 +633,6 @@ export default {
 
   .icon-id-card-search {
     position: absolute;
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1040px;
     width: 16px;
     height: 16px;
@@ -642,48 +640,36 @@ export default {
   }
 
   .icon-ip-search-result {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1600px;
     width: 16px;
     height: 16px;
   }
 
   .icon-phone-search-result {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1648px;
     width: 16px;
     height: 16px;
   }
 
   .icon-bank-num-search-result {
-    background-image: url(/images/icons.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1600px;
     width: 16px;
     height: 16px;
   }
 
   .icon-id-card-search-result {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1600px;
     width: 16px;
     height: 16px;
   }
 
   .icon-sheep-red {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1696px;
     width: 16px;
     height: 16px;
   }
 
   .icon-sheep-green {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 241px 5180px;
     background-position: 0 -1680px;
     width: 16px;
     height: 16px;
