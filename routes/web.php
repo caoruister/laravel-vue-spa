@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('alipay', function() {
+/*Route::get('alipay', function() {
     return app('alipay')->web([
         'out_trade_no' => time(),
         'total_amount' => '1',
         'subject' => 'test subject - 测试',
     ]);
-});
+});*/
