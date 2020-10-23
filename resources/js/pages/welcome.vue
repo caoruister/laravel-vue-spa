@@ -28,7 +28,7 @@
             <div class="col-sm-12 item">
               <h2 v-show="step == 0">机房跳板代理拨号接码卡池实时检测</h2>
               <h2 v-show="step == 1">无需专业知识不改变工作流程支持批量查询</h2>
-              <h2 v-show="step == 2">杜绝人工智误判实现精确狙击</h2>
+              <h2 v-show="step == 2">杜绝人工智能误判实现精确狙击</h2>
               <h2 class="no-margin-top hidden">Find yours today</h2>
             </div>
           </div>
