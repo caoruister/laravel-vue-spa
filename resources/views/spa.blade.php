@@ -28,6 +28,6 @@ $config = [
 
   {{-- Load the application scripts --}}
   <script src="{{ mix('dist/js/app.js') }}"></script>
-  <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1279373205&web_id=1279373205"></script>
+  <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1279373205&web_id=1279373205" style="display: none"></script>
 </body>
 </html>
