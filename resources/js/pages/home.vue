@@ -97,6 +97,9 @@
         <div class="row business-main-block">
           <div class="col-xs-12 col-no-padding">
             <div class="info-block hours-info" v-if="ipData">
+              <div class="alert alert-danger" role="alert" v-if="error">
+                {{ error }}，请充值
+              </div>
               <div class="title"><i class="icon-ip-search-result icon"></i>IP</div>
               <div class="hour ">
                 <div class="row">
@@ -349,10 +352,10 @@
             <div class="row">
               <div class="col-xs-12">
                 <div class="confirmation-sent">
-                  <div class="icon"></div>
-                  <div class="title1">⚠️</div>
+                  <div class="icon">⚠️</div>
+                  <div class="title1">操作提示</div>
                   <div class="title2">
-                    本次操作将会扣除账户1个点数
+                      本次操作将会扣除账户1个点数
                   </div>
                   <div class="row delete-confirmation">
                     <div class="col-xs-6 no-padding-right">
@@ -527,16 +530,26 @@ export default {
     },
 
     async queryRisk() {
-      this.isOpened = false
 
-      const {data} = await axios.post(`/api/risk/check/ip`, {
-        ip: this.form.ip,
-        q: this.queryParam
-      })
 
-      this.$set(this.ipData, this.queryParam, {
-        value: data[this.queryParam],
-      })
+      try {
+          const {data} = await axios.post(`/api/risk/check/ip`, {
+              ip: this.form.ip,
+              q: this.queryParam
+          })
+
+          if (data.message) {
+              this.error = data.message
+          } else {
+              this.$set(this.ipData, this.queryParam, {
+                  value: data[this.queryParam],
+              })
+          }
+
+          this.isOpened = false
+      }catch (e) {
+          this.error = e.response.data
+      }
     }
   },
 
@@ -577,131 +590,152 @@ export default {
         width: 100% !important;
       }
     }
-  }
 
-  .btn-more i[class^=icon-], .btn-more img {
-    margin-left: 4px;
-    margin-bottom: 4px
-  }
-
-  .btn-more i[class^=icon-].normal, .btn-more img.normal {
-    display: inline-block
-  }
-
-  .btn-more i[class^=icon-].hover, .btn-more img.hover {
-    display: none
-  }
-
-  .claim {
-    padding: 40px 0 0;
-  }
-
-  .padding-top-80 {
-    padding-top: 80px;
-  }
-
-  .justify-content-flex-end {
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 991px) {
-    .business .container {
+    .results-dialog .modal-dialog .modal-content .modal-body .confirmation-sent {
+      padding-top: 45px;
       width: 100%;
     }
 
-    .business .col-no-padding {
-      padding-left: 0;
-      padding-right: 0;
+    .results-dialog .modal-dialog .modal-content {
+      margin-bottom: -156px;
+      bottom: 50%;
     }
 
-    .business .business-main-block .info-block.hours-info {
-      margin-top: 18px;
+    .results-dialog .modal-dialog {
+      margin: 10px;
+      width: auto;
     }
+}
+
+@media (max-width: 991px) {
+  .business .container {
+    width: 100%;
   }
 
-  .claim .claim__block {
-    padding-top: 7px;
+  .business .col-no-padding {
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  .claim .claim__block.main-block .search-block {
-    position: relative;
-    margin-top: 30px;
+  .business .business-main-block .info-block.hours-info {
+    margin-top: 18px;
   }
+}
 
-  .claim .claim__block.main-block .search-block .background-none {
-    background: none;
-  }
+.btn-more i[class^=icon-], .btn-more img {
+  margin-left: 4px;
+  margin-bottom: 4px
+}
 
-  .icon-ip-search,.icon-phone-search,.icon-bank-num-search,.icon-id-card-search,.icon-ip-search-result,.icon-phone-search-result,.icon-bank-num-search-result,.icon-id-card-search-result,.icon-sheep-red,.icon-sheep-green {
-    background-image: url(/images/icons2x.png?v=1581334007027);
-    background-size: 168px 5180px;
-  }
+.btn-more i[class^=icon-].normal, .btn-more img.normal {
+  display: inline-block
+}
 
-  .icon-ip-search {
-    position: absolute;
-    background-position: 0 -1264px;
-    width: 16px;
-    height: 16px;
-    top: 10px;
-  }
+.btn-more i[class^=icon-].hover, .btn-more img.hover {
+  display: none
+}
 
-  .icon-phone-search {
-    position: absolute;
-    background-position: 0 -1152px;
-    width: 16px;
-    height: 16px;
-    top: 10px;
-  }
+.claim {
+  padding: 40px 0 0;
+}
 
-  .icon-bank-num-search {
-    position: absolute;
-    background-position: 0 -393px;
-    width: 16px;
-    height: 16px;
-    top: 10px;
-  }
+.padding-top-80 {
+  padding-top: 80px;
+}
 
-  .icon-id-card-search {
-    position: absolute;
-    background-position: 0 -1040px;
-    width: 16px;
-    height: 16px;
-    top: 10px;
-  }
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
 
-  .icon-ip-search-result {
-    background-position: 0 -1600px;
-    width: 16px;
-    height: 16px;
-  }
+.claim .claim__block {
+  padding-top: 7px;
+}
 
-  .icon-phone-search-result {
-    background-position: 0 -1648px;
-    width: 16px;
-    height: 16px;
-  }
+.claim .claim__block.main-block .search-block {
+  position: relative;
+  margin-top: 30px;
+}
 
-  .icon-bank-num-search-result {
-    background-position: 0 -1600px;
-    width: 16px;
-    height: 16px;
-  }
+.claim .claim__block.main-block .search-block .background-none {
+  background: none;
+}
 
-  .icon-id-card-search-result {
-    background-position: 0 -1600px;
-    width: 16px;
-    height: 16px;
-  }
+.icon-ip-search,.icon-phone-search,.icon-bank-num-search,.icon-id-card-search,.icon-ip-search-result,.icon-phone-search-result,.icon-bank-num-search-result,.icon-id-card-search-result,.icon-sheep-red,.icon-sheep-green {
+  background-image: url(/images/icons2x.png?v=1581334007027);
+  background-size: 168px 5180px;
+}
 
-  .icon-sheep-red {
-    background-position: 0 -1696px;
-    width: 16px;
-    height: 16px;
-  }
+.icon-ip-search {
+  position: absolute;
+  background-position: 0 -1264px;
+  width: 16px;
+  height: 16px;
+  top: 10px;
+}
 
-  .icon-sheep-green {
-    background-position: 0 -1680px;
-    width: 16px;
-    height: 16px;
-  }
+.icon-phone-search {
+  position: absolute;
+  background-position: 0 -1152px;
+  width: 16px;
+  height: 16px;
+  top: 10px;
+}
+
+.icon-bank-num-search {
+  position: absolute;
+  background-position: 0 -393px;
+  width: 16px;
+  height: 16px;
+  top: 10px;
+}
+
+.icon-id-card-search {
+  position: absolute;
+  background-position: 0 -1040px;
+  width: 16px;
+  height: 16px;
+  top: 10px;
+}
+
+.icon-ip-search-result {
+  background-position: 0 -1600px;
+  width: 16px;
+  height: 16px;
+}
+
+.icon-phone-search-result {
+  background-position: 0 -1648px;
+  width: 16px;
+  height: 16px;
+}
+
+.icon-bank-num-search-result {
+  background-position: 0 -1600px;
+  width: 16px;
+  height: 16px;
+}
+
+.icon-id-card-search-result {
+  background-position: 0 -1600px;
+  width: 16px;
+  height: 16px;
+}
+
+.icon-sheep-red {
+  background-position: 0 -1696px;
+  width: 16px;
+  height: 16px;
+}
+
+.icon-sheep-green {
+  background-position: 0 -1680px;
+  width: 16px;
+  height: 16px;
+}
+
+.results-dialog .modal-dialog .modal-content .modal-body .confirmation-sent .icon {
+  font-size: 70px;
+}
+.results-dialog .modal-dialog .modal-content .modal-body .confirmation-sent .title1 {
+}
 </style>
