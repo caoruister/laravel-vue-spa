@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class RiskController extends Controller
 {
@@ -135,13 +136,17 @@ class RiskController extends Controller
     public function checkIP(Request $request) {
         $result = array();
 
-        if ($request->q == 'isBlack') {
-            $result[$request->q] = false;
-        } elseif ($request->q == 'isBlack') {
-            $result[$request->q] = false;
-        }
+        try {
+            if ($request->q == 'isBlack') {
+                $result[$request->q] = false;
+            } elseif ($request->q == 'isBlack') {
+                $result[$request->q] = false;
+            }
 
-        $request->user()->forceWithdraw(1, ['description' => 'pay with '.$request->q]);
+            $request->user()->withdraw(1, ['description' => 'pay with ' . $request->q]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()]);
+        }
 
         return response()->json($result);
     }
