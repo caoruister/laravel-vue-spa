@@ -82,8 +82,11 @@
               </div>
             </div>
             <div class="row buttons visible-xs visible-sm">
-              <div class="col-xs-6 col-xs-offset-6">
-                <button class="btn btn-three">充值</button>
+              <div class="col-xs-6">
+                <button class="btn btn-three" v-on:click="goRecharge">充值</button>
+              </div>
+              <div class="col-xs-6">
+                <button class="btn btn-seven">发票申请</button>
               </div>
             </div>
           </div>
@@ -92,7 +95,7 @@
         <div class="col-md-4">
           <div class="info-block info-logo">
             <div class="logo">
-              <img ng-src="https://topvet.blob.core.windows.net/clients/user-placeholder.png" src="https://topvet.blob.core.windows.net/clients/user-placeholder.png">
+              <img src="/images/user-placeholder.png">
             </div>
             <div class="title1">
               个人头像
@@ -156,6 +159,10 @@ export default {
       const { data } = await this.form.patch('/api/settings/profile')
 
       this.$store.dispatch('auth/updateUser', { user: data })
+    },
+
+    goRecharge () {
+      this.$router.push({ name: 'recharge' })
     }
   }
 }

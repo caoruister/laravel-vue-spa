@@ -21,6 +21,7 @@ export default [
       { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
       { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
     ] },
+  { path: '/recharge', name: 'recharge', component: page('recharge.vue') },
 
   { path: '*', component: page('errors/404.vue') }
 ]
