@@ -78,15 +78,16 @@
             </form>
             <div class="row buttons visible-lg visible-md">
               <div class="col-sm-12 text-right">
-                <button class="btn btn-three">充值</button>
+                <button class="btn btn-seven">发票申请</button>
+                <button class="btn btn-three" v-on:click="goRecharge">充值</button>
               </div>
             </div>
             <div class="row buttons visible-xs visible-sm">
               <div class="col-xs-6">
-                <button class="btn btn-three" v-on:click="goRecharge">充值</button>
+                <button class="btn btn-seven">发票申请</button>
               </div>
               <div class="col-xs-6">
-                <button class="btn btn-seven">发票申请</button>
+                <button class="btn btn-three" v-on:click="goRecharge">充值</button>
               </div>
             </div>
           </div>

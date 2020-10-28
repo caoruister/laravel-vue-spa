@@ -23,6 +23,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
+    Route::post('payment/alipay', 'Payment\PaymentController@payByAlipay')->name('payment.alipay');
+    Route::get('payment/alipay/return', 'Payment\PaymentController@alipayReturn')->name('payment.alipay.return');
+
     Route::post('risk/check/ip', 'Risk\RiskController@checkIP');
 });
 
@@ -52,6 +55,8 @@ Route::group(['middleware' => 'guest:api'], function () {
     // 重设密码短信验证码
     Route::post('reset/verificationCodes', 'Auth\ResetPasswordController@store')
         ->middleware('throttle:' . config('api.rate_limits.sign'));
+
+    Route::post('payment/alipay/notify', 'Payment\PaymentController@alipayNotify')->name('payment.alipay.notify');
 
     // 搜集IP
     Route::patch('/ads', 'IP\VPSController@ipGather');
