@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="info-block info-details">
+          <div class="info-block info-details" v-show="!isPayed">
             <div class="row no-margin-top">
               <div class="col-xs-12 col-sm-6">
                 <div class="title title1">
@@ -42,6 +42,18 @@
               </div>
             </form>
           </div>
+          <div class="confirmation-sent" v-show="isPayed">
+            <div class="icon">
+              <i class="icon-auth-icon4"></i>
+            </div>
+            <div class="title1">支付成功</div>
+            <div class="title2">
+              请返回 个人设置|账户信息 查看对应点数
+            </div>
+            <router-link :to="{ name: 'settings.profile' }" class="btn btn-three">
+              返回个人设置
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -49,46 +61,74 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import Form from "vform"
-  import axios from "axios"
+    import {mapGetters} from 'vuex'
+    import Form from "vform"
+    import axios from "axios"
 
-  export default {
-    layout: 'basic',
+    const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
-    middleware: 'auth',
+    export default {
+        layout: 'basic',
 
-    data: () => ({
-      title: window.config.appName,
-      form: new Form({
-        money: 100,
-      }),
-      error: ''
-    }),
+        middleware: 'auth',
 
-    computed: {
-      ...mapGetters({
-        authenticated: 'auth/check',
-        user: 'auth/user'
-      })
-    },
-
-    methods: {
-       async pay () {
-          const {data} = await axios.post(`/api/payment/alipay`,
-            {
-              amount: this.form.money,
+        metaInfo() {
+            return {
+                title: '支付'
             }
-          )
+        },
 
-         const div = document.createElement('div');
-         div.innerHTML = data;
-         document.body.appendChild(div);
-         div.style.display = "none";
-         document.forms['alipay_submit'].submit();
-      }
+        async beforeRouteEnter(to, from, next) {
+            try {
+                if (to.query.sign) {
+                    const {data} = await axios.get(`/api/payment/alipay/return?${qs(to.query)}`)
+
+                    debugger
+                    next(vm => {
+                        vm.isPayed = data.isPayed
+                    })
+                } else {
+                    next()
+                }
+            } catch (e) {
+                next(vm => {
+                    vm.error = e.response.data
+                })
+            }
+        },
+
+        data: () => ({
+            title: window.config.appName,
+            form: new Form({
+                money: 100,
+            }),
+            isPayed: false,
+            error: ''
+        }),
+
+        computed: {
+            ...mapGetters({
+                authenticated: 'auth/check',
+                user: 'auth/user'
+            })
+        },
+
+        methods: {
+            async pay() {
+                const {data} = await axios.post(`/api/payment/alipay`,
+                    {
+                        amount: this.form.money,
+                    }
+                )
+
+                const div = document.createElement('div');
+                div.innerHTML = data;
+                document.body.appendChild(div);
+                div.style.display = "none";
+                document.forms['alipay_submit'].submit();
+            }
+        }
     }
-  }
 </script>
 
 <style lang="scss" scoped>

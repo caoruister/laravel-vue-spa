@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
@@ -21,7 +22,7 @@ class PaymentController extends Controller
         // 调用支付宝的网页支付
         return app('alipay')->web([
             'out_trade_no' => $orderId, // 订单编号，需保证在商户端不重复
-            'total_amount' => 0.1, // 订单金额，单位元，支持小数点后两位
+            'total_amount' => $request->amount, // 订单金额，单位元，支持小数点后两位
             'subject'      => '充值 '.config('app.name'), // 订单标题
         ]);
     }
@@ -29,9 +30,15 @@ class PaymentController extends Controller
     // 前端回调页面
     public function alipayReturn()
     {
-        // 校验提交的参数是否合法
-        $data = app('alipay')->verify();
-        dd($data);
+        try {
+            // 校验提交的参数是否合法
+            $data = app('alipay')->verify();
+            Log::debug($data);
+        } catch (\Exception $e) {
+            response()->json(['isPayed' => false]);
+        }
+
+        response()->json(['isPayed' => true]);
     }
 
     // 服务器端回调
