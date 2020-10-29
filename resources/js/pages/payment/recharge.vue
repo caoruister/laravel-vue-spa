@@ -1,9 +1,9 @@
 <template>
-  <section class="settings">
+  <section class="settings transparent signup">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="info-block info-details" v-show="!isPayed">
+          <div class="info-block info-details">
             <div class="row no-margin-top">
               <div class="col-xs-12 col-sm-6">
                 <div class="title title1">
@@ -42,18 +42,7 @@
               </div>
             </form>
           </div>
-          <div class="confirmation-sent" v-show="isPayed">
-            <div class="icon">
-              <i class="icon-auth-icon4"></i>
-            </div>
-            <div class="title1">支付成功</div>
-            <div class="title2">
-              请返回 个人设置|账户信息 查看对应点数
-            </div>
-            <router-link :to="{ name: 'settings.profile' }" class="btn btn-three">
-              返回个人设置
-            </router-link>
-          </div>
+
         </div>
       </div>
     </div>
@@ -65,8 +54,6 @@
     import Form from "vform"
     import axios from "axios"
 
-    const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
-
     export default {
         layout: 'basic',
 
@@ -74,26 +61,7 @@
 
         metaInfo() {
             return {
-                title: '支付'
-            }
-        },
-
-        async beforeRouteEnter(to, from, next) {
-            try {
-                if (to.query.sign) {
-                    const {data} = await axios.get(`/api/payment/alipay/return?${qs(to.query)}`)
-
-                    debugger
-                    next(vm => {
-                        vm.isPayed = data.isPayed
-                    })
-                } else {
-                    next()
-                }
-            } catch (e) {
-                next(vm => {
-                    vm.error = e.response.data
-                })
+                title: '充值'
             }
         },
 
