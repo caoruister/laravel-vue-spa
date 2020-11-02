@@ -78,7 +78,8 @@
       ...mapGetters({
         authenticated: 'auth/check',
         user: 'auth/user'
-      })
+      }),
+
     },
 
     methods: {
@@ -86,7 +87,7 @@
         const {data} = await axios.post(`/api/payment/alipay`,
           {
             amount: this.form.money,
-            isMobile: this.isMobile ? true : false
+            isMobile: this.isMobile() ? true : false
           }
         )
 
@@ -98,7 +99,7 @@
       },
 
       isMobile() {
-        return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+        return !!navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
       }
     }
   }
