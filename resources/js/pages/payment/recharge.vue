@@ -86,15 +86,15 @@
         const {data} = await axios.post(`/api/payment/alipay`,
           {
             amount: this.form.money,
-            isMobile: this.isMobile
+            isMobile: this.isMobile ? true : false
           }
         )
 
-        const div = document.createElement('div');
-        div.innerHTML = data;
-        document.body.appendChild(div);
-        div.style.display = "none";
-        document.forms['alipay_submit'].submit();
+        const div = document.createElement('div')
+        div.innerHTML = data
+        document.body.appendChild(div)
+        div.style.display = "none"
+        document.forms['alipay_submit'].submit()
       },
 
       isMobile() {
