@@ -191,7 +191,7 @@
             href="https://www.codefirst.co.uk/bespoke-software/" target="_blank"></a>
             基础平台支持及数据合作伙伴</h4>
             <div class="logo2">
-              <a href="https://www.codefirst.co.uk/bespoke-software" target="_blank"><i
+              <a href="https://cn.aliyun.com/" target="_blank"><i
               class="icon-logo3"></i></a>
             </div>
           </div>
