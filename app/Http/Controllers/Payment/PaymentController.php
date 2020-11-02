@@ -23,7 +23,7 @@ class PaymentController extends Controller
         return app('alipay')->web([
             'out_trade_no' => $orderId, // 订单编号，需保证在商户端不重复
             'total_amount' => $request->amount, // 订单金额，单位元，支持小数点后两位
-            'subject'      => '充值 '.config('app.name'), // 订单标题
+            'subject'      => '充值', // 订单标题
         ]);
     }
 
