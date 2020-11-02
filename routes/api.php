@@ -23,9 +23,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
+    // 调用支付宝支付
     Route::post('payment/alipay', 'Payment\PaymentController@payByAlipay')->name('payment.alipay');
+
+    // 支付宝同步通知
     Route::get('payment/alipay/return', 'Payment\PaymentController@alipayReturn')->name('payment.alipay.return');
 
+    // IP检测
     Route::post('risk/check/ip', 'Risk\RiskController@checkIP');
 });
 
@@ -56,6 +60,7 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('reset/verificationCodes', 'Auth\ResetPasswordController@store')
         ->middleware('throttle:' . config('api.rate_limits.sign'));
 
+    // 支付宝异步通知
     Route::post('payment/alipay/notify', 'Payment\PaymentController@alipayNotify')->name('payment.alipay.notify');
 
     // 搜集IP

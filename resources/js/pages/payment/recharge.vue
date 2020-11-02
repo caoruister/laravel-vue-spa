@@ -50,53 +50,58 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-    import Form from "vform"
-    import axios from "axios"
+  import {mapGetters} from 'vuex'
+  import Form from "vform"
+  import axios from "axios"
 
-    export default {
-        layout: 'basic',
+  export default {
+    layout: 'basic',
 
-        middleware: 'auth',
+    middleware: 'auth',
 
-        metaInfo() {
-            return {
-                title: '充值'
-            }
-        },
+    metaInfo() {
+      return {
+        title: '充值'
+      }
+    },
 
-        data: () => ({
-            title: window.config.appName,
-            form: new Form({
-                money: 100,
-            }),
-            isPayed: false,
-            error: ''
-        }),
+    data: () => ({
+      title: window.config.appName,
+      form: new Form({
+        money: 100,
+      }),
+      isPayed: false,
+      error: ''
+    }),
 
-        computed: {
-            ...mapGetters({
-                authenticated: 'auth/check',
-                user: 'auth/user'
-            })
-        },
+    computed: {
+      ...mapGetters({
+        authenticated: 'auth/check',
+        user: 'auth/user'
+      })
+    },
 
-        methods: {
-            async pay() {
-                const {data} = await axios.post(`/api/payment/alipay`,
-                    {
-                        amount: this.form.money,
-                    }
-                )
+    methods: {
+      async pay() {
+        const {data} = await axios.post(`/api/payment/alipay`,
+          {
+            amount: this.form.money,
+            isMobile: this.isMobile
+          }
+        )
 
-                const div = document.createElement('div');
-                div.innerHTML = data;
-                document.body.appendChild(div);
-                div.style.display = "none";
-                document.forms['alipay_submit'].submit();
-            }
-        }
+        const div = document.createElement('div');
+        div.innerHTML = data;
+        document.body.appendChild(div);
+        div.style.display = "none";
+        document.forms['alipay_submit'].submit();
+      },
+
+      isMobile() {
+        return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>
