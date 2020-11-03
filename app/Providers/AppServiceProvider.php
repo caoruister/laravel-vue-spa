@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
                 $config['mode']         = 'dev';
                 $config['log']['level'] = Logger::DEBUG;
             } else {
-                $config['log']['level'] = Logger::WARNING;
+                $config['log']['level'] = Logger::DEBUG;
             }
             // 调用 Yansongda\Pay 来创建一个支付宝支付对象
             return Pay::alipay($config);
