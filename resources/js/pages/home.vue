@@ -736,13 +736,13 @@
   }
 
   .icon-bank-num-search-result {
-    background-position: 0 -1600px;
+    background-position: 0 -380px;
     width: 16px;
     height: 16px;
   }
 
   .icon-id-card-search-result {
-    background-position: 0 -1600px;
+    background-position: 0 -1536px;
     width: 16px;
     height: 16px;
   }
