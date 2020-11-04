@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Risk;
 
 use App\Http\Controllers\Controller;
 use App\Phone;
+use App\Rules\IdCardRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Jxlwqq\IdValidator\IdValidator;
 
 class RiskController extends Controller
 {
@@ -18,7 +20,7 @@ class RiskController extends Controller
     public function pass(Request $request)
     {
         //验证表单
-        $this->validator($request->all())->validate();
+        $validated = $this->validator($request->all())->validate();
 
         $result = array();
 
@@ -32,6 +34,16 @@ class RiskController extends Controller
             $result['phoneData'] = $phoneData;
         }
 
+        if ($request->idCard) {
+            $idCardData = $this->getIdCard($request->idCard);
+            $result['idCardData'] = $idCardData;
+        }
+
+        if ($request->bankNum) {
+            $bankNumData = $this->getBankNum($request->bankNum);
+            $result['bankNumData'] = $bankNumData;
+        }
+
         return response()->json($result);
     }
 
@@ -43,7 +55,7 @@ class RiskController extends Controller
                 'nullable',
                 'regex:/^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/'
             ],
-            'idCard' => 'nullable',
+            'idCard' => ['nullable', new IdCardRule()],
             'bankNum' => 'nullable'
         ], [], [
             'ip' => 'IP地址',
@@ -130,6 +142,18 @@ class RiskController extends Controller
             return $data;
         }
 
+        return $data;
+    }
+
+    protected function getIdCard($idCard) {
+        $idValidator = new IdValidator();
+        $data =  $idValidator->getInfo($idCard);
+        $data['idCard'] = $idCard;
+        return $data;
+    }
+
+    protected function getBankNum($bancNum) {
+        $data = array();
         return $data;
     }
 

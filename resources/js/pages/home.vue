@@ -321,27 +321,37 @@
                     身份证号
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.ip}}</div>
+                    <div class="time-text-row">{{idCardData.idCard}}</div>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    基础信息
+                    性别
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{address}}</div>
+                    <div class="time-text-row">{{idCardData.sex | gender}}</div>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    风险提示
+                    出生日期
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.isp}}</div>
+                    <div class="time-text-row">{{idCardData.birthdayCode}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    发证地
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{idCardData.address}}</div>
                   </div>
                 </div>
               </div>
@@ -563,6 +573,9 @@
         filters: {
             yesOrNo: function (value) {
                 return value ? '是' : '否'
+            },
+            gender: function (value) {
+                return value ? '男' : '女'
             }
         }
     }
