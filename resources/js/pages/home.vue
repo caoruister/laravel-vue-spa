@@ -271,7 +271,7 @@
 
             <div class="info-block hours-info" v-if="bankNumData">
               <div class="title"><i class="icon-bank-num-search-result icon"></i>银行卡号码</div>
-              <div class="hour no-padding-top no-padding-bottom">
+              <div class="hour no-padding-top no-padding-bottom hidden">
                 <div class="row">
                   <div class="col-xs-5 day-text">
                   </div>
