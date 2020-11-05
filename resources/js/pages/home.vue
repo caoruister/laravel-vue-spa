@@ -445,7 +445,7 @@
                 })
             } catch (e) {
                 next(vm => {
-                    vm.error = e.response.data
+                    vm.error = e.response
                 })
             }
         },

@@ -3,6 +3,9 @@ import store from '~/store'
 import router from '~/router'
 import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
+import loading from '~/plugins/loading'
+
+let loader;
 
 // Request interceptor
 axios.interceptors.request.use(request => {
@@ -18,11 +21,19 @@ axios.interceptors.request.use(request => {
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
 
+  loader = loading.show()
+
   return request
 })
 
 // Response interceptor
-axios.interceptors.response.use(response => response, error => {
+axios.interceptors.response.use(response => {
+  loader.hide()
+
+  return response
+}, error => {
+  loader.hide()
+
   const { status } = error.response
 
   if (status >= 500) {
