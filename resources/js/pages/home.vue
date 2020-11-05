@@ -149,7 +149,7 @@
                       登录后查看
                     </router-link>
                     <div v-else>
-                      <a v-on:click="confirmQuery('isBlack')" v-if="!ipData.isBlack">查看</a>
+                      <a href="javascript:;" v-on:click="confirmQuery('isBlack')" v-if="!ipData.isBlack">查看</a>
                       <span v-else>{{ipData.isBlack.value | yesOrNo}}</span>
                     </div>
                   </div>
@@ -165,7 +165,7 @@
                       登录后查看
                     </router-link>
                     <div v-else>
-                      <a v-on:click="confirmQuery('isDial')" v-if="!ipData.isDial">查看</a>
+                      <a href="javascript:;" v-on:click="confirmQuery('isDial')" v-if="!ipData.isDial">查看</a>
                       <span v-else>{{ipData.isDial.value | yesOrNo}}</span>
                     </div>
                   </div>
@@ -180,10 +180,10 @@
                     <router-link :to="{ name: 'login' }" v-if="!authenticated">
                       登录后查看
                     </router-link>
-                    <div v-else>
-                      <a v-on:click="confirmQuery('proxy')" v-if="!ipData.proxy">查看</a>
+                    <template v-else>
+                      <a href="javascript:;" v-on:click="confirmQuery('proxy')" v-if="!ipData.proxy">查看</a>
                       <span v-else>{{ipData.proxy.value | yesOrNo}}</span>
-                    </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -197,7 +197,7 @@
                       登录后查看
                     </router-link>
                     <div v-else>
-                      <a v-on:click="confirmQuery('vps')" v-if="!ipData.vps">查看</a>
+                      <a href="javascript:;" v-on:click="confirmQuery('vps')" v-if="!ipData.vps">查看</a>
                       <span v-else>{{ipData.vps.value | yesOrNo}}</span>
                     </div>
                   </div>
@@ -416,193 +416,193 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
-    import Form from "vform"
-    import axios from "axios"
+  import {mapGetters} from 'vuex'
+  import Form from "vform"
+  import axios from "axios"
 
-    const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+  const qs = (params) => Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
-    export default {
-        layout: 'basic',
+  export default {
+    layout: 'basic',
 
-        scrollToTop: true,
+    scrollToTop: true,
 
-        metaInfo() {
-            return {
-                title: '识别'
-            }
-        },
+    metaInfo() {
+      return {
+        title: '识别'
+      }
+    },
 
-        async beforeRouteEnter(to, from, next) {
-            try {
-                const {data} = await axios.post(`/api/risk/check?${qs(to.query)}`)
+    async beforeRouteEnter(to, from, next) {
+      try {
+        const {data} = await axios.post(`/api/risk/check?${qs(to.query)}`)
 
-                next(vm => {
-                    vm.ipData = data.ipData
-                    vm.phoneData = data.phoneData
-                    vm.idCardData = data.idCardData
-                    vm.bankNumData = data.bankNumData
-                })
-            } catch (e) {
-                next(vm => {
-                    vm.error = e.response
-                })
-            }
-        },
+        next(vm => {
+          vm.ipData = data.ipData
+          vm.phoneData = data.phoneData
+          vm.idCardData = data.idCardData
+          vm.bankNumData = data.bankNumData
+        })
+      } catch (e) {
+        next(vm => {
+          vm.error = e.response
+        })
+      }
+    },
 
-        beforeRouteLeave(to, from, next) {
-            next()
-        },
+    beforeRouteLeave(to, from, next) {
+      next()
+    },
 
-        created() {
-            this.itemValue = this.$route.query.ip || this.$route.query.phone
-            this.form.ip = this.$route.query.ip
-            this.form.phone = this.$route.query.phone
-            this.form.idCard = this.$route.query.idCard
-            this.form.bankNum = this.$route.query.bankNum
-        },
+    created() {
+      this.itemValue = this.$route.query.ip || this.$route.query.phone
+      this.form.ip = this.$route.query.ip
+      this.form.phone = this.$route.query.phone
+      this.form.idCard = this.$route.query.idCard
+      this.form.bankNum = this.$route.query.bankNum
+    },
 
-        data: () => ({
-            title: window.config.appName,
-            ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
-            phoneRegExp: /^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
-            ipData: null,
-            phoneData: null,
-            idCardData: null,
-            bankNumData: null,
-            itemValue: null,
-            advanced: false,
-            form: new Form({
-                ip: null,
-                phone: null,
-                idCard: null,
-                bankNum: null
-            }),
-            isOpened: false,
-            queryParam: null,
-            error: ''
-        }),
+    data: () => ({
+      title: window.config.appName,
+      ipRegExp: /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/,
+      phoneRegExp: /^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/,
+      ipData: null,
+      phoneData: null,
+      idCardData: null,
+      bankNumData: null,
+      itemValue: null,
+      advanced: false,
+      form: new Form({
+        ip: null,
+        phone: null,
+        idCard: null,
+        bankNum: null
+      }),
+      isOpened: false,
+      queryParam: null,
+      error: ''
+    }),
 
-        computed: {
-            address: function () {
-                let address = this.ipData.country
-                address += this.ipData.province ? '-' + this.ipData.province : ''
-                address += this.ipData.city && this.ipData.province != this.ipData.city ? '-' + this.ipData.city : ''
-                address += this.ipData.district && this.ipData.city != this.ipData.district ? '-' + this.ipData.district : ''
-                return address
-            },
-            gmapUrl: function () {
-                return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
-            },
-            ipTypeRed: function () {
-                return this.ipData.type == '涉密专线' || this.ipData.type == '骨干网'
-                    || this.ipData.type == '基础设施' || this.ipData.type == '保留地址'
-                    || this.ipData.type == 'DNS' || this.ipData.type == 'IDC'
-                    || this.ipData.type == 'Anycast' || this.ipData.type == '未分配'
-            },
-            ipAddressRed: function () {
-                return this.ipData.en && this.ipData.en != 'CN'
-            },
-            phoneTypeRed: function () {
-                return this.phoneData.type == 'USIM数据卡'
-            },
-            phoneTypeGreen: function () {
-                return this.phoneData.type == '虚拟运营商'
-            },
-            ...mapGetters({
-                authenticated: 'auth/check',
-                user: 'auth/user'
-            })
-        },
+    computed: {
+      address: function () {
+        let address = this.ipData.country
+        address += this.ipData.province ? '-' + this.ipData.province : ''
+        address += this.ipData.city && this.ipData.province != this.ipData.city ? '-' + this.ipData.city : ''
+        address += this.ipData.district && this.ipData.city != this.ipData.district ? '-' + this.ipData.district : ''
+        return address
+      },
+      gmapUrl: function () {
+        return 'https://maps.google.com/maps?daddr=' + this.ipData.lng + ',' + this.ipData.lat
+      },
+      ipTypeRed: function () {
+        return this.ipData.type == '涉密专线' || this.ipData.type == '骨干网'
+          || this.ipData.type == '基础设施' || this.ipData.type == '保留地址'
+          || this.ipData.type == 'DNS' || this.ipData.type == 'IDC'
+          || this.ipData.type == 'Anycast' || this.ipData.type == '未分配'
+      },
+      ipAddressRed: function () {
+        return this.ipData.en && this.ipData.en != 'CN'
+      },
+      phoneTypeRed: function () {
+        return this.phoneData.type == 'USIM数据卡'
+      },
+      phoneTypeGreen: function () {
+        return this.phoneData.type == '虚拟运营商'
+      },
+      ...mapGetters({
+        authenticated: 'auth/check',
+        user: 'auth/user'
+      })
+    },
 
-        methods: {
-            async search() {
-                if (!this.advanced) {
-                    if (this.ipRegExp.test(this.itemValue)) {
-                        this.form.ip = this.itemValue
-                    } else if (this.phoneRegExp.test(this.itemValue)) {
-                        this.form.phone = this.itemValue
-                    } else {
-                        this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
-                        return
-                    }
-                }
-
-                //非空校验
-                if (!this.form.ip && !this.form.phone && !this.form.idCard && !this.form.bankNum) {
-                    //todo
-                }
-
-                const {data} = await this.form.post('/api/risk/check');
-
-                this.ipData = data.ipData
-                this.phoneData = data.phoneData
-                this.idCardData = data.idCardData
-                this.bankNumData = data.bankNumData
-
-                this.changeQuery()
-            },
-
-            changeQuery() {
-                let query = {}
-                if (this.form.ip) query.ip = this.form.ip
-                if (this.form.phone) query.phone = this.form.phone
-                if (this.form.idCard) query.idCard = this.form.idCard
-                if (this.form.bankNum) query.bankNum = this.form.bankNum
-
-                this.$router.push({path: '/home', query: query})
-            },
-
-            toggleAdvance() {
-                this.scrollToTop()
-                this.advanced = !this.advanced
-            },
-
-            scrollToTop() {
-                window.scrollTo(0, 0)
-            },
-
-            confirmQuery(queryParam) {
-                this.isOpened = true
-                this.queryParam = queryParam
-            },
-
-            async queryRisk() {
-
-
-                try {
-                    const {data} = await axios.post(`/api/risk/check/ip`, {
-                        ip: this.form.ip,
-                        q: this.queryParam
-                    })
-
-                    if (data.message) {
-                        this.error = data.message
-                    } else {
-                        this.$set(this.ipData, this.queryParam, {
-                            value: data[this.queryParam],
-                        })
-                    }
-
-                    this.isOpened = false
-                } catch (e) {
-                    this.error = e.response.data
-                }
-            }
-        },
-
-        filters: {
-            yesOrNo: function (value) {
-                return value ? '是' : '否'
-            },
-            isGender: function (value) {
-                return value ? '男' : '女'
-            },
-            isLuhn: function (value) {
-                return value ? '符合银行卡Luhn算法编码' : '不符合银行卡Luhn算法编码'
-            }
+    methods: {
+      async search() {
+        if (!this.advanced) {
+          if (this.ipRegExp.test(this.itemValue)) {
+            this.form.ip = this.itemValue
+          } else if (this.phoneRegExp.test(this.itemValue)) {
+            this.form.phone = this.itemValue
+          } else {
+            this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
+            return
+          }
         }
+
+        //非空校验
+        if (!this.form.ip && !this.form.phone && !this.form.idCard && !this.form.bankNum) {
+          //todo
+        }
+
+        const {data} = await this.form.post('/api/risk/check');
+
+        this.ipData = data.ipData
+        this.phoneData = data.phoneData
+        this.idCardData = data.idCardData
+        this.bankNumData = data.bankNumData
+
+        this.changeQuery()
+      },
+
+      changeQuery() {
+        let query = {}
+        if (this.form.ip) query.ip = this.form.ip
+        if (this.form.phone) query.phone = this.form.phone
+        if (this.form.idCard) query.idCard = this.form.idCard
+        if (this.form.bankNum) query.bankNum = this.form.bankNum
+
+        this.$router.push({path: '/home', query: query})
+      },
+
+      toggleAdvance() {
+        this.scrollToTop()
+        this.advanced = !this.advanced
+      },
+
+      scrollToTop() {
+        window.scrollTo(0, 0)
+      },
+
+      confirmQuery(queryParam) {
+        this.isOpened = true
+        this.queryParam = queryParam
+      },
+
+      async queryRisk() {
+        try {
+          this.isOpened = false
+
+          const {data} = await axios.post(`/api/risk/check/ip`, {
+            ip: this.form.ip,
+            q: this.queryParam
+          })
+
+          if (data.message) {
+            this.error = data.message
+          } else {
+            this.$set(this.ipData, this.queryParam, {
+              value: data[this.queryParam],
+            })
+          }
+
+
+        } catch (e) {
+          this.error = e.response.data
+        }
+      }
+    },
+
+    filters: {
+      yesOrNo: function (value) {
+        return value ? '是' : '否'
+      },
+      isGender: function (value) {
+        return value ? '男' : '女'
+      },
+      isLuhn: function (value) {
+        return value ? '符合银行卡Luhn算法编码' : '不符合银行卡Luhn算法编码'
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -781,6 +781,22 @@
     background-position: 0 -1680px;
     width: 16px;
     height: 16px;
+  }
+
+  .hours-info {
+    .hour {
+      .time-text {
+        a {
+          color: #8fa4af;
+          text-decoration: none;
+
+          &:hover {
+            color: #00a7f7;
+            text-decoration: none;
+          }
+        }
+      }
+    }
   }
 
   .results-dialog .modal-dialog .modal-content .modal-body .confirmation-sent .icon {

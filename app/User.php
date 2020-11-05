@@ -33,7 +33,7 @@ class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyE
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'transactions', 'wallet'
+        'password', 'remember_token', 'transactions',
     ];
 
     /**
@@ -70,14 +70,14 @@ class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyE
     public function getDepositAttribute()
     {
         return $this->transactions->filter(function ($value, $key) {
-            return $value->type == 'deposit';
+            return $value->type == 'deposit' && $value->confirmed;
         })->sum('amount');
     }
 
     public function getWithdrawAttribute()
     {
         return $this->transactions->filter(function ($value, $key) {
-            return $value->type == 'withdraw';
+            return $value->type == 'withdraw' && $value->confirmed;
         })->sum('amount');
     }
 
