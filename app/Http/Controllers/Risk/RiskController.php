@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Risk;
 
 use App\Http\Controllers\Controller;
 use App\Phone;
+use App\Rules\BankNumRule;
 use App\Rules\IdCardRule;
+use Doctrine\DBAL\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -56,7 +58,7 @@ class RiskController extends Controller
                 'regex:/^1(3\d|4[14-8]|5[0-35-9]|6[567]|7[012345-8]|8\d|9[025-9])\d{8}$/'
             ],
             'idCard' => ['nullable', new IdCardRule()],
-            'bankNum' => 'nullable'
+            'bankNum' => ['nullable', new BankNumRule()]
         ], [], [
             'ip' => 'IP地址',
             'phone' => '手机号码',
@@ -154,6 +156,47 @@ class RiskController extends Controller
 
     protected function getBankNum($bancNum) {
         $data = array();
+
+        try {
+            $data = Cache::remember('bankNum.'.$bancNum, 60*60*24*30, function () use ($bancNum) {
+                $host = "https://bankaddress.shumaidata.com";
+                $path = "/bankaddress";
+                $method = "GET";
+                $appcode = "1296aca214ce457fa6410c50995d21cb";
+                $headers = array();
+                array_push($headers, "Authorization:APPCODE " . $appcode);
+                $querys = "bankcard=".$bancNum;
+                //$bodys = "";
+                $url = $host . $path . "?" . $querys;
+
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($curl, CURLOPT_FAILONERROR, false);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                //设定返回信息中是否包含响应信息头，启用时会将头文件的信息作为数据流输出，true 表示输出信息头, false表示不输出信息头
+                //如果需要将字符串转成json，请将 CURLOPT_HEADER 设置成 false
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                if (1 == strpos("$".$host, "https://"))
+                {
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                }
+                $resp = curl_exec($curl);
+
+                $data = json_decode($resp, true);
+
+                if ($data['success']) {
+                    return $data['data'];
+                } else {
+                    Log::info($resp);
+                    return null;
+                }
+            });
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+        }
         return $data;
     }
 

@@ -271,23 +271,24 @@
 
             <div class="info-block hours-info" v-if="bankNumData">
               <div class="title"><i class="icon-bank-num-search-result icon"></i>银行卡号码</div>
-              <div class="hour ">
+              <div class="hour no-padding-top no-padding-bottom">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    银行卡号
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.ip}}</div>
+                    <a v-bind:href="bankNumData.weburl">
+                      <img v-bind:src="bankNumData.logo" height="58px"/>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="hour ">
+              <div class="hour">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    银行信息
+                    银行卡号码
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{address}}</div>
+                    <div class="time-text-row">{{form.bankNum}}</div>
                   </div>
                 </div>
               </div>
@@ -297,17 +298,37 @@
                     开户信息
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.isp}}</div>
+                    <div class="time-text-row">{{bankNumData.bank}}-{{bankNumData.type}}-{{bankNumData.card_name}}</div>
                   </div>
                 </div>
               </div>
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    风险提示
+                    归属地
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{ipData.areacode}}</div>
+                    <div class="time-text-row">{{bankNumData.province}}-{{bankNumData.city}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    客服电话
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{bankNumData.tel}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    Luhn校验
+                  </div>
+                  <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{bankNumData.isLuhn | isLuhn}}</div>
                   </div>
                 </div>
               </div>
@@ -318,10 +339,10 @@
               <div class="hour ">
                 <div class="row">
                   <div class="col-xs-5 day-text">
-                    身份证号
+                    身份证号码
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{idCardData.idCard}}</div>
+                    <div class="time-text-row">{{form.idCard}}</div>
                   </div>
                 </div>
               </div>
@@ -331,7 +352,7 @@
                     性别
                   </div>
                   <div class="col-xs-7 time-text">
-                    <div class="time-text-row">{{idCardData.sex | gender}}</div>
+                    <div class="time-text-row">{{idCardData.sex | isGender}}</div>
                   </div>
                 </div>
               </div>
@@ -574,8 +595,11 @@
             yesOrNo: function (value) {
                 return value ? '是' : '否'
             },
-            gender: function (value) {
+            isGender: function (value) {
                 return value ? '男' : '女'
+            },
+            isLuhn: function (value) {
+                return value ? '符合银行卡Luhn算法编码' : '不符合银行卡Luhn算法编码'
             }
         }
     }
