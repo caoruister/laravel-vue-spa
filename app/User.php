@@ -33,7 +33,7 @@ class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyE
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'transactions',
+        'password', 'remember_token', 'transactions', 'wallet'
     ];
 
     /**
