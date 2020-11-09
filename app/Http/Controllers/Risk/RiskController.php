@@ -107,6 +107,40 @@ class RiskController extends Controller
         try {
             //运营商查询
             $carrier = Cache::remember('phone.'.$phone, 60*60*24*30, function () use ($phone) {
+                $host = "http://plocn.market.alicloudapi.com";
+                $path = "/plocn";
+                $method = "GET";
+                $appcode = "1296aca214ce457fa6410c50995d21cb";//开通服务后 买家中心-查看AppCode
+                $headers = array();
+                array_push($headers, "Authorization:APPCODE " . $appcode);
+                $querys = "n=".$phone;
+                //$bodys = "";
+                $url = $host . $path . "?" . $querys;
+
+                $curl = curl_init();
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($curl, CURLOPT_FAILONERROR, false);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_HEADER, false);
+                if (1 == strpos("$" . $host, "https://")) {
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                }
+                $resp = curl_exec($curl);
+
+                $data = json_decode($resp, true);
+
+                dd($data);
+
+                if ($data['success']) {
+                    return $data;
+                } else {
+                    Log::info($resp);
+                    return null;
+                }
+                /*
                 $api_url = 'https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel='.urlencode($phone);
                 $contents = file_get_contents( $api_url );
 
@@ -114,7 +148,7 @@ class RiskController extends Controller
                 $data = array_combine($m[1], $m[2]);
 
                 //return mb_convert_encoding($data['carrier'], 'UTF-8', 'GBK');
-                return iconv('GBK', 'UTF-8//IGNORE', $data['carrier']);
+                return iconv('GBK', 'UTF-8//IGNORE', $data['carrier']);*/
             });
 
             //类型判断
@@ -136,7 +170,7 @@ class RiskController extends Controller
 
             $data = array(
                 'phone' => $phone,
-                'carrier' => $carrier,
+                'carrier' => $carrier['company'].'-'.$carrier['city'],
                 'type' => $type
             );
         } catch (\Exception $e) {
