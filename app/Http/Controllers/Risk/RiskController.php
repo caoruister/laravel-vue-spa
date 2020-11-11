@@ -132,8 +132,6 @@ class RiskController extends Controller
 
                 $data = json_decode($resp, true);
 
-                dd($data);
-
                 if ($data['success']) {
                     return $data;
                 } else {
@@ -170,7 +168,8 @@ class RiskController extends Controller
 
             $data = array(
                 'phone' => $phone,
-                'carrier' => $carrier['company'].'-'.$carrier['city'],
+                'area' => $carrier['province'].'-'.$carrier['city'],
+                'carrier' => $carrier['company'],
                 'type' => $type
             );
         } catch (\Exception $e) {

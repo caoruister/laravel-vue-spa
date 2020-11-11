@@ -206,8 +206,3 @@ function resolveMiddleware (requireContext) {
       { ...guards, [name]: guard.default }
     ), {})
 }
-
-const VueRouterPush = Router.prototype.push
-Router.prototype.push = function push (to) {
-  return VueRouterPush.call(this, to).catch(err => err)
-}

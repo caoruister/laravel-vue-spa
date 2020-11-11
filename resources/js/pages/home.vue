@@ -223,6 +223,16 @@
                     归属地区
                   </div>
                   <div class="col-xs-7 time-text">
+                    <div class="time-text-row">{{phoneData.area}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hour ">
+                <div class="row">
+                  <div class="col-xs-5 day-text">
+                    运营商
+                  </div>
+                  <div class="col-xs-7 time-text">
                     <div class="time-text-row">{{phoneData.carrier}}</div>
                   </div>
                 </div>

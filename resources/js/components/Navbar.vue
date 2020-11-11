@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top navbar-home" v-if="$route.name == 'welcome'">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+          <button type="button" class="navbar-toggle collapsed" v-if="!authenticated" data-toggle="collapse"
                   data-target="#bs-example-navbar-collapse-1">
             <i class="icon-header-icon1 open-icon" v-show="isCollapsed"></i>
             <i class="icon-header-icon2 close-icon" v-show="!isCollapsed"></i>
@@ -15,16 +15,25 @@
         </div>
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
           <ul class="nav navbar-nav navbar-right">
-            <li>
-              <router-link :to="{ name: 'login' }" class="btn btn-one">
-                登录
-              </router-link>
-            </li>
-            <li>
-              <router-link :to="{ name: 'register' }" class="btn btn-two">
-                注册
-              </router-link>
-            </li>
+            <template v-if="authenticated">
+              <li>
+                <router-link :to="{ name: 'home' }" style="padding: 0 0;">
+                  <img class="logo" src="/images/user-placeholder.png"> <span class="no-caret"></span>
+                </router-link>
+              </li>
+            </template>
+            <template v-else>
+              <li>
+                <router-link :to="{ name: 'login' }" class="btn btn-one">
+                  登录
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'register' }" class="btn btn-two">
+                  注册
+                </router-link>
+              </li>
+            </template>
           </ul>
         </div>
       </div>
@@ -38,7 +47,7 @@
             <i class="icon-header-icon2 close-icon"></i>
           </button>
           <div class="navbar-brand">
-            <router-link :to="{ name: 'home' }">
+            <router-link :to="{ name: 'welcome' }">
               <i class="icon-logo5"></i>
             </router-link>
           </div>
@@ -92,7 +101,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown user-dropdown is-business">
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <img class="logo" src="/images/user-placeholder.png"> {{user.name}} <i class="icon-business-profile-iconj caret-logo"></i><span class="no-caret"></span>
+                <img class="logo" src="/images/user-placeholder.png"> {{user.name}} <i
+                class="icon-business-profile-iconj caret-logo"></i><span class="no-caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-info">
@@ -105,13 +115,17 @@
                   </router-link>
                 </li>
                 <li class="line"></li>
-                <li class="feedback"><a href=""><i class="icon-feedback normal"></i><i class="icon-feedback-hover hover"></i>反馈</a></li>
-                <li class="intercom"><a href=""><i class="icon-help normal"></i><i class="icon-help-hover hover"></i>帮助</a></li>
+                <li class="feedback"><a href=""><i class="icon-feedback normal"></i><i
+                  class="icon-feedback-hover hover"></i>反馈</a></li>
+                <li class="intercom"><a href=""><i class="icon-help normal"></i><i class="icon-help-hover hover"></i>帮助</a>
+                </li>
                 <li class="line"></li>
-                <li><a class="logout" @click.prevent="logout"><i class="icon-header-icon6 normal"></i><i class="icon-header-icon6-hover hover"></i>登出</a></li>
+                <li><a class="logout" @click.prevent="logout"><i class="icon-header-icon6 normal"></i><i
+                  class="icon-header-icon6-hover hover"></i>登出</a></li>
               </ul>
             </li>
-            <li class="user-dropdown-business" v-bind:class="{'opened':!isCollapsed}" v-on:click="isCollapsed = !isCollapsed">
+            <li class="user-dropdown-business" v-bind:class="{'opened':!isCollapsed}"
+                v-on:click="isCollapsed = !isCollapsed">
               <i class="icon-header-icon3 toggle-icon open"></i>
               <i class="icon-header-icon2 toggle-icon close-icon"></i>
             </li>
@@ -155,44 +169,44 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import { mapGetters } from 'vuex'
-import LocaleDropdown from './LocaleDropdown'
+  import $ from 'jquery'
+  import {mapGetters} from 'vuex'
+  import LocaleDropdown from './LocaleDropdown'
 
-export default {
-  components: {
-    LocaleDropdown
-  },
+  export default {
+    components: {
+      LocaleDropdown
+    },
 
-  data: () => ({
-    appName: window.config.appName,
-    isCollapsed: true,
-  }),
+    data: () => ({
+      appName: window.config.appName,
+      isCollapsed: true,
+    }),
 
-  mounted() {
-    let _this = this
-    $('#bs-example-navbar-collapse-1').on('show.bs.collapse', function () {
-      _this.isCollapsed = false
-    }).on('hidden.bs.collapse', function () {
-      _this.isCollapsed = true
-    })
-  },
+    mounted() {
+      let _this = this
+      $('#bs-example-navbar-collapse-1').on('show.bs.collapse', function () {
+        _this.isCollapsed = false
+      }).on('hidden.bs.collapse', function () {
+        _this.isCollapsed = true
+      })
+    },
 
-  computed: mapGetters({
-    authenticated: 'auth/check',
-    user: 'auth/user',
-  }),
+    computed: mapGetters({
+      authenticated: 'auth/check',
+      user: 'auth/user',
+    }),
 
-  methods: {
-    async logout () {
-      // Log out the user.
-      await this.$store.dispatch('auth/logout')
+    methods: {
+      async logout() {
+        // Log out the user.
+        await this.$store.dispatch('auth/logout')
 
-      // Redirect to login.
-      this.$router.push({ name: 'login' })
+        // Redirect to login.
+        this.$router.push({name: 'login'})
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -227,7 +241,7 @@ export default {
       left: 0;
       display: block;
       overflow: auto;
-      background: rgba(255,255,255,.5);
+      background: rgba(255, 255, 255, .5);
       -webkit-overflow-scrolling: touch;
       -webkit-animation-duration: .25s;
       animation-duration: .25s;
