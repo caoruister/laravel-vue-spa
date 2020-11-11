@@ -149,6 +149,8 @@ class RiskController extends Controller
                 return iconv('GBK', 'UTF-8//IGNORE', $data['carrier']);*/
             });
 
+            print_r($carrier);
+
             //类型判断
             if (Str::startsWith($phone, ['1440', '1441', '147', '148', '172', '145', '146', '1410', '149'])) {
                 $type = 'USIM数据卡';
@@ -168,8 +170,8 @@ class RiskController extends Controller
 
             $data = array(
                 'phone' => $phone,
-                'area' => $carrier['province'].'-'.$carrier['city'],
-                'carrier' => $carrier['company'],
+                'area' => $carrier ?? $carrier['province'].'-'.$carrier['city'],
+                'carrier' => $carrier ?? $carrier['company'],
                 'type' => $type
             );
         } catch (\Exception $e) {
