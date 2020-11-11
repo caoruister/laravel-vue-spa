@@ -149,7 +149,7 @@ class RiskController extends Controller
                 return iconv('GBK', 'UTF-8//IGNORE', $data['carrier']);*/
             });
 
-            print_r($carrier);
+            Log::info(print_r($carrier));
 
             //类型判断
             if (Str::startsWith($phone, ['1440', '1441', '147', '148', '172', '145', '146', '1410', '149'])) {
