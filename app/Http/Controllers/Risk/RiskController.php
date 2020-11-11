@@ -170,8 +170,8 @@ class RiskController extends Controller
 
             $data = array(
                 'phone' => $phone,
-                'area' => $carrier ?? $carrier['province'].'-'.$carrier['city'],
-                'carrier' => $carrier ?? $carrier['company'],
+                'area' => $carrier ? $carrier['province'].'-'.$carrier['city'] : '未知',
+                'carrier' => $carrier ? $carrier['company'] : '未知',
                 'type' => $type
             );
         } catch (\Exception $e) {
