@@ -8,6 +8,8 @@ use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWallet;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Laravolt\Avatar\Facade as Avatar;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -64,7 +66,8 @@ class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyE
      */
     public function getPhotoUrlAttribute()
     {
-        return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->phone)).'.jpg?s=200&d=mm';
+        //return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->phone)).'.jpg?s=200&d=mm';
+        return Avatar::create(Str::title($this->name))->toBase64();
     }
 
     public function getDepositAttribute()

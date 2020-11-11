@@ -18,7 +18,7 @@
             <template v-if="authenticated">
               <li>
                 <router-link :to="{ name: 'home' }" style="padding: 0 0;">
-                  <img class="logo" src="/images/user-placeholder.png"> <span class="no-caret"></span>
+                  <img class="logo" :src="user.photo_url.encoded"> <span class="no-caret"></span>
                 </router-link>
               </li>
             </template>
@@ -101,7 +101,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown user-dropdown is-business">
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                <img class="logo" src="/images/user-placeholder.png"> {{user.name}} <i
+                <img class="logo" :src="user.photo_url.encoded"> {{user.name}} <i
                 class="icon-business-profile-iconj caret-logo"></i><span class="no-caret"></span>
               </a>
               <ul class="dropdown-menu">
