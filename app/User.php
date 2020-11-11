@@ -67,7 +67,7 @@ class User extends Authenticatable implements JWTSubject, Wallet //, MustVerifyE
     public function getPhotoUrlAttribute()
     {
         //return 'https://www.gravatar.com/avatar/'.md5(strtolower($this->phone)).'.jpg?s=200&d=mm';
-        return Avatar::create(Str::title($this->name))->toBase64();
+        return Avatar::create(Str::substr($this->name, -2))->toBase64();
     }
 
     public function getDepositAttribute()
