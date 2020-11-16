@@ -8,6 +8,9 @@
             <i class="icon-header-icon1 open-icon" v-show="isCollapsed"></i>
             <i class="icon-header-icon2 close-icon" v-show="!isCollapsed"></i>
           </button>
+          <router-link :to="{ name: 'home' }" class="navbar-toggle navbar-toggle-logo" v-if="authenticated">
+            <img class="logo" :src="user.photo_url.encoded"> <span class="no-caret"></span>
+          </router-link>
           <router-link :to="{ name: 'welcome' }" class="navbar-brand">
             <i class="icon-logo1" v-show="isCollapsed"></i>
             <i class="icon-logo5" v-show="!isCollapsed"></i>
@@ -214,6 +217,19 @@
   @media (max-width: 767px) {
     .navbar.navbar-default.navbar-main .navbar-collapse.collapse.in.authenticated .navbar-left, .navbar.navbar-default.navbar-main .navbar-collapse.collapse.show.authenticated .navbar-right {
       display: none;
+    }
+
+    .navbar.navbar-default.navbar-home .navbar-header .navbar-toggle-logo {
+      margin-top: 6px;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    .navbar.navbar-default.navbar-home .navbar-header a .logo {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
     }
 
     .overlay_menu {

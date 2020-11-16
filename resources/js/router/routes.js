@@ -4,7 +4,8 @@ function page (path) {
 
 export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
-  //{ path: '/search', name: 'search', component: page('search.vue')},
+  { path: '/terms-and-conditions', name: 'terms-and-conditions', component: page('company/privacy.vue')},
+  { path: '/privacy', name: 'privacy', component: page('company/privacy.vue')},
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
