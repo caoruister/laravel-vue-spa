@@ -1,7 +1,6 @@
 <template>
   <div class="claim claim-min-height">
-    <div v-bind:class="{'padding-top-80':!authenticated}">
-      <div class="container">
+    <div class="container">
         <div class="row">
           <div class="col-xs-12 col-no-padding">
             <div class="claim__block main-block">
@@ -96,7 +95,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <div class="business">
       <div class="container">
@@ -460,11 +458,14 @@
       }
     },
 
-    beforeRouteLeave(to, from, next) {
+    beforeRouteLeave (to, from, next) {
+      document.body.className = ''
       next()
     },
 
     created() {
+      if (!this.authenticated) document.body.className += ' public-page-top'
+
       this.itemValue = this.$route.query.ip || this.$route.query.phone
       this.form.ip = this.$route.query.ip
       this.form.phone = this.$route.query.phone
@@ -697,10 +698,6 @@
 
   .claim {
     padding: 40px 0 0;
-  }
-
-  .padding-top-80 {
-    padding-top: 80px;
   }
 
   .justify-content-flex-end {

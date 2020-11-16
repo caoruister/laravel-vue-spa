@@ -370,14 +370,16 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
       layout: 'basic',
 
       created() {
+        if (!this.authenticated) document.body.className += ' public-page-top'
       },
 
       beforeRouteEnter(to, from, next) {
-        document.body.className += ' public-page-top'
         if (to.name == 'terms-and-conditions') {
           next(vm => {
             vm.current = 'terms'
@@ -400,6 +402,12 @@
         title: window.config.appName,
         current: 'terms',
       }),
+
+      computed: {
+        ...mapGetters({
+          authenticated: 'auth/check',
+        })
+      }
     }
 </script>
 
