@@ -137,17 +137,33 @@
           <div class="col-md-2 col-sm-4 item hidden-xs"><h4>公司</h4>
             <ul>
               <li><a href="/home/contact/">联系我们</a></li>
-              <li><a href="/terms-and-conditions/">服务条款</a></li>
-              <li><a href="/privacy/">隐私保护</a></li>
+              <li>
+                <router-link :to="{ name: 'terms-and-conditions' }">
+                  服务条款
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'privacy' }">
+                  隐私保护
+                </router-link>
+              </li>
             </ul>
           </div>
-          <div class="col-md-2 col-sm-4 item visible-xs"><h4 class="collapsed" ng-toggle-collapse=""
-                                                             ng-toggle-collapse-target="#company-collapsed">
+          <div class="col-md-2 col-sm-4 item visible-xs"><h4 class="collapsed" data-target="#company-collapsed"
+                                                             data-toggle="collapse">
             公司<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="company-collapsed" class="collapse">
               <li><a href="/home/contact/">联系我们</a></li>
-              <li><a href="/terms-and-conditions/">服务条款</a></li>
-              <li><a href="/privacy/">隐私保护</a></li>
+              <li>
+                <router-link :to="{ name: 'terms-and-conditions' }">
+                  服务条款
+                </router-link>
+              </li>
+              <li>
+                <router-link :to="{ name: 'privacy' }">
+                  隐私保护
+                </router-link>
+              </li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-3 item three-item hidden-xs"><h4>企业服务</h4>
@@ -158,8 +174,8 @@
               <li><a href="/login/">更多...</a></li>
             </ul>
           </div>
-          <div class="col-md-2 col-sm-3 item three-item visible-xs"><h4 class="collapsed" ng-toggle-collapse=""
-                                                                        ng-toggle-collapse-target="#businesses-collapsed">
+          <div class="col-md-2 col-sm-3 item three-item visible-xs"><h4 class="collapsed" data-target="#businesses-collapsed"
+                                                                        data-toggle="collapse">
             企业服务<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="businesses-collapsed" class="collapse">
               <li><a href="/management-software/">API</a></li>
@@ -178,7 +194,8 @@
             </ul>
           </div>
           <div class="col-md-2 col-md-offset-0 col-sm-4 col-sm-offset-5 item four-item visible-xs"><h4
-            class="collapsed" ng-toggle-collapse="" ng-toggle-collapse-target="#country-collapsed">业务能力<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
+            class="collapsed" data-target="#country-collapsed"
+            data-toggle="collapse">业务能力<i class="icon-footer-arrow-down"></i><i class="icon-footer-arrow-up"></i></h4>
             <ul id="country-collapsed" class="collapse">
               <li><a href="/country/australia">手机风险识别</a></li>
               <li><a href="/country/canada">IP风险识别</a></li>
