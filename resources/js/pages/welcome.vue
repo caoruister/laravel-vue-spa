@@ -268,16 +268,21 @@ export default {
   }),
 
   methods: {
-    search () {
-      // let path = this.authenticated ? '/home' : '/search'
-      let path = '/home'
-      if(this.ipRegExp.test(this.form.itemValue)){
-        this.$router.push({ path: path, query: { ip: this.form.itemValue } })
-      } else if (this.phoneRegExp.test(this.form.itemValue)) {
-        this.$router.push({ path: path, query: { phone: this.form.itemValue } })
-      } else {
-        this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
-      }
+    search (event) {
+      event.preventDefault();
+      let _this = this;
+      grecaptcha.ready(function() {
+        grecaptcha.execute('reCAPTCHA_site_key', {action: 'submit'}).then(function(token) {
+          let path = '/home'
+          if(_this.ipRegExp.test(_this.form.itemValue)){
+            _this.$router.push({ path: path, query: { ip: _this.form.itemValue } })
+          } else if (_this.phoneRegExp.test(_this.form.itemValue)) {
+            _this.$router.push({ path: path, query: { phone: _this.form.itemValue } })
+          } else {
+            _this.form.errors.set('itemValue', '请输入正确的IP地址或手机号码')
+          }
+        });
+      });
     },
 
     clearInput () {
