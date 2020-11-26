@@ -69,3 +69,6 @@ Route::group(['middleware' => 'guest:api'], function () {
 
 // 风险检测
 Route::post('risk/check', 'Risk\RiskController@pass');
+
+// Google Recaptcha V3
+Route::post('validate', 'Recaptcha\ReCaptchaController@validate');

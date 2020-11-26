@@ -272,7 +272,7 @@ export default {
       event.preventDefault();
       let _this = this;
       grecaptcha.ready(function() {
-        grecaptcha.execute('6LclXewZAAAAAJwoBI8fJgrBFqHlqOfRlBQ07nGP', {action: 'submit'}).then(function(token) {
+        grecaptcha.execute('6LclXewZAAAAAJwoBI8fJgrBFqHlqOfRlBQ07nGP', {action: 'welcome-search'}).then(function(token) {
           let path = '/home'
           if(_this.ipRegExp.test(_this.form.itemValue)){
             _this.$router.push({ path: path, query: { ip: _this.form.itemValue } })
