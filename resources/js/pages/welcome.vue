@@ -132,7 +132,6 @@
               <div class="text">关注灰色产业动态</div>
               <div class="text">收益流失管控专家</div>
             </div>
-            <div class="copyright hidden-xs">© 2020 太乙风控 保留所有权利<p style="margin-top: 1rem">上海晓易信息技术有限公司</p><p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
           </div>
           <div class="col-md-2 col-sm-4 item hidden-xs"><h4>公司</h4>
             <ul>
@@ -212,8 +211,22 @@
               class="icon-logo3"></i></a>
             </div>
           </div>
-          <div class="col-xs-12 item visible-xs">
-            <div class="copyright no-margin-top">© 2020 太乙风控 保留所有权利<p style="margin-top: 1rem">上海晓易信息技术有限公司</p><p style="margin-top: 1rem">沪ICP备15006156号-1</p></div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-4">
+            <div class="copyright">
+              上海晓易信息技术有限公司
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="copyright">
+              沪ICP备15006156号-1
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="copyright">
+              © 2020 太乙风控 保留所有权利
+            </div>
           </div>
         </div>
       </div>
@@ -293,7 +306,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .home-main h1 {
     font-weight: 300;
   }
@@ -369,8 +382,13 @@ export default {
   footer {
     padding-top: 45px;
     padding-bottom: 45px;
-  }
-  footer h4 {
-    font-size: 14px;
+
+    h4 {
+      font-size: 14px;
+    }
+
+    .copyright {
+      font-size: 16px;
+    }
   }
 </style>
